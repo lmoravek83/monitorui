@@ -1,0 +1,15 @@
+{
+  "sitesfolder": ".//sites//",
+  "smtpserver": "smtp.gmail.com",
+  "smtpport": 587,
+  "smtpssl": true,
+  "smtpauthentication": true,
+  "smtpuser": "",
+  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF.txt",
+  "smtppass": "",
+  "from_email": "",
+  "workinloop": false,
+  "loopintervallmin": 250,
+  "loopintervallmax": 700,
+  "logsretention": 60
+}

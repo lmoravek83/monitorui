@@ -242,8 +242,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         # Send email, if only chanes from previos state, to do not spam
         if not cf.compare_files(weblaststatefootprint_file, webactualtmpfootprint_file):
             # make snapshot of changed page
-            copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_\
-                    {datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
+            copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
             message = 'Page Change: Page changed to the original\r\n'
             print(message)
             cf.write_file_append(logpath, message)
@@ -270,8 +269,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         # Send email, if only chanes from previos state, to do not spam
         if not cf.compare_files(weblaststatefootprint_file, webactualtmpfootprint_file):
             # make snapshot of changed page
-            copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_\
-                    {datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
+            copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
             message = 'Page Change: Page changed to the last state\r\n'
             print(Fore.YELLOW + message + Style.RESET_ALL)
             cf.write_file_append(logpath, message)

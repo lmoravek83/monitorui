@@ -104,8 +104,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                 cf.write_file_list(logpath, message)
                 copyfile(wmiprocessestmp_file, wmiprocesses_file)
             else:
-                copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_\
-                        {datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
+                copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
                 message = 'All procsses are running\r\n'
                 print(message)
                 cf.write_file_append(logpath, message)
@@ -116,9 +115,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                     email_message_list_of_processes_status = ""
                     for item in list_of_processes_status:
                         email_message_list_of_processes_status += f'{str(item)}\n'
-                    email_message = f'Subject: {sitename} {env} Monitored proces(es) OK' + '\n' + \
-                        f'Hi, monitoring identified that on {hostname} \
-                            all processes are ok\n{email_message_list_of_processes_status}'
+                    email_message = f'Subject: {sitename} {env} Monitored proces(es) OK' + '\n' + f'Hi, monitoring identified that on {hostname} all processes are ok\n{email_message_list_of_processes_status}'
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                    smtpserver, smtpport, smtpssl, smtpauthentication)
                 except Exception as excep:
@@ -135,8 +132,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
             # if compare_files(wmiprocesses_file, wmiprocesses_file)
             # is False and process_failed_flag is True:
             else:
-                copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_\
-                        {datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
+                copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
                 message = 'Monitored proces(es) failed\r\n'
                 print(message)
                 cf.write_file_append(logpath, message)
@@ -147,10 +143,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                     email_message_list_of_processes_status = ""
                     for item in list_of_processes_status:
                         email_message_list_of_processes_status += f'\n{str(item)}'
-                    email_message = f'Subject: {sitename} {env} \
-                        Monitored proces(es) FAILED' + '\n' + \
-                        f'Hi, monitoring identified that on {hostname} \
-                        NOT all processes are OK\n {email_message_list_of_processes_status}'
+                    email_message = f'Subject: {sitename} {env} Monitored proces(es) FAILED' + '\n' + f'Hi, monitoring identified that on {hostname} NOT all processes are OK\n {email_message_list_of_processes_status}'
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                    smtpserver, smtpport, smtpssl, smtpauthentication)
                 except Exception as excep:

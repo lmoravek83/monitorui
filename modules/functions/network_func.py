@@ -55,10 +55,8 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
 
     responsecode = get_ping_status(hostname)
 
-    ping_msg_down = f'Subject: {sitename} {env} Ping - DOWN' + '\n' + \
-        f'Hi, monitoring identified that {hostname} / PING is DOWN \n {url}'
-    ping_msg_up = f'Subject: {sitename} {env} Ping - UP' + '\n' + \
-        f'Hi, monitoring identified that {hostname} / PING is UP \n {url}'
+    ping_msg_down = f'Subject: {sitename} {env} Ping - DOWN' + '\n' + f'Hi, monitoring identified that {hostname} / PING is DOWN \n {url}'
+    ping_msg_up = f'Subject: {sitename} {env} Ping - UP' + '\n' + f'Hi, monitoring identified that {hostname} / PING is UP \n {url}'
 
     if responsecode != '1':
         message = 'Ping: Failed\r\n'
@@ -271,8 +269,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                 cf.write_file(certificate_expiration_check_file,
                               datetime.now().strftime("%d%m%Y"))
                 # Set email message
-                cert_msg_exp = f'Subject: {sitename} {env} Certificate Expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}' + '\n' +\
-                    f'Hi, monitoring identified that for {hostname} expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")} \n {url}'
+                cert_msg_exp = f'Subject: {sitename} {env} Certificate Expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}' + '\n' + f'Hi, monitoring identified that for {hostname} expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")} \n {url}'
 
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,

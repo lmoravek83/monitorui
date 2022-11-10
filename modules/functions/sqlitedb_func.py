@@ -42,14 +42,10 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
     param: smtpsll - use SSL for smtp connection
     param: smtpauthentication - use autentification for smtp connection
     """
-    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n'\
-        + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
-    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n'\
-        + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
-    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n'\
-        + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
-    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n'\
-        + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
+    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
+    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
+    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
+    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
 
     conn = None
     try:
@@ -62,8 +58,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, sql_connection_failed,
                            smtpserver, smtpport, smtpssl, smtpauthentication)
         except Exception as excep_email:
-            message_email_error = f'ERROR: Email notification failed on Exception: \
-                {excep_email}\r\n'
+            message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
             print(Fore.RED + message_email_error + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -72,8 +67,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
         try:
             conn_c = conn.cursor()
         except sqlite3.Error as excep_create_cursor:
-            message_create_cursor = f'ERROR: Failed to connect SQLITE DB - Create Cursor: \
-                {excep_create_cursor}\r\n'
+            message_create_cursor = f'ERROR: Failed to connect SQLITE DB - Create Cursor: {excep_create_cursor}\r\n'
             print(Fore.RED + message_create_cursor + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_create_cursor}')
             try:
@@ -81,8 +75,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
                                sql_connection_failed_cursor, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: \
-                    {excep_email}\r\n'
+                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -93,8 +86,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
             sqlresult = conn_c.fetchone()[0]
 
         except Exception as excep_sql_cmd:
-            message_sql_cmd = f'ERROR: Failed to connect SQLITE DB - Execute SQL Command: \
-                {excep_sql_cmd}\r\n'
+            message_sql_cmd = f'ERROR: Failed to connect SQLITE DB - Execute SQL Command: {excep_sql_cmd}\r\n'
             print(Fore.RED + message_sql_cmd + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_sql_cmd}')
             try:
@@ -102,8 +94,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
                                sql_connection_failed_sql_command, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: \
-                    {excep_email}\r\n'
+                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -145,38 +136,31 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
                                    sql_evaluation_failed, smtpserver, smtpport, smtpssl,
                                    smtpauthentication)
                 except Exception as excep_email:
-                    message_email_error = f'ERROR: Email notification failed on Exception: \
-                        {excep_email}\r\n'
+                    message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                     print(Fore.RED + message_email_error + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message_email_error}')
         else:
-            message_compare_failed = 'ERROR: Result comparision failed \
-                due missing expected values or operator in config file'
+            message_compare_failed = 'ERROR: Result comparision failed due missing expected values or operator in config file'
             print(Fore.YELLOW + message_compare_failed + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_compare_failed}')
-            email_message = f'Subject: {sitename} {env} ERROR: evaluation logic failed' + '\n' \
-                + f'Hi, monitoring identified that on {hostname} {message_compare_failed}'
+            email_message = f'Subject: {sitename} {env} ERROR: evaluation logic failed' + '\n' + f'Hi, monitoring identified that on {hostname} {message_compare_failed}'
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: \
-                    {excep_email}\r\n'
+                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
     else:
-        message_comp_failed_no_res = 'ERROR: SQL result comparision failed \
-            due to not obained SQL Result '
+        message_comp_failed_no_res = 'ERROR: SQL result comparision failed due to not obained SQL Result '
         print(Fore.YELLOW + message_comp_failed_no_res + Style.RESET_ALL)
         cf.write_file_append(logpath, f'{message_comp_failed_no_res}')
-        email_message = f'Subject: {sitename} {env} SQL evaluation failed' + '\n'\
-            + f'Hi, monitoring identified that on {hostname} {message_comp_failed_no_res}'
+        email_message = f'Subject: {sitename} {env} SQL evaluation failed' + '\n' + f'Hi, monitoring identified that on {hostname} {message_comp_failed_no_res}'
         try:
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                            smtpserver, smtpport, smtpssl, smtpauthentication)
         except Exception as excep_email:
-            message_email_error = f'ERROR: Email notification failed on Exception: \
-                {excep_email}\r\n'
+            message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
             print(Fore.RED + message_email_error + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -186,41 +170,32 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
     cf.check_state_file_exist(sqlitedb_state_file, 'OK')
 
     if sqlcomparision == 'OK':
-        message_validation_ok = f'SQLITE condition validation OK \
-            - SQL scripts results are in defined conditon: \
-                records {sqlresult}\r\n'
+        message_validation_ok = f'SQLITE condition validation OK - SQL scripts results are in defined conditon: records {sqlresult}\r\n'
         print(message_validation_ok)
         cf.write_file_append(logpath, message_validation_ok)
         if not cf.check_previous_state(sqlcomparision, sqlitedb_state_file):
             try:
-                sql_script_condition_ok = f'Subject: {sitename} {env} \
-                        SQL - condition evaluation OK' + '\n'\
-                        + f'Hi, monitoring identified that SQL condition evaluation on {hostname} is OK, results {sqlresult}- SQL scripts results are in defined conditon'
+                sql_script_condition_ok = f'Subject: {sitename} {env} SQL - condition evaluation OK' + '\n' + f'Hi, monitoring identified that SQL condition evaluation on {hostname} is OK, results {sqlresult}- SQL scripts results are in defined conditon'
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, sql_script_condition_ok,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: \
-                    {excep_email}\r\n'
+                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
         cf.write_current_state(sqlcomparision, sqlitedb_state_file)
         return True
     else:
-        message_cond_val_failed = f'SQLITE condition validation failed \
-            - SQL scripts results are out of defined \
-                conditon: records {sqlresult}\r\n'
+        message_cond_val_failed = f'SQLITE condition validation failed - SQL scripts results are out of defined conditon: records {sqlresult}\r\n'
         print(Fore.YELLOW + message_cond_val_failed + Style.RESET_ALL)
         cf.write_file_append(logpath, message_cond_val_failed)
         if not cf.check_previous_state(sqlcomparision, sqlitedb_state_file):
             try:
-                sql_script_condition_failed = f'Subject: {sitename} {env} SQLLITE - condition evaluation failed' + '\n'\
-                        + f'Hi, monitoring identified that SQL condition evaluation on {hostname} Failed, results {sqlresult} - SQL scripts results are out of defined conditon'
+                sql_script_condition_failed = f'Subject: {sitename} {env} SQLLITE - condition evaluation failed' + '\n' + f'Hi, monitoring identified that SQL condition evaluation on {hostname} Failed, results {sqlresult} - SQL scripts results are out of defined conditon'
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                sql_script_condition_failed, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: \
-                    {excep_email}\r\n'
+                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
         cf.write_current_state(sqlcomparision, sqlitedb_state_file)

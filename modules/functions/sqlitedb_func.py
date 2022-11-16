@@ -7,7 +7,7 @@ init()
 try:
     import sqlite3
 except Exception as e:
-    message = f'ERROR: SQLITE DB load failed.. {e}'
+    message = f'ERROR: SQLITE DB driver load failed.. {e}'
     print(Fore.RED + message + Style.RESET_ALL)
 
 

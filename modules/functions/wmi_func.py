@@ -143,7 +143,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                     email_message_list_of_processes_status = ""
                     for item in list_of_processes_status:
                         email_message_list_of_processes_status += f'\n{str(item)}'
-                    email_message = f'Subject: {sitename} {env} Monitored proces(es) FAILED' + '\n' + f'Hi, monitoring identified that on {hostname} NOT all processes are OK\n {email_message_list_of_processes_status}'
+                    email_message = f'Subject: {sitename} {env} Monitored proces(es) FAILED' + '\n' + f'Hi, monitoring identified that on {hostname} NOT all processes are OK\n{email_message_list_of_processes_status}'
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                    smtpserver, smtpport, smtpssl, smtpauthentication)
                 except Exception as excep:

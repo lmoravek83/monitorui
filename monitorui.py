@@ -1,4 +1,3 @@
-# Copyright: Lukáš Morávek 2021
 """
 monitorui.py is the main script which runs the MONITORUI
 """

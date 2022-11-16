@@ -56,9 +56,9 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
     obtained_responsecode = get_response_code(url)
 
     msg_responsecode_failed = f'Subject: {sitename} {env} Response Code - NOK' + '\n' + \
-        f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\n Expected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
+        f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
     msg_responsecode_ok = f'Subject: {sitename} {env} Reponse Code - OK' + '\n' + \
-        f'Hi,\nmonitoring identified that site {sitename} responsecode correspond to the definition.\n\n{url}\n Expected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
+        f'Hi,\nmonitoring identified that site {sitename} responsecode correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
 
     if obtained_responsecode != defined_responsecode:
         message = 'State state: Down\r\n'

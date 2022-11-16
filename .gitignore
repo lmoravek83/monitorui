@@ -26,6 +26,7 @@ __pycache__/
 .vscode
 db/*
 test_dir/
+db
 config/*
 sites/*
 .Python

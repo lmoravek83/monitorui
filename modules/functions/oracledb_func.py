@@ -1,16 +1,16 @@
 """
 Oracle functions for MonitorUI
 """
+from os import system
 from colorama import Fore, Style, init
 from modules.functions import common_func as cf
 from modules.functions.common_func import read_file
+
 init()
 try:
-    oracle_client_path = read_file('.//config//oracle_client_path.conf')[0]
+    system(f'set LD_LIBRARY_PATH={read_file(".//config//oracle_client_path.conf")[0]}')
     import cx_Oracle
-    # print(f'"r+{oracle_client_path}"')
-    cx_Oracle.init_oracle_client(lib_dir=f'r"{oracle_client_path}"')
-    # cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")
+    # cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_7")
 except Exception as excep:
     message_db_load = f'ERROR: Oracle DB load failed. {excep}'
     print(Fore.RED + message_db_load + Style.RESET_ALL)

@@ -54,9 +54,6 @@ while SCRIPT_LOOP:
 
     # for cycle for each site from list, invoke class end perfom monitoring actions
     for site in listofsites:
-        # siteconfig = cf.read_json(sitesfolder +clear site + '//configsite.json')
-        # workingsite = monitoredSite(config, siteconfig, site)
-        # workingsite.get_response_code()
         try:
             siteconfig = cf.read_json(sitesfolder + site + '//configsite.json')
             if 'monitoringstart' not in siteconfig:

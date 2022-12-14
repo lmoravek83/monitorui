@@ -14,8 +14,6 @@ from modules.functions.sqlitedb_func import check_sqllite_script
 from modules.functions.oracledb_func import check_sql_oracle_script
 from modules.functions import common_func as cf
 init()
-# from shutil import copyfile
-# from sys import platform
 
 
 class MonitoredSite():

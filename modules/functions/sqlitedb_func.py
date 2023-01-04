@@ -182,7 +182,8 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
                 message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
-        cf.write_current_state(sqlcomparision, sqlitedb_state_file)
+            cf.write_current_state(sqlcomparision, sqlitedb_state_file)
+        # cf.write_current_state(sqlcomparision, sqlitedb_state_file)
         return True
     else:
         message_cond_val_failed = f'SQLITE condition validation failed - SQL scripts results are out of defined conditon: records {sqlresult}\r\n'
@@ -198,7 +199,8 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
                 message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
-        cf.write_current_state(sqlcomparision, sqlitedb_state_file)
+            cf.write_current_state(sqlcomparision, sqlitedb_state_file)
+        # cf.write_current_state(sqlcomparision, sqlitedb_state_file)
         return True
 
     try:

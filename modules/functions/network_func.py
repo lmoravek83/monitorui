@@ -65,7 +65,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         message = f'Ping Response code: {responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
-        # Check previos state of response code, to do not spam and send email
+        # Check previos state of response code, to do not spam and send email / write same data in status file
         if not cf.check_previous_state(responsecode, ping_state_file):
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_down,
@@ -74,8 +74,9 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
                 message = f'ERROR: Email notification failed on Exception: {exep}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
-        cf.write_current_state(responsecode, ping_state_file)
-        return False
+            cf.write_current_state(responsecode, ping_state_file)
+        # cf.write_current_state(responsecode, ping_state_file)
+        # return False
 
     else:
         message = 'Ping: OK\r\n'
@@ -84,7 +85,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         message = f'Ping Response code: {responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
-        # Check previos state of response code, to do not spam and send email
+        # Check previos state of response code, to do not spam and send email / write same data in status file
         if not cf.check_previous_state(responsecode, ping_state_file):
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_up,
@@ -93,8 +94,9 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
                 message = f'Email notification failed on Exception: {exep}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
-        cf.write_current_state(responsecode, ping_state_file)
-        return True
+            cf.write_current_state(responsecode, ping_state_file)
+        # cf.write_current_state(responsecode, ping_state_file)
+        # return True
 
 
 def get_port_status(hostname, port):
@@ -157,7 +159,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             message = f'Port {port} Response code: {responsecode}\r\n'
             print(Fore.YELLOW + message + Style.RESET_ALL)
             cf.write_file_append(logpath, message)
-            # Check previos state of response code, to do not spam and send email
+            # Check previos state of response code, to do not spam and send email / write same data in status file
             if not cf.check_previous_state(responsecode, port_state_file):
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
@@ -166,7 +168,8 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
                     message = f'ERROR: Email notification failed on Exception: {exep}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message}')
-            cf.write_current_state(responsecode, port_state_file)
+                cf.write_current_state(responsecode, port_state_file)
+            # cf.write_current_state(responsecode, port_state_file)
             # If discomment, whole loop will not continue to next item - port
             # return False
         else:
@@ -176,7 +179,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             message = f'Port {port} Response code: {responsecode}\r\n'
             print(message)
             cf.write_file_append(logpath, message)
-            # Check previos state of response code, to do not spam and send email
+            # Check previos state of response code, to do not spam and send email / write same data in status file
             if not cf.check_previous_state(responsecode, port_state_file):
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
@@ -185,7 +188,8 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
                     message = f'ERROR: Email notification failed on Exception: {exep}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message}')
-            cf.write_current_state(responsecode, port_state_file)
+                cf.write_current_state(responsecode, port_state_file)
+            # cf.write_current_state(responsecode, port_state_file)
             # If discomment, whole loop will not continue to next item - port
             # return True
 
@@ -246,7 +250,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
     param: smtpauthentication - use autentification for smtp connection
     """
 
-    # Check if last web service status file exist
+    # Check if last certificate status file exist
     cf.check_state_file_exist(certificate_expiration_check_file, '0')
     if cf.read_file(certificate_expiration_check_file)[0] != datetime.now().strftime("%d%m%Y"):
 

@@ -2,9 +2,9 @@
 
 Simple infrastructure monitoring "script" which is possible to monitor PING reachibility, PORT (open), SSL Certificate Expiration, Change of HTML Code on Site / Healthcheck, HTML Response code, Execute DB code and compare aginst expected value (number) and notify over email. 
 
-- Monitor unlimited number of Host / Sites
+Monitor unlimited number of Host / Sites
 
-- Network Monitoring Functions
+Network Monitoring Functions
 -- Ping
 -- Ports
 - Web Monitoring Functions
@@ -16,3 +16,6 @@ Simple infrastructure monitoring "script" which is possible to monitor PING reac
 Possible configurations
 - Email Notification (each monitored host / site can have different recipients
 - Set minitored windows for each Host / Site (Day(s) in week, Hours)
+
+General functionality
+- Advanced Structured Loggin (usable for further log processing)

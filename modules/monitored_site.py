@@ -20,13 +20,14 @@ class MonitoredSite():
     """
     Monitored site class which provides all possbile fnctions / type of check
     """
-    def __init__(self, config, siteconfig, site):
+    def __init__(self, config, siteconfig, site, sitefolder):
         # Monitoring Config configuration
         sitestarttime = datetime.now()
-        if 'sitesfolder' in config:
-            self.sitesfolder = config['sitesfolder']
-        else:
-            self.sitesfolder = './/sites//'
+        # if 'sitesfolder' in config:
+        #     self.sitesfolder = config['sitesfolder']
+        # else:
+        #     self.sitesfolder = './/sites//'
+        self.sitefolder = sitefolder
         self.site = site
 
         if 'smtpuser' in config:
@@ -70,10 +71,10 @@ class MonitoredSite():
             self.logsretention = None
 
         # Write monitoring Time stame un to the Site Log
-        if not path.exists(self.sitesfolder + self.site + '//logs'):
-            mkdir(self.sitesfolder + self.site + '//logs')
+        if not path.exists(self.sitefolder + '//logs'):
+            mkdir(self.sitefolder + '//logs')
         self.logpath =\
-            f'{self.sitesfolder + self.site}//logs//{self.site}_{datetime.now().strftime("%d%m%Y")}.log'
+            f'{self.sitefolder}//logs//{self.site}_{datetime.now().strftime("%d%m%Y")}.log'
         message = f'-Site "{self.site}" monitoring at: {sitestarttime}-\r\n'
         print(message)
         cf.write_file_append(self.logpath, message)
@@ -212,23 +213,23 @@ class MonitoredSite():
             self.sqliteexpectedvalueint = None
 
         # Files configuration
-        self.responsecode_state_file = f'{self.sitesfolder + self.site}//responsecode_state.txt'
-        self.ping_state_file = f'{self.sitesfolder + self.site}//ping_state.txt'
-        # self.port_state_file = f'{self.sitesfolder + self.site}//port_state.txt'
-        self.port_state_file_nosuffix = f'{self.sitesfolder + self.site}//port_state_'
-        self.sqlitedb_state_file = f'{self.sitesfolder + self.site}//sqlitedb_state.txt'
-        self.oracledb_state_file = f'{self.sitesfolder + self.site}//oracledb_state.txt'
+        self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'
+        self.ping_state_file = f'{self.sitefolder}//ping_state.txt'
+        # self.port_state_file = f'{self.sitefolder}//port_state.txt'
+        self.port_state_file_nosuffix = f'{self.sitefolder}//port_state_'
+        self.sqlitedb_state_file = f'{self.sitefolder}//sqlitedb_state.txt'
+        self.oracledb_state_file = f'{self.sitefolder}//oracledb_state.txt'
         self.webactualtmpfootprint_file\
-            = f'{self.sitesfolder + self.site}//webactualtmpfootprint.txt'
-        self.websavedfootprint_file = f'{self.sitesfolder + self.site}//websavedfootprint.txt'
+            = f'{self.sitefolder}//webactualtmpfootprint.txt'
+        self.websavedfootprint_file = f'{self.sitefolder}//websavedfootprint.txt'
         self.weblaststatefootprint_file_nosuffix\
-            = f'{self.sitesfolder + self.site}//weblaststatefootprint'
+            = f'{self.sitefolder}//weblaststatefootprint'
         self.weblaststatefootprint_file = f'{self.weblaststatefootprint_file_nosuffix}.txt'
-        self.wmiprocesses_file = f'{self.sitesfolder + self.site}//wmiprocesses.txt'
-        self.wmiprocessestmp_file = f'{self.sitesfolder + self.site}//wmiprocessestmp.txt'
-        self.wmiprocessestmp_file_nosuffix = f'{self.sitesfolder + self.site}//wmiprocesses'
+        self.wmiprocesses_file = f'{self.sitefolder}//wmiprocesses.txt'
+        self.wmiprocessestmp_file = f'{self.sitefolder}//wmiprocessestmp.txt'
+        self.wmiprocessestmp_file_nosuffix = f'{self.sitefolder}//wmiprocesses'
         self.certificate_expiration_check_file\
-            = f'{self.sitesfolder + self.site}//certificate_exp_last_check.txt'
+            = f'{self.sitefolder}//certificate_exp_last_check.txt'
 
         # Email Recipients
         # self.emailsstr = str(siteconfig['emailrecipients'])
@@ -333,7 +334,7 @@ class MonitoredSite():
         """
         if self.logsretention is not None:
             try:
-                logssitepath = f'{self.sitesfolder + self.site}//logs//'
+                logssitepath = f'{self.sitefolder}//logs//'
 
                 for item in Path(logssitepath).glob('*.log'):
                     if item.is_file():

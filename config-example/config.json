@@ -1,5 +1,5 @@
 {
-  "sitesfolder": ".//sites//",
+  "sitesfolder": ".//sites",
   "smtpserver": "smtp.gmail.com",
   "smtpport": 587,
   "smtpssl": true,

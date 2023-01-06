@@ -30,7 +30,11 @@ while SCRIPT_LOOP:
 
     # Read config file and set password in to config list
     config = cf.read_json('.//config//config.json')
-    sitesfolder = config['sitesfolder']
+    # sitesfolder = config['sitesfolder']
+    if 'sitesfolder' in config:
+        sitesfolder = config['sitesfolder']
+    else:
+        sitesfolder = './/sites'
 
     # Look somewhere else, there is nothing to do
     smptpassfilelocation = config['smtppassfilelocation']
@@ -49,80 +53,87 @@ while SCRIPT_LOOP:
     if 'logsretention' not in config:
         config['logsretention'] = None
 
-    # Read sites in to list
-    listofsites = cf.list_directories(sitesfolder)
+    listofsystems = cf.list_directories(sitesfolder)
+    print(listofsystems)
 
-    # for cycle for each site from list, invoke class end perfom monitoring actions
-    for site in listofsites:
-        try:
-            siteconfig = cf.read_json(sitesfolder + site + '//configsite.json')
-            if 'monitoringstart' not in siteconfig:
-                siteconfig['monitoringstart'] = '000000'
+    for system in listofsystems:
+        print('hi')
+        # Read sites in to list
+        listofsites = cf.list_directories(sitesfolder + "//" + system + "//") 
+        print(listofsites)
+        # for cycle for each site from list, invoke class end perfom monitoring actions
+        for site in listofsites:
+            print('hello')
+            try:
+                siteconfig = cf.read_json(sitesfolder + "//" + system + "//" + site + '//configsite.json')
+                sitefolder = sitesfolder + "//" + system + "//" + site
+                if 'monitoringstart' not in siteconfig:
+                    siteconfig['monitoringstart'] = '000000'
 
-            if 'monitoringend' not in siteconfig:
-                siteconfig['monitoringend'] = '235959'
+                if 'monitoringend' not in siteconfig:
+                    siteconfig['monitoringend'] = '235959'
 
-            if 'monitoringdays' not in siteconfig:
-                siteconfig['monitoringdays'] = [0, 1, 2, 3, 4, 5, 6]
+                if 'monitoringdays' not in siteconfig:
+                    siteconfig['monitoringdays'] = [0, 1, 2, 3, 4, 5, 6]
 
-            if 'checkhostping' not in siteconfig:
-                siteconfig['checkhostping'] = False
+                if 'checkhostping' not in siteconfig:
+                    siteconfig['checkhostping'] = False
 
-            if 'checksiteresponsecode' not in siteconfig:
-                siteconfig['checksiteresponsecode'] = False
+                if 'checksiteresponsecode' not in siteconfig:
+                    siteconfig['checksiteresponsecode'] = False
 
-            if 'checksitecontent' not in siteconfig:
-                siteconfig['checksitecontent'] = False
+                if 'checksitecontent' not in siteconfig:
+                    siteconfig['checksitecontent'] = False
 
-            if 'checkcertificateexpiration' not in siteconfig:
-                siteconfig['checkcertificateexpiration'] = False
+                if 'checkcertificateexpiration' not in siteconfig:
+                    siteconfig['checkcertificateexpiration'] = False
 
-            if 'checkwmiprocesses' not in siteconfig:
-                siteconfig['checkwmiprocesses'] = False
-            # WMI need support of Win32, if monitoring runs on non Win32 compatible system,
-            # WMI is set to disabled
-            if platform != "win32":
-                siteconfig['checkwmiprocesses'] = False
-            if 'checksqllitescript' not in siteconfig:
-                siteconfig['checksqllitescript'] = False
-            if 'checksqloraclescript' not in siteconfig:
-                siteconfig['checksqloraclescript'] = False
-            if datetime.today().weekday() in siteconfig['monitoringdays']:
-                if datetime.now().strftime("%H%M%S") >= siteconfig['monitoringstart']\
-                        and datetime.now().strftime("%H%M%S") <= siteconfig['monitoringend']:
-                    workingsite = MonitoredSite(config, siteconfig, site)
-                    if siteconfig['checkhostping']:
-                        workingsite.site_check_ping()
-                    if siteconfig['checkhostport']:
-                        workingsite.site_check_port()
-                    if siteconfig['checksiteresponsecode']:
-                        workingsite.site_check_response_code()
-                    if siteconfig['checkcertificateexpiration']:
-                        workingsite.site_certificate_expiration_check()
-                    if siteconfig['checksitecontent']:
-                        workingsite.sitei_check_site_content()
-                    if siteconfig['checkwmiprocesses']:
-                        workingsite.site_check_wmni_process()
-                    if siteconfig['checksqllitescript']:
-                        workingsite.site_check_sqlite_script()
-                    if siteconfig['checksqloraclescript']:
-                        workingsite.site_check_oracle_script()
+                if 'checkwmiprocesses' not in siteconfig:
+                    siteconfig['checkwmiprocesses'] = False
+                # WMI need support of Win32, if monitoring runs on non Win32 compatible system,
+                # WMI is set to disabled
+                if platform != "win32":
+                    siteconfig['checkwmiprocesses'] = False
+                if 'checksqllitescript' not in siteconfig:
+                    siteconfig['checksqllitescript'] = False
+                if 'checksqloraclescript' not in siteconfig:
+                    siteconfig['checksqloraclescript'] = False
+                if datetime.today().weekday() in siteconfig['monitoringdays']:
+                    if datetime.now().strftime("%H%M%S") >= siteconfig['monitoringstart']\
+                            and datetime.now().strftime("%H%M%S") <= siteconfig['monitoringend']:
+                        workingsite = MonitoredSite(config, siteconfig, site, sitefolder)
+                        if siteconfig['checkhostping']:
+                            workingsite.site_check_ping()
+                        if siteconfig['checkhostport']:
+                            workingsite.site_check_port()
+                        if siteconfig['checksiteresponsecode']:
+                            workingsite.site_check_response_code()
+                        if siteconfig['checkcertificateexpiration']:
+                            workingsite.site_certificate_expiration_check()
+                        if siteconfig['checksitecontent']:
+                            workingsite.sitei_check_site_content()
+                        if siteconfig['checkwmiprocesses']:
+                            workingsite.site_check_wmni_process()
+                        if siteconfig['checksqllitescript']:
+                            workingsite.site_check_sqlite_script()
+                        if siteconfig['checksqloraclescript']:
+                            workingsite.site_check_oracle_script()
 
-                    workingsite.removesite_logs()
-                    try:
-                        del workingsite
-                    except Exception as e:
-                        message = f'{site} Failed removing object: \r\n {e}'
-                        print(Fore.RED + message + Style.RESET_ALL)
-                        cf.write_file_append(logpath, f'{message}')
+                        workingsite.removesite_logs()
+                        try:
+                            del workingsite
+                        except Exception as e:
+                            message = f'{site} Failed removing object: \r\n {e}'
+                            print(Fore.RED + message + Style.RESET_ALL)
+                            cf.write_file_append(logpath, f'{message}')
+                    else:
+                        print(f"-Site {site} skipped, out of working hours- \r\n")
                 else:
-                    print(f"-Site {site} skipped, out of working hours- \r\n")
-            else:
-                print(f"-Site {site} skipped, not sheduled for today \r\n")
-        except Exception as e:
-            message = f'{site} skipped on Exception, issues found: \r\n {e}'
-            print(Fore.RED + message + Style.RESET_ALL)
-            cf.write_file_append(logpath, f'{message}')
+                    print(f"-Site {site} skipped, not sheduled for today \r\n")
+            except Exception as e:
+                message = f'{site} skipped on Exception, issues found: \r\n {e}'
+                print(Fore.RED + message + Style.RESET_ALL)
+                cf.write_file_append(logpath, f'{message}')
 
     # Clean up log files
 

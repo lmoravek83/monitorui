@@ -54,12 +54,10 @@ while SCRIPT_LOOP:
         config['logsretention'] = None
 
     listofsystems = cf.list_directories(sitesfolder)
-    print(listofsystems)
 
     for system in listofsystems:
         # Read sites in to list
         listofsites = cf.list_directories(sitesfolder + "//" + system + "//") 
-        print(listofsites)
         # for cycle for each site from list, invoke class end perfom monitoring actions
         for site in listofsites:
             try:

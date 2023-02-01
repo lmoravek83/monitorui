@@ -2,7 +2,7 @@
 Module which is covering Webfunctions functions related MONITORUI
 """
 
-from urllib import request
+# from urllib import request
 from datetime import datetime
 from os import path, remove
 from shutil import copyfile
@@ -12,20 +12,20 @@ from modules.functions import common_func as cf
 init()
 
 
-def get_response_code(url: str) -> str:
+def get_response_code(url: str, sslcertificateverification: bool) -> str:
     """
     param: url
     Return: obtained response code
     """
     try:
-        with request.urlopen(url) as conn:
-            return str(conn.getcode())
+        return str(get(url, verify=sslcertificateverification).status_code)
+
     except Exception as excep:
         return f"Response Code failed on Exception: {excep}"
 
 
 def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str,
-                        defined_responsecode: str, logpath: str, smtpuseremail: str, smtppass: str,
+                        defined_responsecode: str, sslcertificateverification: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
                         smtpssl: bool, smtpauthentication: bool) -> bool:
     """
@@ -53,7 +53,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
     cf.check_state_file_exist(responsecode_state_file, defined_responsecode)
 
     # Receive response code from function
-    obtained_responsecode = get_response_code(url)
+    obtained_responsecode = get_response_code(url, sslcertificateverification)
 
     msg_responsecode_failed = f'Subject: {sitename} {env} Response Code - NOK' + '\n' + \
         f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
@@ -109,7 +109,7 @@ def create_web_current_foot_print(url: str, webactualtmpfootprint_file: str,
     param: url - defined url of web page / page which will be downloaded
     param: webactualtmpfootprint_file - file name where wil be page stored
     param: htmlignoreelement - html element hwihc will be ignored during page safe
-    para: certificatevalidation - use / disable SSL certificate validation
+    param: certificatevalidation - use / disable SSL certificate validation
     """
     content = []
     # Remove old Actual Foot print file - if exist

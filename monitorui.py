@@ -57,15 +57,15 @@ while SCRIPT_LOOP:
     print(listofsystems)
 
     for system in listofsystems:
-        print('hi')
         # Read sites in to list
         listofsites = cf.list_directories(sitesfolder + "//" + system + "//") 
         print(listofsites)
         # for cycle for each site from list, invoke class end perfom monitoring actions
         for site in listofsites:
-            print('hello')
             try:
+                # set site config path for current minotred site
                 siteconfig = cf.read_json(sitesfolder + "//" + system + "//" + site + '//configsite.json')
+                # set site folder for current minotred site
                 sitefolder = sitesfolder + "//" + system + "//" + site
                 if 'monitoringstart' not in siteconfig:
                     siteconfig['monitoringstart'] = '000000'
@@ -98,9 +98,11 @@ while SCRIPT_LOOP:
                     siteconfig['checksqllitescript'] = False
                 if 'checksqloraclescript' not in siteconfig:
                     siteconfig['checksqloraclescript'] = False
+                # Check if monitored site is alowed for current dayd
                 if datetime.today().weekday() in siteconfig['monitoringdays']:
                     if datetime.now().strftime("%H%M%S") >= siteconfig['monitoringstart']\
                             and datetime.now().strftime("%H%M%S") <= siteconfig['monitoringend']:
+                        # Crete instance of class Monitored Site
                         workingsite = MonitoredSite(config, siteconfig, site, sitefolder)
                         if siteconfig['checkhostping']:
                             workingsite.site_check_ping()
@@ -118,8 +120,9 @@ while SCRIPT_LOOP:
                             workingsite.site_check_sqlite_script()
                         if siteconfig['checksqloraclescript']:
                             workingsite.site_check_oracle_script()
-
+                        # Remove logs in Monitored Site - Log Retention
                         workingsite.removesite_logs()
+                        # Remove instance of MonitoredSite Class
                         try:
                             del workingsite
                         except Exception as e:
@@ -136,7 +139,7 @@ while SCRIPT_LOOP:
                 cf.write_file_append(logpath, f'{message}')
 
     # Clean up log files
-
+    # Log retetion for MonitoringUI
     if config['logsretention'] is not None:
 
         try:

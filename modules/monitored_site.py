@@ -23,10 +23,6 @@ class MonitoredSite():
     def __init__(self, config, siteconfig, site, sitefolder):
         # Monitoring Config configuration
         sitestarttime = datetime.now()
-        # if 'sitesfolder' in config:
-        #     self.sitesfolder = config['sitesfolder']
-        # else:
-        #     self.sitesfolder = './/sites//'
         self.sitefolder = sitefolder
         self.site = site
 
@@ -69,11 +65,6 @@ class MonitoredSite():
             self.logsretention = config['logsretention']
         else:
             self.logsretention = None
-
-        # if 'oracleclientpath' in config:
-        #     self.oracleclientpath = config['oracleclientpath']
-        # else:
-        #     self.oracleclientpath = None
 
         # Write monitoring Time stame un to the Site Log
         if not path.exists(self.sitefolder + '//logs'):
@@ -160,11 +151,6 @@ class MonitoredSite():
         else:
             self.sslcertificatevalidation = True
 
-        # if 'sslcertificateverification' in siteconfig:
-        #     self.sslcertificateverification = siteconfig['sslcertificateverification']
-        # else:
-        #     self.sslcertificateverification = True
-
         # ORACLE DB monitoring Configuration
         if "oracleuser" in siteconfig:
             self.oracleuser = siteconfig['oracleuser']
@@ -240,11 +226,6 @@ class MonitoredSite():
         self.wmiprocessestmp_file_nosuffix = f'{self.sitefolder}//wmiprocesses'
         self.certificate_expiration_check_file\
             = f'{self.sitefolder}//certificate_exp_last_check.txt'
-
-        # Email Recipients
-        # self.emailsstr = str(siteconfig['emailrecipients'])
-        # self.emailsstr = self.emailsstr.replace(" ", "")
-        # self.emails = list(self.emailsstr.split(","))
 
         if 'emailrecipients' in siteconfig:
             self.emails = siteconfig['emailrecipients']

@@ -70,6 +70,11 @@ class MonitoredSite():
         else:
             self.logsretention = None
 
+        # if 'oracleclientpath' in config:
+        #     self.oracleclientpath = config['oracleclientpath']
+        # else:
+        #     self.oracleclientpath = None
+
         # Write monitoring Time stame un to the Site Log
         if not path.exists(self.sitefolder + '//logs'):
             mkdir(self.sitefolder + '//logs')
@@ -155,10 +160,10 @@ class MonitoredSite():
         else:
             self.sslcertificatevalidation = True
 
-        if 'sslcertificateverification' in siteconfig:
-            self.sslcertificateverification = siteconfig['sslcertificateverification']
-        else:
-            self.sslcertificateverification = True
+        # if 'sslcertificateverification' in siteconfig:
+        #     self.sslcertificateverification = siteconfig['sslcertificateverification']
+        # else:
+        #     self.sslcertificateverification = True
 
         # ORACLE DB monitoring Configuration
         if "oracleuser" in siteconfig:
@@ -251,7 +256,7 @@ class MonitoredSite():
         Response code check on website
         """
         check_response_code(self.sitename, self.env, self.responsecode_state_file,
-                            self.url, self.siteresponsecode, self.sslcertificateverification, self.logpath, self.smtpuseremail,
+                            self.url, self.siteresponsecode, self.sslcertificatevalidation, self.logpath, self.smtpuseremail,
                             self.smtppass, self.emails, self.from_email, self.smtpserver,
                             self.smtpport, self.smtpssl, self.smtpauthentication)
 

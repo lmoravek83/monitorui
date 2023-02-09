@@ -12,20 +12,20 @@ from modules.functions import common_func as cf
 init()
 
 
-def get_response_code(url: str, sslcertificateverification: bool) -> str:
+def get_response_code(url: str, sslcertificatevalidation: bool) -> str:
     """
     param: url
     Return: obtained response code
     """
     try:
-        return str(get(url, verify=sslcertificateverification).status_code)
+        return str(get(url, verify=sslcertificatevalidation).status_code)
 
     except Exception as excep:
         return f"Response Code failed on Exception: {excep}"
 
 
 def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str,
-                        defined_responsecode: str, sslcertificateverification: bool, logpath: str, smtpuseremail: str, smtppass: str,
+                        defined_responsecode: str, sslcertificatevalidation: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
                         smtpssl: bool, smtpauthentication: bool) -> bool:
     """
@@ -53,7 +53,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
     cf.check_state_file_exist(responsecode_state_file, defined_responsecode)
 
     # Receive response code from function
-    obtained_responsecode = get_response_code(url, sslcertificateverification)
+    obtained_responsecode = get_response_code(url, sslcertificatevalidation)
 
     msg_responsecode_failed = f'Subject: {sitename} {env} Response Code - NOK' + '\n' + \
         f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
@@ -102,49 +102,28 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
 
 # Web page Footprint functions
 def create_web_current_foot_print(url: str, webactualtmpfootprint_file: str,
-                                  htmlignoreelements: list, certificatevalidation: bool):
+                                  htmlignoreelements: list, sslcertificatevalidation: bool):
     """
     Function which dowload poage in to the txt file from given url.\
             Functiona can ignore some of the page elements.
     param: url - defined url of web page / page which will be downloaded
     param: webactualtmpfootprint_file - file name where wil be page stored
     param: htmlignoreelement - html element hwihc will be ignored during page safe
-    param: certificatevalidation - use / disable SSL certificate validation
+    param: sslcertificatevalidation - use / disable SSL certificate validation
     """
     content = []
     # Remove old Actual Foot print file - if exist
     cf.remove_file_func(webactualtmpfootprint_file)
 
-    content = list(get(url, verify=certificatevalidation).text.split('\n'))
+    content = list(get(url, verify=sslcertificatevalidation).text.split('\n'))
 
     filestring = ''
-    # htmlignoreelements_lengt = len(htmlignoreelements) - 1
-    # print(htmlignoreelements_lengt)
-    # counter = 0
     for element in content:
-        # while counter <= htmlignoreelements_lengt:
-        #     print('b')
-        #     if htmlignoreelements[counter] in element:
-        #         filestring = filestring + "\n"
-        #         print(htmlignoreelements[counter])
-        #         print(counter)
-        #     else:
-        #         filestring = filestring + element
-        #     counter += 1
-
         for htmlignore in htmlignoreelements:
             if htmlignore in element and htmlignore != "":
-                # filestring = filestring + "\n"
                 element = "\n"
 
         filestring = filestring + element
-
-        # if 'id_LastRequestTime' in element:
-        #     filestring = filestring + "\n"
-        # elif 'requestId' in element:
-        #     filestring = filestring + "\n"
-        # else:
-        #     filestring = filestring + element
 
     cf.write_file(webactualtmpfootprint_file, filestring)
 
@@ -220,8 +199,6 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         print(message)
         cf.write_file_append(logpath, f'{message}')
         cf.remove_file_func(webactualtmpfootprint_file)
-        # if path.isfile(webactualtmpfootprint_file):
-        #     remove(webactualtmpfootprint_file)
 
     # If FootPrint file does not exist, create new foot print file
     check_web_saved_footprint_file_exist(websavedfootprint_file, webactualtmpfootprint_file)
@@ -257,8 +234,6 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
         cf.remove_file_func(webactualtmpfootprint_file)
-        # if path.isfile(webactualtmpfootprint_file):
-        #     remove(webactualtmpfootprint_file)
         return True
 
     else:
@@ -285,6 +260,4 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                 cf.write_file_append(logpath, f'{message}')
 
         cf.remove_file_func(webactualtmpfootprint_file)
-        # if path.isfile(webactualtmpfootprint_file):
-        #     remove(webactualtmpfootprint_file)
         return False

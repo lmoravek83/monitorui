@@ -98,39 +98,6 @@ def remove_file_func(file):
     if path.isfile(file):
         remove(file)
 
-# Old imeail sendmail function including logpath to be used for extra logging
-# email functions
-# logpath = f'.//logs//monitoring_{datetime.now().strftime("%d%m%Y")}.log'
-# def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserver, smtpport,
-#                 smtpssl, smtpauthencitation):
-#     """
-#     param: smtpuseremail - user email for SMTP autentification, email notification
-#     param: password - password for SMTP autentification
-#     param: email_list - email list of recepitents
-#     param: from_adress - sender email
-#     param: msg - email meesage
-#     param: smtpserver - smtp server
-#     param: smtpport - smtp port
-#     param: smtpsll - use SSL for smtp connection
-#     param: smtpauthentication - use autentification for smtp connection   try:
-#     """
-#         smtp_object = SMTP(smtpserver, port=smtpport)
-#         smtp_object.ehlo()
-#         if smtpssl:
-#             smtp_object.starttls()
-#         if smtpauthencitation:
-#             smtp_object.login(smtpuseremail, password)
-#         for to_adress in email_list:
-#             smtp_object.sendmail(from_adress, to_adress, msg)
-#         smtp_object.quit()
-#         del smtp_object
-#         print(f'Sending email to {email_list}')
-#     except Exception as e:
-#         message = e
-#         print(message)
-#         print(type(message))
-#         write_file_append(logpath, str(message))
-
 
 def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserver, smtpport,
                 smtpssl, smtpauthencitation):
@@ -156,12 +123,6 @@ def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserve
         smtp_object.sendmail(from_adress, to_adress, msg)
     smtp_object.quit()
     del smtp_object
-
-# def convertDateTimetoFileMask(time):
-#     timef = time.replace('-', '')
-#     timef = timef.replace(' ', '_')
-#     timef = timef.replace(':', '')
-#     return timef.replace('.', '_')
 
 
 def compare_files(file1, file2):

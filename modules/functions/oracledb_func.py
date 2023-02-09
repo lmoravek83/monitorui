@@ -1,16 +1,16 @@
 """
 Oracle functions for MonitorUI
 """
-from os import system
+# from os import system
 from colorama import Fore, Style, init
 from modules.functions import common_func as cf
-from modules.functions.common_func import read_file
-
+# from modules.functions.common_func import read_file
 init()
+
 try:
-    system(f'set LD_LIBRARY_PATH={read_file(".//config//oracle_client_path.conf")[0]}')
+    # system(f'set LD_LIBRARY_PATH={read_file(".//config//oracle_client_path.conf")[0]}')
     import cx_Oracle
-    # cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_7")
+    cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_7")
 except Exception as excep:
     message_db_load = f'ERROR: Oracle DB load failed. {excep}'
     print(Fore.RED + message_db_load + Style.RESET_ALL)
@@ -191,7 +191,6 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
             cf.write_current_state(sqlcomparision, oracledb_state_file)
-        # cf.write_current_state(sqlcomparision, oracledb_state_file)
         return True
     else:
         message_cond_val_failed = f'SQL condition validation failed - SQL scripts results are out of defined conditon, records {sqlresult} expected {oracleevaluateoperator} {oracleexpectedvalueint}\r\n'
@@ -208,7 +207,6 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
             cf.write_current_state(sqlcomparision, oracledb_state_file)
-        # cf.write_current_state(sqlcomparision, oracledb_state_file)
         return True
 
     try:

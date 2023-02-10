@@ -77,7 +77,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
                 message = f'ERROR: Email notification failed on Exception: {excep}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
-        cf.write_current_state(obtained_responsecode, responsecode_state_file)
+            cf.write_current_state(obtained_responsecode, responsecode_state_file)
         return False
     else:
         message = 'Portal state: OK\r\n'
@@ -96,7 +96,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
                 message = f'ERROR: Email notification failed on Exception: {excep}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
-        cf.write_current_state(obtained_responsecode, responsecode_state_file)
+            cf.write_current_state(obtained_responsecode, responsecode_state_file)
         return True
 
 

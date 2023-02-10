@@ -112,7 +112,7 @@ def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserve
     param: smtpsll - use SSL for smtp connection
     param: smtpauthentication - use autentification for smtp connection   try:
     """
-    print(Fore.CYAN + f'Sending email to {email_list}' + Style.RESET_ALL)
+    print(Fore.CYAN + f'Sending email to {email_list}\r\n' + Style.RESET_ALL)
     smtp_object = SMTP(smtpserver, port=smtpport)
     smtp_object.ehlo()
     if smtpssl:

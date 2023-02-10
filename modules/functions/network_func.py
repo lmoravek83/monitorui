@@ -108,7 +108,7 @@ def get_port_status(hostname, port):
     resp = ''
     try:
         a_socket = socket(AF_INET, SOCK_STREAM)
-        a_socket.settimeout(2.0)
+        a_socket.settimeout(3.0)
         resp = str(a_socket.connect_ex((hostname, int(port))))
         a_socket.close()
         return resp

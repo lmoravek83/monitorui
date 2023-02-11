@@ -6,6 +6,7 @@ from datetime import datetime
 from os import path, remove, mkdir
 from pathlib import Path
 from time import time
+from shutil import copyfile
 from colorama import Fore, Style, init
 from modules.functions.web_func import check_response_code, check_site_content
 from modules.functions.network_func import check_ping, check_port, certificate_expiration_check
@@ -20,11 +21,12 @@ class MonitoredSite():
     """
     Monitored site class which provides all possbile fnctions / type of check
     """
-    def __init__(self, config, siteconfig, site, sitefolder):
+    def __init__(self, config, siteconfig, site, sitefolder, logdailyfeedfolder):
         # Monitoring Config configuration
         sitestarttime = datetime.now()
         self.sitefolder = sitefolder
         self.site = site
+        self.logdailyfeedfolder = logdailyfeedfolder
 
         if 'smtpuser' in config:
             self.smtpuseremail = config['smtpuser']
@@ -60,6 +62,11 @@ class MonitoredSite():
             self.smtppass = config['smtppass']
         else:
             self.smtppass = ''
+
+        if 'log_daily_feed' in config:
+            self.logdailyfeed = config['log_daily_feed']
+        else:
+            self.logdailyfeed = False
 
         if 'logsretention' in config:
             self.logsretention = config['logsretention']
@@ -318,6 +325,15 @@ class MonitoredSite():
                                 self.oracleexpectedvalueint, self.smtpuseremail, self.smtppass,
                                 self.emails, self.from_email, self.smtpserver, self.smtpport,
                                 self.smtpssl, self.smtpauthentication)
+
+    def copy_log_for_agregation(self):
+        """
+        copy the log 
+        """
+        copyfile(self.logpath, self.logdailyfeedfolder + '//' + f'{self.site}.log' )
+        if self.logdailyfeed:
+            if not path.exists(self.logdailyfeedfolder + '//' + 'a'):
+                mkdir(self.logdailyfeedfolder + '//' + 'a')
 
     def removesite_logs(self):
         """

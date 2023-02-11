@@ -23,6 +23,8 @@ while SCRIPT_LOOP:
     if not path.exists('.//logs'):
         mkdir('.//logs')
     logpath = f'.//logs//monitoring_{datetime.now().strftime("%d%m%Y")}.log'
+    if not path.exists('.//logs/log_daily_feed'):
+        mkdir('.//logs/log_daily_feed')
     LOG_DIR_PATH = './/logs//'
     message = f'--Starting monitoring at {scriptstarttime}-- \r\n'
     print(message)
@@ -65,6 +67,8 @@ while SCRIPT_LOOP:
                 siteconfig = cf.read_json(sitesfolder + "//" + system + "//" + site + '//configsite.json')
                 # set site folder for current minotred site
                 sitefolder = sitesfolder + "//" + system + "//" + site
+                # set log daily feed folder
+                logdailyfeedfolder = './/logs/log_daily_feed'
                 if 'monitoringstart' not in siteconfig:
                     siteconfig['monitoringstart'] = '000000'
 
@@ -101,7 +105,7 @@ while SCRIPT_LOOP:
                     if datetime.now().strftime("%H%M%S") >= siteconfig['monitoringstart']\
                             and datetime.now().strftime("%H%M%S") <= siteconfig['monitoringend']:
                         # Crete instance of class Monitored Site
-                        workingsite = MonitoredSite(config, siteconfig, site, sitefolder)
+                        workingsite = MonitoredSite(config, siteconfig, site, sitefolder, logdailyfeedfolder)
                         if siteconfig['checkhostping']:
                             workingsite.site_check_ping()
                         if siteconfig['checkhostport']:
@@ -118,6 +122,7 @@ while SCRIPT_LOOP:
                             workingsite.site_check_sqlite_script()
                         if siteconfig['checksqloraclescript']:
                             workingsite.site_check_oracle_script()
+                        workingsite.copy_log_for_agregation()
                         # Remove logs in Monitored Site - Log Retention
                         workingsite.removesite_logs()
                         # Remove instance of MonitoredSite Class
@@ -154,6 +159,24 @@ while SCRIPT_LOOP:
             message = f'Failed to oparate with log folder during celaning log files: {e}\r\n'
             print(Fore.RED + message + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message}')
+
+        try:
+            for item in Path(LOG_DIR_PATH + 'log_daily_feed//').glob('*.log'):
+                if item.is_file():
+                    try:
+                        if (Path.stat(item).st_mtime) < time() - config['logsretention'] * 86400:
+                            remove(item)
+                    except Exception as remove_e:
+                        message = f'Failed to remove log file: {remove_e}\r\n'
+                        print(Fore.RED + message + Style.RESET_ALL)
+                        cf.write_file_append(logpath, f'{message}')
+        except Exception as e:
+            message = f'Failed to oparate with log folder during celaning log files: {e}\r\n'
+            print(Fore.RED + message + Style.RESET_ALL)
+            cf.write_file_append(logpath, f'{message}')
+
+
+        
 
     # Calculte running time of script
     message = f'--Monitoring execution time: {str(datetime.now() - scriptstarttime)}--\r\n'

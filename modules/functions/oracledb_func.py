@@ -20,7 +20,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                             oracledsn, oracledb_state_file, oraclesqlcommand,
                             oracleevaluateoperator, oracleexpectedvalueint, smtpuseremail,
                             smtppass, emails, from_email, smtpserver,
-                            smtpport, smtpssl, smtpauthentication):
+                            smtpport, smtpssl, smtpauthentication, sitestarttime, site: str):
     """
     Function to execute SQL query and compare results agins expected values (int)
 
@@ -59,14 +59,14 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     try:
         conn = cx_Oracle.connect(user=oracleuser, password=oraclepassword, dsn=oracledsn)
     except Exception as excep_conn_db:
-        message_conn_db = f'ERROR: Failed to connect Oracle DB: {excep_conn_db}\r\n'
+        message_conn_db = f'{sitestarttime}|{site}|ERROR|ERROR: Failed to connect Oracle DB: {excep_conn_db}\r\n'
         print(Fore.RED + message_conn_db + Style.RESET_ALL)
         cf.write_file_append(logpath, f'{message_conn_db}')
         try:
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, sql_connection_failed,
                            smtpserver, smtpport, smtpssl, smtpauthentication)
         except Exception as excep_email:
-            message_email_error = f'ERROR: Email notification failed on Exception: \
+            message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: \
                 {excep_email}\r\n'
             print(Fore.RED + message_email_error + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_email_error}')
@@ -76,7 +76,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
         try:
             conn_c = conn.cursor()
         except Exception as excep_create_cursor:
-            message_create_cursor = f'ERROR: Failed Oracle DB - Create Cursor: {excep_create_cursor}\r\n'
+            message_create_cursor = f'{sitestarttime}|{site}|ERROR|ERROR: Failed Oracle DB - Create Cursor: {excep_create_cursor}\r\n'
             print(Fore.RED + message_create_cursor + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_create_cursor}')
             try:
@@ -84,7 +84,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                                sql_connection_failed_cursor, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -95,7 +95,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
             sqlresult = conn_c.fetchone()[0]
 
         except Exception as excep_sql_cmd:
-            message_sql_cmd = f'ERROR: Failed Oracle DB - Execute SQL Command: {excep_sql_cmd}\r\n'
+            message_sql_cmd = f'{sitestarttime}|{site}|ERROR|ERROR: Failed Oracle DB - Execute SQL Command: {excep_sql_cmd}\r\n'
             print(Fore.RED + message_sql_cmd + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_sql_cmd}')
             try:
@@ -103,7 +103,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                                sql_connection_failed_sql_command, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
     sqlcomparision = None
@@ -136,7 +136,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                         sqlcomparision = 'NOK'
 
             except Exception as excep_sql_eval:
-                message_sql_eval = f'ERROR: Failed to evalute SQL Result: {excep_sql_eval}\r\n'
+                message_sql_eval = f'{sitestarttime}|{site}|ERROR|ERROR: Failed to evalute SQL Result: {excep_sql_eval}\r\n'
                 print(Fore.RED + message_sql_eval + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_sql_eval}')
                 try:
@@ -144,11 +144,11 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                                    sql_evaluation_failed, smtpserver, smtpport, smtpssl,
                                    smtpauthentication)
                 except Exception as excep_email:
-                    message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                    message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                     print(Fore.RED + message_email_error + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message_email_error}')
         else:
-            message_compare_failed = 'ERROR: Result comparision failed due missing expected values or operator in config file'
+            message_compare_failed = f'{sitestarttime}|{site}|ERROR|ERROR: Result comparision failed due missing expected values or operator in config file'
             print(Fore.YELLOW + message_compare_failed + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_compare_failed}')
             email_message = f'Subject: {sitename} {env} ERROR: evaluation logic failed' + '\n' + f'Hi, monitoring identified that on {hostname} {message_compare_failed}'
@@ -156,11 +156,11 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
     else:
-        message_comp_failed_no_res = 'ERROR: SQL result comparision failed due to not obained SQL Result '
+        message_comp_failed_no_res = f'{sitestarttime}|{site}|ERROR|ERROR: SQL result comparision failed due to not obained SQL Result '
         print(Fore.YELLOW + message_comp_failed_no_res + Style.RESET_ALL)
         cf.write_file_append(logpath, f'{message_comp_failed_no_res}')
         email_message = f'Subject: {sitename} {env} SQL evaluation failed' + '\n' + f'Hi, monitoring identified that on {hostname} {message_comp_failed_no_res}'
@@ -168,7 +168,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                            smtpserver, smtpport, smtpssl, smtpauthentication)
         except Exception as excep_email:
-            message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+            message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
             print(Fore.RED + message_email_error + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message_email_error}')
 
@@ -178,7 +178,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     cf.check_state_file_exist(oracledb_state_file, 'OK')
 
     if sqlcomparision == 'OK':
-        message_validation_ok = f'SQL condition validation OK - SQL scripts results are in defined conditon, records {sqlresult}\r\n'
+        message_validation_ok = f'{sitestarttime}|{site}|OK|SQL condition validation OK - SQL scripts results are in defined conditon, records {sqlresult}\r\n'
         print(message_validation_ok)
         cf.write_file_append(logpath, message_validation_ok)
         if not cf.check_previous_state(sqlcomparision, oracledb_state_file):
@@ -187,13 +187,13 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, sql_script_condition_ok,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
             cf.write_current_state(sqlcomparision, oracledb_state_file)
         return True
     else:
-        message_cond_val_failed = f'SQL condition validation failed - SQL scripts results are out of defined conditon, records {sqlresult} expected {oracleevaluateoperator} {oracleexpectedvalueint}\r\n'
+        message_cond_val_failed = f'{sitestarttime}|{site}|ERROR|SQL condition validation failed - SQL scripts results are out of defined conditon, records {sqlresult} expected {oracleevaluateoperator} {oracleexpectedvalueint}\r\n'
         print(Fore.YELLOW + message_cond_val_failed + Style.RESET_ALL)
         cf.write_file_append(logpath, message_cond_val_failed)
         if not cf.check_previous_state(sqlcomparision, oracledb_state_file):
@@ -203,7 +203,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                                sql_script_condition_failed, smtpserver, smtpport, smtpssl,
                                smtpauthentication)
             except Exception as excep_email:
-                message_email_error = f'ERROR: Email notification failed on Exception: {excep_email}\r\n'
+                message_email_error = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {excep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')
             cf.write_current_state(sqlcomparision, oracledb_state_file)
@@ -212,6 +212,6 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     try:
         conn.close()
     except Exception as excep_db_close_conn:
-        message_close_conn_failed = f'Failed to close connection: {excep_db_close_conn}\r\n'
+        message_close_conn_failed = f'{sitestarttime}|{site}|ERROR|Failed to close connection: {excep_db_close_conn}\r\n'
         print(Fore.RED + message_close_conn_failed + Style.RESET_ALL)
         cf.write_file_append(logpath, f'{message_close_conn_failed}')

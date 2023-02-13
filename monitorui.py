@@ -115,7 +115,7 @@ while SCRIPT_LOOP:
                         if siteconfig['checkcertificateexpiration']:
                             workingsite.site_certificate_expiration_check()
                         if siteconfig['checksitecontent']:
-                            workingsite.sitei_check_site_content()
+                            workingsite.site_check_site_content()
                         if siteconfig['checkwmiprocesses']:
                             workingsite.site_check_wmni_process()
                         if siteconfig['checksqllitescript']:
@@ -174,9 +174,6 @@ while SCRIPT_LOOP:
             message = f'Failed to oparate with log folder during celaning log files: {e}\r\n'
             print(Fore.RED + message + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message}')
-
-
-        
 
     # Calculte running time of script
     message = f'--Monitoring execution time: {str(datetime.now() - scriptstarttime)}--\r\n'

@@ -23,7 +23,7 @@ class MonitoredSite():
     """
     def __init__(self, config, siteconfig, site, sitefolder, logdailyfeedfolder):
         # Monitoring Config configuration
-        sitestarttime = datetime.now()
+        self.sitestarttime = datetime.now()
         self.sitefolder = sitefolder
         self.site = site
         self.logdailyfeedfolder = logdailyfeedfolder
@@ -78,9 +78,9 @@ class MonitoredSite():
             mkdir(self.sitefolder + '//logs')
         self.logpath =\
             f'{self.sitefolder}//logs//{self.site}_{datetime.now().strftime("%d%m%Y")}.log'
-        message = f'-Site "{self.site}" monitoring at: {sitestarttime}-\r\n'
-        print(message)
-        cf.write_file_append(self.logpath, message)
+        # message = f'-Site "{self.site}" monitoring at: {sitestarttime}-\r\n'
+        # print(message)
+        # cf.write_file_append(self.logpath, message)
 
         # Configuration for site
         # Site and Enviroment Identification
@@ -246,9 +246,9 @@ class MonitoredSite():
         check_response_code(self.sitename, self.env, self.responsecode_state_file,
                             self.url, self.siteresponsecode, self.sslcertificatevalidation, self.logpath, self.smtpuseremail,
                             self.smtppass, self.emails, self.from_email, self.smtpserver,
-                            self.smtpport, self.smtpssl, self.smtpauthentication)
+                            self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
-    def sitei_check_site_content(self):
+    def site_check_site_content(self):
         """
         Check if website is not changed agoinst first run
         """
@@ -258,7 +258,7 @@ class MonitoredSite():
                            self.weblaststatefootprint_file,
                            self.weblaststatefootprint_file_nosuffix, self.smtpuseremail,
                            self.smtppass, self.emails, self.from_email, self.smtpserver,
-                           self.smtpport, self.smtpssl, self.smtpauthentication)
+                           self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_check_ping(self):
         """
@@ -267,7 +267,7 @@ class MonitoredSite():
         check_ping(self.sitename, self.env, self.logpath, self.hostname, self.url,
                    self.ping_state_file, self.smtpuseremail, self.smtppass, self.emails,
                    self.from_email, self.smtpserver, self.smtpport, self.smtpssl,
-                   self.smtpauthentication)
+                   self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_check_port(self):
         """
@@ -276,7 +276,7 @@ class MonitoredSite():
         check_port(self.sitename, self.env, self.logpath, self.hostname, self.url,
                    self.port_state_file_nosuffix, self.hostports, self.smtpuseremail,
                    self.smtppass, self.emails, self.from_email, self.smtpserver,
-                   self.smtpport, self.smtpssl, self.smtpauthentication)
+                   self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_certificate_expiration_check(self):
         """
@@ -291,7 +291,7 @@ class MonitoredSite():
                                      self.certificateexpirationtrigger4, self.smtpuseremail,
                                      self.smtppass, self.emails, self.from_email,
                                      self.smtpserver, self.smtpport, self.smtpssl,
-                                     self.smtpauthentication)
+                                     self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_check_wmni_process(self):
         """
@@ -301,7 +301,7 @@ class MonitoredSite():
                           self.wmiprocesses_file, self.wmiprocessestmp_file,
                           self.wmiprocessestmp_file_nosuffix, self.wmiprocesses,
                           self.smtpuseremail, self.smtppass, self.emails, self.from_email,
-                          self.smtpserver, self.smtpport, self.smtpssl, self.smtpauthentication)
+                          self.smtpserver, self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_check_sqlite_script(self):
         """
@@ -312,7 +312,7 @@ class MonitoredSite():
                              self.sqlliteevaluateoperator, self.sqliteexpectedvalueint,
                              self.sqlitedb_state_file, self.smtpuseremail, self.smtppass,
                              self.emails, self.from_email, self.smtpserver, self.smtpport,
-                             self.smtpssl, self.smtpauthentication)
+                             self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
     def site_check_oracle_script(self):
         """
@@ -324,16 +324,13 @@ class MonitoredSite():
                                 self.oracleevaluateoperator,
                                 self.oracleexpectedvalueint, self.smtpuseremail, self.smtppass,
                                 self.emails, self.from_email, self.smtpserver, self.smtpport,
-                                self.smtpssl, self.smtpauthentication)
+                                self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site)
 
     def copy_log_for_agregation(self):
         """
         copy the log 
         """
-        copyfile(self.logpath, self.logdailyfeedfolder + '//' + f'{self.site}.log' )
-        if self.logdailyfeed:
-            if not path.exists(self.logdailyfeedfolder + '//' + 'a'):
-                mkdir(self.logdailyfeedfolder + '//' + 'a')
+        copyfile(self.logpath, self.logdailyfeedfolder + '//' + f'{self.site}.log')
 
     def removesite_logs(self):
         """

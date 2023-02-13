@@ -59,10 +59,10 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
     ping_msg_up = f'Subject: {sitename} {env} Ping - UP' + '\n' + f'Hi, monitoring identified that {hostname} / PING is UP \n{url}'
 
     if responsecode != '1':
-        message = f'{sitestarttime}|{site}|ERROR|Ping: Failed\r\n'
-        print(Fore.YELLOW + message + Style.RESET_ALL)
-        cf.write_file_append(logpath, message)
-        message = f'{sitestarttime}|{site}|ERROR|Ping Response code: {responsecode}\r\n'
+        # message = f'{sitestarttime}|{site}|ERROR|PING|\r\n'
+        # print(Fore.YELLOW + message + Style.RESET_ALL)
+        # cf.write_file_append(logpath, message)
+        message = f'{sitestarttime}|{site}|PING|ERROR|Response code = {responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
         # Check previos state of response code, to do not spam and send email / write same data in status file
@@ -70,8 +70,8 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_down,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
-            except Exception as exep:
-                message = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {exep}\r\n'
+            except Exception as exep_email:
+                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
             cf.write_current_state(responsecode, ping_state_file)
@@ -79,10 +79,10 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         # return False
 
     else:
-        message = f'{sitestarttime}|{site}|OK|Ping: OK\r\n'
-        print(message)
-        cf.write_file_append(logpath, message)
-        message = f'{sitestarttime}|{site}|OK|Ping Response code: {responsecode}\r\n'
+        # message = f'{sitestarttime}|{site}|PING|OK\r\n'
+        # print(message)
+        # cf.write_file_append(logpath, message)
+        message = f'{sitestarttime}|{site}|PING|OK|Response code = {responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
         # Check previos state of response code, to do not spam and send email / write same data in status file
@@ -90,8 +90,8 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_up,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
-            except Exception as exep:
-                message = f'{sitestarttime}|{site}|ERROR|Email notification failed on Exception: {exep}\r\n'
+            except Exception as exep_email:
+                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
             cf.write_current_state(responsecode, ping_state_file)
@@ -153,10 +153,10 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
         port_msg_up = f'Subject: {sitename} {env} Port - UP' + '\n' + f'Hi, monitoring identified that {hostname} Port {port} is UP \n{url}'
 
         if responsecode != '0':
-            message = f'{sitestarttime}|{site}|ERROR|Port {port}: Failed\r\n'
-            print(Fore.YELLOW + message + Style.RESET_ALL)
-            cf.write_file_append(logpath, message)
-            message = f'{sitestarttime}|{site}|ERROR||Port {port} Response code: {responsecode}\r\n'
+            # message = f'{sitestarttime}|{site}|ERROR|Port {port}: Failed\r\n'
+            # print(Fore.YELLOW + message + Style.RESET_ALL)
+            # cf.write_file_append(logpath, message)
+            message = f'{sitestarttime}|{site}|PORT|ERROR|Port={port}|Response code = {responsecode}\r\n'
             print(Fore.YELLOW + message + Style.RESET_ALL)
             cf.write_file_append(logpath, message)
             # Check previos state of response code, to do not spam and send email / write same data in status file
@@ -164,8 +164,8 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                    port_msg_down, smtpserver, smtpport, smtpssl, smtpauthentication)
-                except Exception as exep:
-                    message = f'{sitestarttime}|{site}|ERROR||ERROR: Email notification failed on Exception: {exep}\r\n'
+                except Exception as exep_email:
+                    message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message}')
                 cf.write_current_state(responsecode, port_state_file)
@@ -173,10 +173,10 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             # If discomment, whole loop will not continue to next item - port
             # return False
         else:
-            message = f'{sitestarttime}|{site}|OK|Port {port}: OK\r\n'
-            print(message)
-            cf.write_file_append(logpath, message)
-            message = f'{sitestarttime}|{site}|OK|Port {port} Response code: {responsecode}\r\n'
+            # message = f'{sitestarttime}|{site}|PORT|OK|Port = {port}\r\n'
+            # print(message)
+            # cf.write_file_append(logpath, message)
+            message = f'{sitestarttime}|{site}|PORT|OK|Port = {port}|Response code = {responsecode}\r\n'
             print(message)
             cf.write_file_append(logpath, message)
             # Check previos state of response code, to do not spam and send email / write same data in status file
@@ -184,8 +184,8 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                    port_msg_up, smtpserver, smtpport, smtpssl, smtpauthentication)
-                except Exception as exep:
-                    message = f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {exep}\r\n'
+                except Exception as exep_email:
+                    message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message}')
                 cf.write_current_state(responsecode, port_state_file)
@@ -266,7 +266,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                 ((datetime.now() + timedelta(days=certificateexpirationtrigger4 - 1)).date() ==
                 cert_exp_date.date())):
 
-                message_cert_exp = f'{sitestarttime}|{site}|WARNING|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
+                message_cert_exp = f'{sitestarttime}|{site}|SSL_CERTIFICATE_EXPIRATION|WARNING|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
                 print(Fore.YELLOW + message_cert_exp + Style.RESET_ALL)
                 cf.write_file_append(logpath, message_cert_exp)
 
@@ -279,15 +279,15 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                    cert_msg_exp, smtpserver, smtpport, smtpssl,
                                    smtpauthentication)
-                except Exception as exep:
+                except Exception as exep_email:
                     message_email_error =\
-                        f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {exep}\r\n'
+                        f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(Fore.RED + message_email_error + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message_email_error}')
                     cf.remove_file_func(certificate_expiration_check_file)
 
             else:
-                message_cert_no_exp = f'{sitestarttime}|{site}|OK|Certificate Expiration - OK. Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
+                message_cert_no_exp = f'{sitestarttime}|{site}|SSL_CERTIFICATE_EXPIRATION|OK|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
                 print(Fore.YELLOW + message_cert_no_exp + Style.RESET_ALL)
                 cf.write_file_append(logpath, message_cert_no_exp)
 
@@ -295,20 +295,20 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                               datetime.now().strftime("%d%m%Y"))
 
         except Exception as exep:
-            exep_crt = f'{sitestarttime}|{site}|ERROR|failed to obtain SSL certificate expiration info on {hostname} with error: {exep}\r\n'
+            exep_crt = f'{sitestarttime}|{site}|SSL_CERTIFICATE_EXPIRATION|ERROR|failed to obtain SSL certificate expiration info on {hostname} with Error = {exep}\r\n'
             print(Fore.RED + exep_crt + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{exep_crt}')
             cf.write_file(certificate_expiration_check_file,
                           datetime.now().strftime("%d%m%Y"))
 
             cert_msg_exp = f'Subject: Failed to obtain SSL certificate expiration info on {hostname}' + '\n' +\
-                f'Hi, monitoring identified that was not able to obtain certificate expiration info for {hostname} with error: {exep}'
+                f'Hi, monitoring identified that was not able to obtain certificate expiration info for {hostname} with Error = {exep}'
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                cert_msg_exp, smtpserver, smtpport, smtpssl,
                                smtpauthentication)
             except Exception as exep_email:
                 message_email_error =\
-                    f'{sitestarttime}|{site}|ERROR|ERROR: Email notification failed on Exception: {exep_email}\r\n'
+                    f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message_email_error + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message_email_error}')

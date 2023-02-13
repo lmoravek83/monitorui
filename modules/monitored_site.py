@@ -346,10 +346,10 @@ class MonitoredSite():
                             if (Path.stat(item).st_mtime) < time() - self.logsretention * 86400:
                                 remove(item)
                         except Exception as exep:
-                            message = f'Failed to remove log file: {exep}\r\n'
+                            message = f'|ERROR|Failed to remove log file: {exep}\r\n'
                             print(Fore.RED + message + Style.RESET_ALL)
                             cf.write_file_append(self.logpath, f'{message}')
             except Exception as exep:
-                message = f'Failed to oparate with log folder during celaning log files: {exep}\r\n'
+                message = f'|ERROR|Failed to oparate with log folder during celaning log files: {exep}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(self.logpath, f'{message}')

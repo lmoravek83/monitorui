@@ -27,7 +27,7 @@ def get_response_code(url: str, sslcertificatevalidation: bool) -> str:
 def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str,
                         defined_responsecode: str, sslcertificatevalidation: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
-                        smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str) -> bool:
+                        smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str, systemname: str) -> bool:
     """
     Function check the repose code 'get_response_code' on the site and compared with given code,
     based on the evaluation is send email notification and logged
@@ -61,10 +61,10 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
         f'Hi,\nmonitoring identified that site {sitename} responsecode correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
 
     if obtained_responsecode != defined_responsecode:
-        # message = f'{sitestarttime}|{site}|HTTP_RESPONSE_CODE|ERROR|State state: Down\r\n'
+        # message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|ERROR|State state: Down\r\n'
         # print(Fore.YELLOW + message + Style.RESET_ALL)
         # cf.write_file_append(logpath, message)
-        message = f'{sitestarttime}|{site}|HTTP_RESPONSE_CODE|ERROR|Status = Down|Response code: {obtained_responsecode}\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|ERROR|Status = Down|Response code: {obtained_responsecode}\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
         # Check previos state of response code, to do not spam and send email
@@ -74,16 +74,16 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
                                msg_responsecode_failed, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as exep_email:
-                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
             cf.write_current_state(obtained_responsecode, responsecode_state_file)
         return False
     else:
-        # message = f'{sitestarttime}|{site}|OK|Portal state: OK\r\n'
+        # message = f'{sitestarttime}|{site}|{systemname}|{env}|OK|Portal state: OK\r\n'
         # print(message)
         # cf.write_file_append(logpath, message)
-        message = f'{sitestarttime}|{site}|HTTP_RESPONSE_CODE|OK|Status = UP|Response code: {obtained_responsecode}\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|OK|Status = UP|Response code: {obtained_responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
         # Check previos state of response code, to do not spam and send email
@@ -93,7 +93,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
                                msg_responsecode_ok, smtpserver, smtpport,
                                smtpssl, smtpauthentication)
             except Exception as exep_email:
-                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
             cf.write_current_state(obtained_responsecode, responsecode_state_file)
@@ -156,7 +156,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                        webactualtmpfootprint_file: str, websavedfootprint_file: str,
                        weblaststatefootprint_file: str, weblaststatefootprint_file_nosuffix: str,
                        smtpuseremail: str, smtppass: str, emails: list, from_email: str,
-                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str):
+                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str, systemname: str):
     """
     Function
     - Create new web footprint of given url
@@ -195,7 +195,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         create_web_current_foot_print(url, webactualtmpfootprint_file, htmlignoreelements,
                                       sslcertificatevalidation)
     except Exception as excep:
-        message = f'{sitestarttime}|{site}|create_web_current_foot_print Failed on Exception: {excep}\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|create_web_current_foot_print Failed on Exception: {excep}\r\n'
         print(message)
         cf.write_file_append(logpath, f'{message}')
         cf.remove_file_func(webactualtmpfootprint_file)
@@ -212,7 +212,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
 
     # Logic to compare footprint of webpage with actual webpagefotpritn
     if cf.compare_files(websavedfootprint_file, webactualtmpfootprint_file):
-        message = f'{sitestarttime}|{site}|WEB_CHANGE|OK|Page compare: OK\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|WEB_CHANGE|OK|Page compare: OK\r\n'
         print(message)
         cf.write_file_append(logpath, message)
         # Snapshoting to the previous state
@@ -220,7 +220,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         if not cf.compare_files(weblaststatefootprint_file, webactualtmpfootprint_file):
             # make snapshot of changed page
             copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
-            message = f'{sitestarttime}|{site}|WEB_CHANGE|OK|Page Change: Page changed to the original\r\n'
+            message = f'{sitestarttime}|{site}|{systemname}|{env}|WEB_CHANGE|OK|Page Change: Page changed to the original\r\n'
             print(message)
             cf.write_file_append(logpath, message)
             # remove last state footprint and make it from actual web state
@@ -230,14 +230,14 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, msg_pageoriginal,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as exep_email:
-                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
         cf.remove_file_func(webactualtmpfootprint_file)
         return True
 
     else:
-        message = f'{sitestarttime}|{site}|ERROR|Page comapre: Failed\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|ERROR|Page comapre: Failed\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
         # Snapshoting to the previous state
@@ -245,7 +245,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
         if not cf.compare_files(weblaststatefootprint_file, webactualtmpfootprint_file):
             # make snapshot of changed page
             copyfile(webactualtmpfootprint_file, f'{weblaststatefootprint_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
-            message = f'{sitestarttime}|{site}|WEB_CHANGE|WARNING|Page Change: Page changed to the last state\r\n'
+            message = f'{sitestarttime}|{site}|{systemname}|{env}|WEB_CHANGE|WARNING|Page Change: Page changed to the last state\r\n'
             print(Fore.YELLOW + message + Style.RESET_ALL)
             cf.write_file_append(logpath, message)
             # remove last state footprint and make it from actual web state
@@ -255,7 +255,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, msg_comparefailed,
                                smtpserver, smtpport, smtpssl, smtpauthentication)
             except Exception as exep_email:
-                message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
 

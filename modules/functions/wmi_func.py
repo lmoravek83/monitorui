@@ -27,7 +27,7 @@ def check_wmi_proccesses_file_exist(wmiprocesses_file) -> None:
 
 def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmiprocessestmp_file,
                       wmiprocessestmp_file_nosuffix, wmiprocesses, smtpuseremail, smtppass, emails,
-                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, sitestarttime, site: str):
+                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, sitestarttime, site: str, systemname: str):
     """
     Function
     - Get and compare if processes are running on monitored machine
@@ -81,7 +81,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
         # Check for defined (configured)  processes, if they exist in obtained process list
         for eachproces in wmiprocesses:
             if eachproces in list_of_processes:
-                message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|OK|{eachproces} - OK\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|OK|{eachproces} - OK\r\n'
                 print(message)
                 list_of_processes_status.append(f'{eachproces} - OK')
                 cf.write_file_append(logpath, message)
@@ -99,13 +99,13 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
 
         if process_failed_flag is False:
             if cf.compare_files(wmiprocesses_file, wmiprocessestmp_file):
-                message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|OK|All processes are running\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|OK|All processes are running\r\n'
                 print(message)
                 cf.write_file_list(logpath, message)
                 copyfile(wmiprocessestmp_file, wmiprocesses_file)
             else:
                 copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
-                message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|OK|All procsses are running\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|OK|All procsses are running\r\n'
                 print(message)
                 cf.write_file_append(logpath, message)
                 copyfile(wmiprocessestmp_file, wmiprocesses_file)
@@ -119,13 +119,13 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                    smtpserver, smtpport, smtpssl, smtpauthentication)
                 except Exception as exep_email:
-                    message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                    message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(message)
                     cf.write_file_append(logpath, f'{message}')
 
         if process_failed_flag is True:
             if cf.compare_files(wmiprocesses_file, wmiprocessestmp_file):
-                message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|ERROR|Monitored proces(es) failed\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|ERROR|Monitored proces(es) failed\r\n'
                 print(message)
                 cf.write_file_list(logpath, message)
                 copyfile(wmiprocessestmp_file, wmiprocesses_file)
@@ -133,7 +133,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
             # is False and process_failed_flag is True:
             else:
                 copyfile(wmiprocessestmp_file, f'{wmiprocessestmp_file_nosuffix}_{datetime.now().strftime("%d%m%Y_%H%M%S")}.txt')
-                message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|ERROR|Monitored proces(es) failed\r\n'
+                message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|ERROR|Monitored proces(es) failed\r\n'
                 print(message)
                 cf.write_file_append(logpath, message)
                 copyfile(wmiprocessestmp_file, wmiprocesses_file)
@@ -147,7 +147,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
                                    smtpserver, smtpport, smtpssl, smtpauthentication)
                 except Exception as exep_email:
-                    message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+                    message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(message)
                     cf.write_file_append(logpath, f'{message}')
 
@@ -155,14 +155,14 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
         # print(list_of_processes_status)
 
     except Exception as wmi_e:
-        message = f'{sitestarttime}|{site}|WINDOWS_PROCESS|Failed to conenct to WMI API: {wmi_e}\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|WINDOWS_PROCESS|Failed to conenct to WMI API: {wmi_e}\r\n'
         print(message)
         cf.write_file_append(logpath, f'{message}')
         try:
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, wmi_connection_failed,
                            smtpserver, smtpport, smtpssl, smtpauthentication)
         except Exception as exep_email:
-            message = f'{sitestarttime}|{site}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
+            message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
             print(message)
             cf.write_file_append(logpath, f'{message}')
 

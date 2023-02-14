@@ -26,7 +26,7 @@ while SCRIPT_LOOP:
     if not path.exists('.//logs/log_daily_feed'):
         mkdir('.//logs/log_daily_feed')
     LOG_DIR_PATH = './/logs//'
-    message = f'|INFO|--Starting monitoring at {scriptstarttime}-- \r\n'
+    message = f'{datetime.now()}|MONITORING_EXECUTION|INFO|Monitoring Start\r\n'
     print(message)
     cf.write_file_append(logpath, message)
 
@@ -55,7 +55,7 @@ while SCRIPT_LOOP:
     if 'logsretention' not in config:
         config['logsretention'] = None
 
-    listofsystems = cf.list_directories(sitesfolder)
+    listofsystems = cf.list_directories(sitesfolder + "//")
 
     for system in listofsystems:
         # Read sites in to list
@@ -137,7 +137,7 @@ while SCRIPT_LOOP:
                 else:
                     print(f"-Site {site} skipped, not sheduled for today \r\n")
             except Exception as e:
-                message = f'{scriptstarttime}|{site}|ERROR|Skipped on Exception, issues found: {e} \r\n'
+                message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Skipped on Exception, issues found: {e} \r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
                 cf.write_file_append(logpath, f'{message}')
 
@@ -152,11 +152,11 @@ while SCRIPT_LOOP:
                         if (Path.stat(item).st_mtime) < time() - config['logsretention'] * 86400:
                             remove(item)
                     except Exception as remove_e:
-                        message = f'|ERROR|Failed to remove log file: {remove_e}\r\n'
+                        message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Failed to remove log file: {remove_e}\r\n'
                         print(Fore.RED + message + Style.RESET_ALL)
                         cf.write_file_append(logpath, f'{message}')
         except Exception as e:
-            message = f'|ERROR|Failed to oparate with log folder during celaning log files: {e}\r\n'
+            message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Failed to oparate with log folder during celaning log files: {e}\r\n'
             print(Fore.RED + message + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message}')
 
@@ -167,16 +167,16 @@ while SCRIPT_LOOP:
                         if (Path.stat(item).st_mtime) < time() - config['logsretention'] * 86400:
                             remove(item)
                     except Exception as remove_e:
-                        message = f'|ERROR|Failed to remove log file: {remove_e}\r\n'
+                        message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Failed to remove log file: {remove_e}\r\n'
                         print(Fore.RED + message + Style.RESET_ALL)
                         cf.write_file_append(logpath, f'{message}')
         except Exception as e:
-            message = f'|ERROR|Failed to oparate with log folder during celaning log files: {e}\r\n'
+            message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Failed to oparate with log folder during celaning log files: {e}\r\n'
             print(Fore.RED + message + Style.RESET_ALL)
             cf.write_file_append(logpath, f'{message}')
 
     # Calculte running time of script
-    message = f'|INFO|--Monitoring execution time: {str(datetime.now() - scriptstarttime)}--\r\n'
+    message = f'{datetime.now()}|MONITORING_EXECUTION|INFO|Monitoring End|Monitoring execution time = {str(datetime.now() - scriptstarttime)}\r\n'
     print(message)
     cf.write_file_append(logpath, message)
     # Work in loop condition

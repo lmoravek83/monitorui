@@ -126,7 +126,7 @@ if 'workinloop' not in config:
     config['workinloop'] = False
 
 if 'loopintervallmin' not in config:
-    config['loopintervallmin'] = 500
+    config['loopintervallmin'] = 300
 
 if 'loopintervallmax' not in config:
     config['loopintervallmax'] = 500
@@ -195,6 +195,7 @@ while SCRIPT_LOOP:
         SCRIPT_LOOP = False
 
     if config['workinloop'] is True:
+        # Work in loop condition
         sleep(randint(config['loopintervallmin'], config['loopintervallmax']))
 
 

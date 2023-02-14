@@ -9,7 +9,9 @@
   "smtppass": "",
   "from_email": "",
   "workinloop": false,
-  "loopintervallmin": 250,
-  "loopintervallmax": 700,
-  "logsretention": 60
+  "loopintervallmin": 5,
+  "loopintervallmax": 10,
+  "logsretention": 60,
+  "log_daily_feed": true,
+  "paralel_checks": false
 }

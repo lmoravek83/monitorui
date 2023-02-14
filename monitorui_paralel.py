@@ -138,7 +138,7 @@ SCRIPT_LOOP = True
 
 while SCRIPT_LOOP:
     listofsystems = cf.list_directories(sitesfolder + "//")
-    print(listofsystems)
+    # print(listofsystems)
     for system in listofsystems:
         # Read sites in to list
         listofsites = cf.list_directories(sitesfolder + "//" + system + "//")
@@ -196,5 +196,3 @@ message = f'{datetime.now()}|MONITORING_EXECUTION|INFO|Monitoring End|Monitoring
 print(message)
 cf.write_file_append(logpath, message)
 # Work in loop condition
-
-

@@ -12,7 +12,7 @@ except Exception as e:
 
 
 def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlitedbname,
-                         sqlitesqlcommand, sqlliteevaluateoperator, sqliteexpectedvalueint,
+                         sqlitesqlcommand, sqlliteevaluateoperator, sqliteexpectedvalue,
                          sqlitedb_state_file, smtpuseremail, smtppass, emails, from_email,
                          smtpserver, smtpport, smtpssl, smtpauthentication, sitestarttime, site: str, systemname: str):
     """
@@ -31,7 +31,7 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
     trigger or not trigger email notfication
     param: sqlitesqlcommand - sql command to be executed ont the db
     param: sqlliteevaluateoperator - oprator for evalueate <,>, !=, etc ..
-    param: sqliteexpectedvalueint - value gor which is compared result of sql scrit
+    param: sqliteexpectedvalue - value gor which is compared result of sql scrit
 
     param: smtpuseremail - user email for SMTP autentification, email notification
     param: smtppass - password for SMTP autentification
@@ -100,29 +100,29 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
 
     sqlcomparision = None
     if sqlresult is not None:
-        if sqliteexpectedvalueint and sqlliteevaluateoperator is not None:
+        if sqliteexpectedvalue and sqlliteevaluateoperator is not None:
             try:
                 # print(sqlliteevaluateoperator)
                 if sqlliteevaluateoperator == '<':
-                    if sqlresult < int(sqliteexpectedvalueint):
+                    if sqlresult < int(sqliteexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif sqlliteevaluateoperator == '>':
-                    if sqlresult > int(sqliteexpectedvalueint):
+                    if sqlresult > int(sqliteexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif sqlliteevaluateoperator == '=':
-                    if sqlresult == int(sqliteexpectedvalueint):
+                    if sqlresult == int(sqliteexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif sqlliteevaluateoperator == '!=':
-                    if sqlresult != int(sqliteexpectedvalueint):
+                    if sqlresult != int(sqliteexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'

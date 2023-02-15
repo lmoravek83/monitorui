@@ -189,10 +189,10 @@ class MonitoredSite():
         else:
             self.oraclesqlcommand = ''
 
-        if "oracleexpectedvalueint" in siteconfig:
-            self.oracleexpectedvalueint = siteconfig['oracleexpectedvalueint']
+        if "oracleexpectedvalue" in siteconfig:
+            self.oracleexpectedvalue = siteconfig['oracleexpectedvalue']
         else:
-            self.oracleexpectedvalueint = None
+            self.oracleexpectedvalue = None
 
         # SQLITE DB monitoring Configuration
         if "sqlitdbepath" in siteconfig:
@@ -215,10 +215,10 @@ class MonitoredSite():
         else:
             self.sqlitesqlcommand = ''
 
-        if "sqliteexpectedvalueint" in siteconfig:
-            self.sqliteexpectedvalueint = siteconfig['sqliteexpectedvalueint']
+        if "sqliteexpectedvalue" in siteconfig:
+            self.sqliteexpectedvalue = siteconfig['sqliteexpectedvalue']
         else:
-            self.sqliteexpectedvalueint = None
+            self.sqliteexpectedvalue = None
 
         # Files configuration
         self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'
@@ -314,7 +314,7 @@ class MonitoredSite():
         """
         check_sqllite_script(self.sitename, self.env, self.logpath, self.hostname,
                              self.sqlitdbepath, self.sqlitedbname, self.sqlitesqlcommand,
-                             self.sqlliteevaluateoperator, self.sqliteexpectedvalueint,
+                             self.sqlliteevaluateoperator, self.sqliteexpectedvalue,
                              self.sqlitedb_state_file, self.smtpuseremail, self.smtppass,
                              self.emails, self.from_email, self.smtpserver, self.smtpport,
                              self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
@@ -327,7 +327,7 @@ class MonitoredSite():
                                 self.oracleuser, self.oraclepassword, self.oracledsn,
                                 self.oracledb_state_file, self.oraclesqlcommand,
                                 self.oracleevaluateoperator,
-                                self.oracleexpectedvalueint, self.smtpuseremail, self.smtppass,
+                                self.oracleexpectedvalue, self.smtpuseremail, self.smtppass,
                                 self.emails, self.from_email, self.smtpserver, self.smtpport,
                                 self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
 

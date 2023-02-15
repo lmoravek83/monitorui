@@ -1,6 +1,6 @@
 # <span style="color:#37ABC8">Monitor</span><span style="color:#FF6600">~~UI~~</span>
 
-First, there is no UI (User interface), it was thought about at begining, but there are more important thinks, like live itself :) But do not wory, MonitorUI does great job and it has sneaky notifications via mail and very nice logs. Who wants another dashboard when you can integrate with such great tool like Grafana, Kibana, Splunk (this is not the advertisment) etc ... Also it does prety nice color outputs on terminal (so your eyes will not be lost in shadows).
+First, there is no UI (User interface), it was thought about it at begining, but there are more important thinks, like life itself :) But do not wory, MonitorUI does great job, it has realy good notifications via mail and very nice logs. Who wants another dashboard when you can integrate with such great tool like Grafana, Kibana, Splunk (this is not the advertisment) etc ... Also it does prety nice color outputs on terminal (so your eyes will not be lost in shadows).
 
 ## Ok, stop talking, now what Monitor~~UI~~ can do for you ?
 
@@ -39,7 +39,7 @@ First, there is no UI (User interface), it was thought about at begining, but th
 
 Currently the bigest deployment about which we know is monitoring of 150+ servers and on eacch it perfroms 3 - 4 checks, which means 600 checks each few minuts. The MonitorUI can performs this in cca. 15 seconds, which isquite good. And we are working on more optimalitazion. Enoug of self-praise!
 
-### Where can I used it ?
+### Where I Can use it ?
 
 There are no limitations from us, but it fits everywhere where you need monitor internal or external serverces and ifrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licneses. Monitor~~UI~~ does not use any probes, so it lieterraly works Out of Box. Supported OSses: Windows, Linux, Freebsd (yes, there is now advertismetn for Freebsd :)) Also oyu can run it from the cloud or anywhere where Python3 Works.
 

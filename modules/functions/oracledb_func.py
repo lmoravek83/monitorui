@@ -18,7 +18,7 @@ except Exception as excep:
 
 def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oraclepassword,
                             oracledsn, oracledb_state_file, oraclesqlcommand,
-                            oracleevaluateoperator, oracleexpectedvalueint, smtpuseremail,
+                            oracleevaluateoperator, oracleexpectedvalue, smtpuseremail,
                             smtppass, emails, from_email, smtpserver,
                             smtpport, smtpssl, smtpauthentication, sitestarttime, site: str, systemname: str):
     """
@@ -38,7 +38,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     trigger or not trigger email notfication
     param: oraclesqlcommand - sql command to be executed ont the db
     param: oracleevaluateoperator - oprator for evalueate <,>, !=, etc ..
-    param: oracleexpectedvalueint - value gor which is compared result of sql scrit
+    param: oracleexpectedvalue - value gor which is compared result of sql scrit
 
     param: smtpuseremail - user email for SMTP autentification, email notification
     param: smtppass - password for SMTP autentification
@@ -107,29 +107,29 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                 cf.write_file_append(logpath, f'{message_email_error}')
     sqlcomparision = None
     if sqlresult is not None:
-        if oracleexpectedvalueint and oracleevaluateoperator is not None:
+        if oracleexpectedvalue and oracleevaluateoperator is not None:
             try:
                 # print(sqlliteevaluateoperator)
                 if oracleevaluateoperator == '<':
-                    if sqlresult < int(oracleexpectedvalueint):
+                    if sqlresult < int(oracleexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif oracleevaluateoperator == '>':
-                    if sqlresult > int(oracleexpectedvalueint):
+                    if sqlresult > int(oracleexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif oracleevaluateoperator == '=':
-                    if sqlresult == int(oracleexpectedvalueint):
+                    if sqlresult == int(oracleexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
 
                 elif oracleevaluateoperator == '!=':
-                    if sqlresult != int(oracleexpectedvalueint):
+                    if sqlresult != int(oracleexpectedvalue):
                         sqlcomparision = 'OK'
                     else:
                         sqlcomparision = 'NOK'
@@ -192,7 +192,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
             cf.write_current_state(sqlcomparision, oracledb_state_file)
         return True
     else:
-        message_cond_val_failed = f'{sitestarttime}|{site}|{systemname}|{env}|ORACLE_DB|ERROR|SQL condition validation failed - SQL scripts results are out of defined conditon, records {sqlresult} expected {oracleevaluateoperator} {oracleexpectedvalueint}\r\n'
+        message_cond_val_failed = f'{sitestarttime}|{site}|{systemname}|{env}|ORACLE_DB|ERROR|SQL condition validation failed - SQL scripts results are out of defined conditon, records {sqlresult} expected {oracleevaluateoperator} {oracleexpectedvalue}\r\n'
         print(Fore.YELLOW + message_cond_val_failed + Style.RESET_ALL)
         cf.write_file_append(logpath, message_cond_val_failed)
         if not cf.check_previous_state(sqlcomparision, oracledb_state_file):

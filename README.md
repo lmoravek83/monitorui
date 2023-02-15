@@ -45,4 +45,11 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ## I want it, how can I install ?
 
-### 
+### Windows
+
+1. Download 
+
+### Linux
+
+### Freebsd (We realy like Freebsd) Yes another ad :)
+

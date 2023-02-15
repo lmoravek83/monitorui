@@ -139,6 +139,7 @@ if 'paralel_checks' not in config:
 
 SCRIPT_LOOP = True
 
+# TODO: In future make paralel for not only sites, but systems, paralel of paralel
 while SCRIPT_LOOP:
     listofsystems = cf.list_directories(sitesfolder + "//")
     # print(listofsystems)

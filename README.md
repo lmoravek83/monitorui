@@ -6,7 +6,9 @@ First, there is no UI (User interface), it was thought about it at begining, but
 
 ### General
 
-* Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (Https, WMI, DB connectors).
+* Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors).
+
+* Supported OSses: Windows, Linux, Freebsd. Also you can run it from the cloud or anywhere where Python3 Works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisment)
 
 ### Network monitoring
 
@@ -41,15 +43,25 @@ Currently the bigest deployment about which we know is monitoring of 150+ server
 
 ### Where I Can use it ?
 
-There are no limitations from us, but it fits everywhere where you need monitor internal or external serverces and ifrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licneses. Monitor~~UI~~ does not use any probes, so it lieterraly works Out of Box. Supported OSses: Windows, Linux, Freebsd (yes, there is now advertismetn for Freebsd :)) Also oyu can run it from the cloud or anywhere where Python3 Works.
+There are no limitations from us, but it fits everywhere where you need monitor internal or external serverces and ifrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licneses. Monitor~~UI~~ does not use any probes, so it lieterraly works Out of Box.
 
 ## I want it, how can I install ?
 
 ### Windows
 
-1. Download 
+1. Download and install Python 3.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forged to to check "add path", if you missed it, do not wory, just reinstall again and check the "add path".
 
-### Linux
+2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
-### Freebsd (We realy like Freebsd) Yes another ad :)
+3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+
+4. In the folder "monitorui-master" you will find "install_windows.bat". Rund this sript. If will install necessary python packages from pypi.org (store for python libraries)
+
+5. That is all :) Now proceed to Configration part
+
+* Also you can use git clone and make Python Venv, but this is out of scope of this manual (we want keep it simple)
+
+### Linux 
+
+### Freebsd (We realy like Freebsd and Yes this is ad :))
 

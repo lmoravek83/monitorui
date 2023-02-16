@@ -18,7 +18,7 @@ def get_response_code(url: str, sslcertificatevalidation: bool) -> str:
     Return: obtained response code
     """
     try:
-        return str(get(url, verify=sslcertificatevalidation, timeout=3).status_code)
+        return str(get(url, verify=sslcertificatevalidation, timeout=7).status_code)
 
     except Exception as excep:
         return f"Response Code failed on Exception: {excep}"
@@ -115,7 +115,7 @@ def create_web_current_foot_print(url: str, webactualtmpfootprint_file: str,
     # Remove old Actual Foot print file - if exist
     cf.remove_file_func(webactualtmpfootprint_file)
 
-    content = list(get(url, verify=sslcertificatevalidation, timeout=3).text.split('\n'))
+    content = list(get(url, verify=sslcertificatevalidation, timeout=7).text.split('\n'))
 
     filestring = ''
     for element in content:

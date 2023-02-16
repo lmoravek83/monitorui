@@ -7,7 +7,7 @@
   "monitoringend": "235959",
   "tags": [""],
   "monitoringdays": [0, 1, 2, 3, 4, 5, 6],
-  "emailrecipients": [ "monitoruicom@gmail.com" ],
+  "emailrecipients": [ "@gmail.com" ],
   "checkhostping": true,
   "checkhostport": true,
   "hostports": [ "443", "80" ],

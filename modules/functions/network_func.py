@@ -108,7 +108,7 @@ def get_port_status(hostname, port):
     resp = ''
     try:
         a_socket = socket(AF_INET, SOCK_STREAM)
-        a_socket.settimeout(3.0)
+        a_socket.settimeout(7.0)
         resp = str(a_socket.connect_ex((hostname, int(port))))
         a_socket.close()
         return resp
@@ -209,7 +209,7 @@ def ssl_expiry_datetime(host, port):
     )
     # 3 second timeout because Lambda has runtime limitations
     # try:
-    conn.settimeout(3.0)
+    conn.settimeout(7.0)
     conn.connect((host, port))
     ssl_info = conn.getpeercert()
     return datetime.strptime(ssl_info['notAfter'], ssl_date_fmt)

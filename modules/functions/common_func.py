@@ -113,7 +113,7 @@ def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserve
     param: smtpauthentication - use autentification for smtp connection   try:
     """
     print(Fore.CYAN + f'Sending email to {email_list}\r\n' + Style.RESET_ALL)
-    smtp_object = SMTP(smtpserver, port=smtpport, timeout=3)
+    smtp_object = SMTP(smtpserver, port=smtpport, timeout=10)
     smtp_object.ehlo()
     if smtpssl:
         smtp_object.starttls()

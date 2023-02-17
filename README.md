@@ -49,7 +49,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ### Windows
 
-1. Download and install Python 3.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forged to to check "add path", if you missed it, do not wory, just reinstall again and check the "add path".
+1. Download and install Python 3.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just install and install Python 3.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**.
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 

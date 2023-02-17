@@ -86,9 +86,9 @@ def go_monitor(site):
                     print(Fore.RED + message + Style.RESET_ALL)
                     cf.write_file_append(logpath, f'{message}')
             else:
-                print(f"-Site {site} skipped, out of working hours- \r\n")
+                print(f'{datetime.now()}|MONITORING_EXECUTION|INFO|{site} skipped, out of working hours- \r\n')
         else:
-            print(f"-Site {site} skipped, not sheduled for today \r\n")
+            print(f'{datetime.now()}|MONITORING_EXECUTION|INFO|{site} skipped, not sheduled for today \r\n')
     except Exception as exep:
         message = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|Skipped on Exception, issues found: {exep} \r\n'
         print(Fore.RED + message + Style.RESET_ALL)

@@ -2,7 +2,6 @@
 Module which is covering Webfunctions functions related MONITORUI
 """
 
-# from urllib import request
 from datetime import datetime
 from os import path, remove
 from shutil import copyfile
@@ -27,7 +26,7 @@ def get_response_code(url: str, sslcertificatevalidation: bool) -> str:
 def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str,
                         defined_responsecode: str, sslcertificatevalidation: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
-                        smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str, systemname: str) -> bool:
+                        smtpssl: bool, smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str) -> bool:
     """
     Function check the repose code 'get_response_code' on the site and compared with given code,
     based on the evaluation is send email notification and logged
@@ -72,7 +71,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                msg_responsecode_failed, smtpserver, smtpport,
-                               smtpssl, smtpauthentication)
+                               smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
@@ -91,7 +90,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                msg_responsecode_ok, smtpserver, smtpport,
-                               smtpssl, smtpauthentication)
+                               smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
@@ -156,7 +155,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
                        webactualtmpfootprint_file: str, websavedfootprint_file: str,
                        weblaststatefootprint_file: str, weblaststatefootprint_file_nosuffix: str,
                        smtpuseremail: str, smtppass: str, emails: list, from_email: str,
-                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, sitestarttime, site: str, systemname: str):
+                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
     """
     Function
     - Create new web footprint of given url
@@ -228,7 +227,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
             copyfile(webactualtmpfootprint_file, weblaststatefootprint_file)
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, msg_pageoriginal,
-                               smtpserver, smtpport, smtpssl, smtpauthentication)
+                               smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
@@ -253,7 +252,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
             copyfile(webactualtmpfootprint_file, weblaststatefootprint_file)
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, msg_comparefailed,
-                               smtpserver, smtpport, smtpssl, smtpauthentication)
+                               smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)

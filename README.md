@@ -31,7 +31,7 @@ First, there is no UI (User interface), it was thought about it at begining, but
 
 ### WMI - MS Windows
 
-* Windows processes (check if Windows proces(es) runs or not)
+* Windows processes (check if Windows proces(es) runs or not) *this works only if Monitor~~UI~~ is installed on Windows, Windows like windows :)
 
 ### Other type of check needed? Write us feedback, we are open to all of ideas ;)
 
@@ -64,4 +64,12 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 ### Linux 
 
 ### Freebsd (We realy like Freebsd and Yes this is ad :))
+
+## Configuration
+
+### General Configuration
+
+### Site Configuration
+
+#### Oracle DB drivers
 

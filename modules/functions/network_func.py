@@ -28,7 +28,7 @@ def get_ping_status(hostname):
 def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
                ping_state_file: str, smtpuseremail: str, smtppass: str, emails: list,
                from_email: str, smtpserver: str, smtpport: int, smtpssl: bool,
-               smtpauthentication: bool, sitestarttime, site: str, systemname: str):
+               smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
     """
     Function check the repose code 'get_response_code' on the site and compared\
             with given code, based on the evaluation is send email notification and logged
@@ -69,7 +69,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         if not cf.check_previous_state(responsecode, ping_state_file):
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_down,
-                               smtpserver, smtpport, smtpssl, smtpauthentication)
+                               smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
@@ -89,7 +89,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         if not cf.check_previous_state(responsecode, ping_state_file):
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email, ping_msg_up,
-                               smtpserver, smtpport, smtpssl, smtpauthentication)
+                               smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                 print(Fore.RED + message + Style.RESET_ALL)
@@ -119,7 +119,7 @@ def get_port_status(hostname, port):
 def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
                port_state_file_nosuffix: str, hostports: list, smtpuseremail: str, smtppass: str,
                emails: list, from_email: str, smtpserver: str, smtpport: int, smtpssl: bool,
-               smtpauthentication: bool, sitestarttime, site: str, systemname: str):
+               smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
     """
     Function check the repose code 'get_response_code' on the site and compared with given code,\
             based on the evaluation is send email notification and logged
@@ -163,7 +163,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             if not cf.check_previous_state(responsecode, port_state_file):
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
-                                   port_msg_down, smtpserver, smtpport, smtpssl, smtpauthentication)
+                                   port_msg_down, smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
                 except Exception as exep_email:
                     message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
@@ -183,7 +183,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             if not cf.check_previous_state(responsecode, port_state_file):
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
-                                   port_msg_up, smtpserver, smtpport, smtpssl, smtpauthentication)
+                                   port_msg_up, smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
                 except Exception as exep_email:
                     message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(Fore.RED + message + Style.RESET_ALL)
@@ -225,7 +225,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                                  certificateexpirationtrigger4: int,
                                  smtpuseremail: str, smtppass: str, emails: list, from_email: str,
                                  smtpserver: str, smtpport: int, smtpssl: bool,
-                                 smtpauthentication: bool, sitestarttime, site: str, systemname: str):
+                                 smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
     """
     Function to check if certificate expires
 
@@ -278,7 +278,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                 try:
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                    cert_msg_exp, smtpserver, smtpport, smtpssl,
-                                   smtpauthentication)
+                                   smtpauthentication, timeout_email)
                 except Exception as exep_email:
                     message_email_error =\
                         f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
@@ -306,7 +306,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
             try:
                 cf.send_emails(smtpuseremail, smtppass, emails, from_email,
                                cert_msg_exp, smtpserver, smtpport, smtpssl,
-                               smtpauthentication)
+                               smtpauthentication, timeout_email)
             except Exception as exep_email:
                 message_email_error =\
                     f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'

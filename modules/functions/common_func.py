@@ -100,7 +100,7 @@ def remove_file_func(file):
 
 
 def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserver, smtpport,
-                smtpssl, smtpauthencitation):
+                smtpssl, smtpauthencitation, timeout_email):
     """
     param: smtpuseremail - user email for SMTP autentification, email notification
     param: password - password for SMTP autentification
@@ -113,7 +113,7 @@ def send_emails(smtpuseremail, password, email_list, from_adress, msg, smtpserve
     param: smtpauthentication - use autentification for smtp connection   try:
     """
     print(Fore.CYAN + f'Sending email to {email_list}\r\n' + Style.RESET_ALL)
-    smtp_object = SMTP(smtpserver, port=smtpport, timeout=10)
+    smtp_object = SMTP(smtpserver, port=smtpport, timeout=timeout_email)
     smtp_object.ehlo()
     if smtpssl:
         smtp_object.starttls()

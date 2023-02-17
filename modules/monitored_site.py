@@ -73,6 +73,11 @@ class MonitoredSite():
         else:
             self.logsretention = None
 
+        if 'timeout_email' in config:
+            self.timeout_email = config['timeout_email']
+        else:
+            self.timeout_email = 10
+
         # Write monitoring Time stame un to the Site Log
         if not path.exists(self.sitefolder + '//logs'):
             mkdir(self.sitefolder + '//logs')
@@ -220,6 +225,11 @@ class MonitoredSite():
         else:
             self.sqliteexpectedvalue = None
 
+        if 'timeout_check' in siteconfig:
+            self.timeout_check = siteconfig['timeout_check']
+        else:
+            self.timeout_check = 10
+
         # Files configuration
         self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'
         self.ping_state_file = f'{self.sitefolder}//ping_state.txt'
@@ -251,7 +261,7 @@ class MonitoredSite():
         check_response_code(self.sitename, self.env, self.responsecode_state_file,
                             self.url, self.siteresponsecode, self.sslcertificatevalidation, self.logpath, self.smtpuseremail,
                             self.smtppass, self.emails, self.from_email, self.smtpserver,
-                            self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                            self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_check_site_content(self):
         """
@@ -263,7 +273,7 @@ class MonitoredSite():
                            self.weblaststatefootprint_file,
                            self.weblaststatefootprint_file_nosuffix, self.smtpuseremail,
                            self.smtppass, self.emails, self.from_email, self.smtpserver,
-                           self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                           self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_check_ping(self):
         """
@@ -272,7 +282,7 @@ class MonitoredSite():
         check_ping(self.sitename, self.env, self.logpath, self.hostname, self.url,
                    self.ping_state_file, self.smtpuseremail, self.smtppass, self.emails,
                    self.from_email, self.smtpserver, self.smtpport, self.smtpssl,
-                   self.smtpauthentication, self.sitestarttime, self.site, self.sitename)
+                   self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.sitename)
 
     def site_check_port(self):
         """
@@ -281,7 +291,7 @@ class MonitoredSite():
         check_port(self.sitename, self.env, self.logpath, self.hostname, self.url,
                    self.port_state_file_nosuffix, self.hostports, self.smtpuseremail,
                    self.smtppass, self.emails, self.from_email, self.smtpserver,
-                   self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                   self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_certificate_expiration_check(self):
         """
@@ -296,7 +306,7 @@ class MonitoredSite():
                                      self.certificateexpirationtrigger4, self.smtpuseremail,
                                      self.smtppass, self.emails, self.from_email,
                                      self.smtpserver, self.smtpport, self.smtpssl,
-                                     self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                                     self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_check_wmni_process(self):
         """
@@ -306,7 +316,7 @@ class MonitoredSite():
                           self.wmiprocesses_file, self.wmiprocessestmp_file,
                           self.wmiprocessestmp_file_nosuffix, self.wmiprocesses,
                           self.smtpuseremail, self.smtppass, self.emails, self.from_email,
-                          self.smtpserver, self.smtpport, self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                          self.smtpserver, self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_check_sqlite_script(self):
         """
@@ -317,7 +327,7 @@ class MonitoredSite():
                              self.sqlliteevaluateoperator, self.sqliteexpectedvalue,
                              self.sqlitedb_state_file, self.smtpuseremail, self.smtppass,
                              self.emails, self.from_email, self.smtpserver, self.smtpport,
-                             self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                             self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def site_check_oracle_script(self):
         """
@@ -329,7 +339,7 @@ class MonitoredSite():
                                 self.oracleevaluateoperator,
                                 self.oracleexpectedvalue, self.smtpuseremail, self.smtppass,
                                 self.emails, self.from_email, self.smtpserver, self.smtpport,
-                                self.smtpssl, self.smtpauthentication, self.sitestarttime, self.site, self.systemname)
+                                self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
     def copy_log_for_agregation(self):
         """

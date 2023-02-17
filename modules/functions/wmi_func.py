@@ -27,7 +27,7 @@ def check_wmi_proccesses_file_exist(wmiprocesses_file) -> None:
 
 def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmiprocessestmp_file,
                       wmiprocessestmp_file_nosuffix, wmiprocesses, smtpuseremail, smtppass, emails,
-                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, sitestarttime, site: str, systemname: str):
+                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email: int, sitestarttime, site: str, systemname: str):
     """
     Function
     - Get and compare if processes are running on monitored machine
@@ -117,7 +117,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                         email_message_list_of_processes_status += f'{str(item)}\n'
                     email_message = f'Subject: {sitename} {env} Monitored proces(es) OK' + '\n' + f'Hi, monitoring identified that on {hostname} all processes are ok\n{email_message_list_of_processes_status}'
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
-                                   smtpserver, smtpport, smtpssl, smtpauthentication)
+                                   smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
                 except Exception as exep_email:
                     message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(message)
@@ -145,7 +145,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
                         email_message_list_of_processes_status += f'\n{str(item)}'
                     email_message = f'Subject: {sitename} {env} Monitored proces(es) FAILED' + '\n' + f'Hi, monitoring identified that on {hostname} NOT all processes are OK\n{email_message_list_of_processes_status}'
                     cf.send_emails(smtpuseremail, smtppass, emails, from_email, email_message,
-                                   smtpserver, smtpport, smtpssl, smtpauthentication)
+                                   smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
                 except Exception as exep_email:
                     message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
                     print(message)
@@ -160,7 +160,7 @@ def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmipr
         cf.write_file_append(logpath, f'{message}')
         try:
             cf.send_emails(smtpuseremail, smtppass, emails, from_email, wmi_connection_failed,
-                           smtpserver, smtpport, smtpssl, smtpauthentication)
+                           smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email)
         except Exception as exep_email:
             message = f'{sitestarttime}|{site}|{systemname}|{env}|MAIL_NOTIFICATION|ERROR|Email notification failed on Exception = {exep_email}\r\n'
             print(message)

@@ -99,7 +99,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         # return True
 
 
-def get_port_status(hostname, port):
+def get_port_status(hostname, port, timeout_check):
     """
     Function get port status
     param: hostname
@@ -108,7 +108,7 @@ def get_port_status(hostname, port):
     resp = ''
     try:
         a_socket = socket(AF_INET, SOCK_STREAM)
-        a_socket.settimeout(7.0)
+        a_socket.settimeout(timeout_check)
         resp = str(a_socket.connect_ex((hostname, int(port))))
         a_socket.close()
         return resp
@@ -116,7 +116,7 @@ def get_port_status(hostname, port):
         return f'Port Connection failed one Exception: {exep}'
 
 
-def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
+def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check: int,
                port_state_file_nosuffix: str, hostports: list, smtpuseremail: str, smtppass: str,
                emails: list, from_email: str, smtpserver: str, smtpport: int, smtpssl: bool,
                smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
@@ -147,7 +147,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
         port_state_file = port_state_file_nosuffix + port + ".txt"
         cf.check_state_file_exist(port_state_file, '0')
         # Receive response code from function
-        responsecode = get_port_status(hostname, port)
+        responsecode = get_port_status(hostname, port, timeout_check)
 
         port_msg_down = f'Subject: {sitename} {env} Port - DOWN' + '\n' + f'Hi, monitoring identified that {hostname} Port {port} is DOWN \n{url}'
         port_msg_up = f'Subject: {sitename} {env} Port - UP' + '\n' + f'Hi, monitoring identified that {hostname} Port {port} is UP \n{url}'
@@ -194,7 +194,7 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str,
             # return True
 
 
-def ssl_expiry_datetime(host, port):
+def ssl_expiry_datetime(host, port, timeout_check):
     """
     get expiration date on SSL certificate from hostname
     pram: host
@@ -209,7 +209,7 @@ def ssl_expiry_datetime(host, port):
     )
     # 3 second timeout because Lambda has runtime limitations
     # try:
-    conn.settimeout(7.0)
+    conn.settimeout(timeout_check)
     conn.connect((host, port))
     ssl_info = conn.getpeercert()
     return datetime.strptime(ssl_info['notAfter'], ssl_date_fmt)
@@ -217,7 +217,7 @@ def ssl_expiry_datetime(host, port):
     #     return exep
 
 
-def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname: str, url: str,
+def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check: int,
                                  certificate_expiration_check_file: str, certificateport: int,
                                  certificateexpirationtrigger1: int,
                                  certificateexpirationtrigger2: int,
@@ -256,7 +256,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
 
         try:
             # Get expiration time on hostname certificate
-            cert_exp_date = ssl_expiry_datetime(hostname, certificateport)
+            cert_exp_date = ssl_expiry_datetime(hostname, certificateport, timeout_check)
             if (((datetime.now() + timedelta(days=certificateexpirationtrigger1 - 1)).date() ==
                 cert_exp_date.date()) or
                 ((datetime.now() + timedelta(days=certificateexpirationtrigger2 - 1)).date() ==
@@ -264,7 +264,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                 ((datetime.now() + timedelta(days=certificateexpirationtrigger3 - 1)).date() ==
                 cert_exp_date.date()) or
                 ((datetime.now() + timedelta(days=certificateexpirationtrigger4 - 1)).date() ==
-                cert_exp_date.date())):
+                    cert_exp_date.date())):
 
                 message_cert_exp = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|WARNING|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
                 print(Fore.YELLOW + message_cert_exp + Style.RESET_ALL)

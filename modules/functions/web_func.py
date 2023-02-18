@@ -11,19 +11,19 @@ from modules.functions import common_func as cf
 init()
 
 
-def get_response_code(url: str, sslcertificatevalidation: bool) -> str:
+def get_response_code(url: str, sslcertificatevalidation: bool, timeout_check: int) -> str:
     """
     param: url
     Return: obtained response code
     """
     try:
-        return str(get(url, verify=sslcertificatevalidation, timeout=7).status_code)
+        return str(get(url, verify=sslcertificatevalidation, timeout=timeout_check).status_code)
 
     except Exception as excep:
         return f"Response Code failed on Exception: {excep}"
 
 
-def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str,
+def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str, timeout_check: int,
                         defined_responsecode: str, sslcertificatevalidation: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
                         smtpssl: bool, smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str) -> bool:
@@ -52,7 +52,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
     cf.check_state_file_exist(responsecode_state_file, defined_responsecode)
 
     # Receive response code from function
-    obtained_responsecode = get_response_code(url, sslcertificatevalidation)
+    obtained_responsecode = get_response_code(url, sslcertificatevalidation, timeout_check)
 
     msg_responsecode_failed = f'Subject: {sitename} {env} Response Code - NOK' + '\n' + \
         f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
@@ -101,7 +101,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
 
 # Web page Footprint functions
 def create_web_current_foot_print(url: str, webactualtmpfootprint_file: str,
-                                  htmlignoreelements: list, sslcertificatevalidation: bool):
+                                  htmlignoreelements: list, sslcertificatevalidation: bool, timeout_check: int):
     """
     Function which dowload poage in to the txt file from given url.\
             Functiona can ignore some of the page elements.
@@ -114,7 +114,7 @@ def create_web_current_foot_print(url: str, webactualtmpfootprint_file: str,
     # Remove old Actual Foot print file - if exist
     cf.remove_file_func(webactualtmpfootprint_file)
 
-    content = list(get(url, verify=sslcertificatevalidation, timeout=7).text.split('\n'))
+    content = list(get(url, verify=sslcertificatevalidation, timeout=timeout_check).text.split('\n'))
 
     filestring = ''
     for element in content:
@@ -150,7 +150,7 @@ def check_web_last_state_footprint_file_exist(websavedfootprint_file: str,
         copyfile(websavedfootprint_file, weblaststatefootprint_file)
 
 
-def check_site_content(sitename: str, env: str, logpath: str, url: str,
+def check_site_content(sitename: str, env: str, logpath: str, url: str, timeout_check: int,
                        sslcertificatevalidation: bool, htmlignoreelements: list,
                        webactualtmpfootprint_file: str, websavedfootprint_file: str,
                        weblaststatefootprint_file: str, weblaststatefootprint_file_nosuffix: str,
@@ -192,7 +192,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str,
     # Create Actul web foot print
     try:
         create_web_current_foot_print(url, webactualtmpfootprint_file, htmlignoreelements,
-                                      sslcertificatevalidation)
+                                      sslcertificatevalidation, timeout_check)
     except Exception as excep:
         message = f'{sitestarttime}|{site}|{systemname}|{env}|create_web_current_foot_print Failed on Exception: {excep}\r\n'
         print(message)

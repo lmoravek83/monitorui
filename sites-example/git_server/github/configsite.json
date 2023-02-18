@@ -36,5 +36,6 @@
   "oracledsn": "",
   "oracleevaluateoperator": "",
   "oraclesqlcommand": "",
-  "oracleexpectedvalue": ""
+  "oracleexpectedvalue": "",
+  "timeout_check": 7
 }

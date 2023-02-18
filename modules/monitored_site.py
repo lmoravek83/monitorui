@@ -224,7 +224,7 @@ class MonitoredSite():
             self.sqliteexpectedvalue = siteconfig['sqliteexpectedvalue']
         else:
             self.sqliteexpectedvalue = None
-#TODO: Implement in all relevant checks 
+        # TODO: Implement in all relevant checks 
         if 'timeout_check' in siteconfig:
             self.timeout_check = siteconfig['timeout_check']
         else:
@@ -259,7 +259,7 @@ class MonitoredSite():
         Response code check on website
         """
         check_response_code(self.sitename, self.env, self.responsecode_state_file,
-                            self.url, self.siteresponsecode, self.sslcertificatevalidation, self.logpath, self.smtpuseremail,
+                            self.url, self.timeout_check, self.siteresponsecode, self.sslcertificatevalidation, self.logpath, self.smtpuseremail,
                             self.smtppass, self.emails, self.from_email, self.smtpserver,
                             self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
 
@@ -267,7 +267,7 @@ class MonitoredSite():
         """
         Check if website is not changed agoinst first run
         """
-        check_site_content(self.sitename, self.env, self.logpath, self.url,
+        check_site_content(self.sitename, self.env, self.logpath, self.url, self.timeout_check,
                            self.sslcertificatevalidation, self.htmlignoreelements,
                            self.webactualtmpfootprint_file, self.websavedfootprint_file,
                            self.weblaststatefootprint_file,
@@ -288,7 +288,7 @@ class MonitoredSite():
         """
         Check if is Port is enabled on the host
         """
-        check_port(self.sitename, self.env, self.logpath, self.hostname, self.url,
+        check_port(self.sitename, self.env, self.logpath, self.hostname, self.url, self.timeout_check,
                    self.port_state_file_nosuffix, self.hostports, self.smtpuseremail,
                    self.smtppass, self.emails, self.from_email, self.smtpserver,
                    self.smtpport, self.smtpssl, self.smtpauthentication, self.timeout_email, self.sitestarttime, self.site, self.systemname)
@@ -298,7 +298,7 @@ class MonitoredSite():
         check if ssl certificate expire
         """
         certificate_expiration_check(self.sitename, self.env, self.logpath, self.hostname,
-                                     self.url, self.certificate_expiration_check_file,
+                                     self.url, self.timeout_check, self.certificate_expiration_check_file,
                                      self.certificateport,
                                      self.certificateexpirationtrigger1,
                                      self.certificateexpirationtrigger2,

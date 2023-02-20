@@ -133,9 +133,12 @@ if 'loopintervallmax' not in config:
 
 if 'logsretention' not in config:
     config['logsretention'] = None
-    
+
 if 'paralel_checks' not in config:
     config['paralel_checks'] = True
+
+if 'max_workers' not in config:
+    config['max_workers'] = 5
 
 SCRIPT_LOOP = True
 
@@ -150,7 +153,7 @@ while SCRIPT_LOOP:
             if __name__ == '__main__':
                 # with multiprocessing.Pool() as pool:
                 #     pool.map(go, listofsites)
-                with concurrent.futures.ThreadPoolExecutor() as executor:
+                with concurrent.futures.ThreadPoolExecutor(config['max_workers']) as executor:
                     futures = [executor.submit(go_monitor, site) for site in listofsites]
                     concurrent.futures.wait(futures)
         else:

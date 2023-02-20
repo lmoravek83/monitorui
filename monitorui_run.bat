@@ -1,1 +1,1 @@
-
+python .\monitorui.py

@@ -224,7 +224,7 @@ class MonitoredSite():
             self.sqliteexpectedvalue = siteconfig['sqliteexpectedvalue']
         else:
             self.sqliteexpectedvalue = None
-        # TODO: Implement in all relevant checks 
+
         if 'timeout_check' in siteconfig:
             self.timeout_check = siteconfig['timeout_check']
         else:
@@ -343,7 +343,7 @@ class MonitoredSite():
 
     def copy_log_for_agregation(self):
         """
-        copy the log 
+        copy the log
         """
         copyfile(self.logpath, self.logdailyfeedfolder + '//' + f'{self.site}.log')
 

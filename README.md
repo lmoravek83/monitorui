@@ -49,17 +49,21 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ### Windows
 
-1. Download and install Python 3.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just install and install Python 3.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**.
+1. Download and install Python 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**. Why Python 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
-2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
+2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
-3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+3. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
-4. In the folder "monitorui-master" you will find "install_windows.bat". Rund this sript. If will install necessary python packages from pypi.org (store for python libraries)
+4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-5. That is all :) Now proceed to Configration part
+5. In the folder "monitorui-master" you will find folder "install" and there "install_windows.bat". Rund this sript. It will install necessary python packages from pypi.org (store for python libraries)
 
-* Also you can use git clone and make Python Venv, but this is out of scope of this manual (we want keep it simple)
+6. That is all :) Now proceed to Configration part
+
+* Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
+
+https://visualstudio.microsoft.com/visual-cpp-build-tools/
 
 ### Linux 
 
@@ -72,4 +76,3 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 ### Site Configuration
 
 #### Oracle DB drivers
-

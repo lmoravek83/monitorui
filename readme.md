@@ -63,8 +63,6 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-https://visualstudio.microsoft.com/visual-cpp-build-tools/
-
 ### Linux 
 
 ### Freebsd (We realy like Freebsd and Yes this is ad :))

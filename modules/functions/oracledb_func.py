@@ -20,7 +20,7 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
                             oracledsn, oracledb_state_file, oraclesqlcommand,
                             oracleevaluateoperator, oracleexpectedvalue, smtpuseremail,
                             smtppass, emails, from_email, smtpserver,
-                            smtpport, smtpssl, smtpauthentication, timeout_email: int, sitestarttime, site: str, systemname: str):
+                            smtpport, smtpssl, smtpauthentication, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function to execute SQL query and compare results agins expected values (int)
 

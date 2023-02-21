@@ -14,7 +14,7 @@ except Exception as e:
 def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlitedbname,
                          sqlitesqlcommand, sqlliteevaluateoperator, sqliteexpectedvalue,
                          sqlitedb_state_file, smtpuseremail, smtppass, emails, from_email,
-                         smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email: int, sitestarttime, site: str, systemname: str):
+                         smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function to execute SQL query and compare results agins expected values (int)
 

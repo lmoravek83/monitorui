@@ -23,10 +23,10 @@ def get_response_code(url: str, sslcertificatevalidation: bool, timeout_check: i
         return f"Response Code failed on Exception: {excep}"
 
 
-def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str, timeout_check: int,
+def check_response_code(sitename: str, env: str, responsecode_state_file: str, url: str, timeout_check,
                         defined_responsecode: str, sslcertificatevalidation: bool, logpath: str, smtpuseremail: str, smtppass: str,
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
-                        smtpssl: bool, smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str) -> bool:
+                        smtpssl: bool, smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str) -> bool:
     """
     Function check the repose code 'get_response_code' on the site and compared with given code,
     based on the evaluation is send email notification and logged
@@ -150,12 +150,12 @@ def check_web_last_state_footprint_file_exist(websavedfootprint_file: str,
         copyfile(websavedfootprint_file, weblaststatefootprint_file)
 
 
-def check_site_content(sitename: str, env: str, logpath: str, url: str, timeout_check: int,
+def check_site_content(sitename: str, env: str, logpath: str, url: str, timeout_check,
                        sslcertificatevalidation: bool, htmlignoreelements: list,
                        webactualtmpfootprint_file: str, websavedfootprint_file: str,
                        weblaststatefootprint_file: str, weblaststatefootprint_file_nosuffix: str,
                        smtpuseremail: str, smtppass: str, emails: list, from_email: str,
-                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
+                       smtpserver: str, smtpport: int, smtpssl: bool, smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function
     - Create new web footprint of given url

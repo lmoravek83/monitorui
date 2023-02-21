@@ -27,7 +27,7 @@ def check_wmi_proccesses_file_exist(wmiprocesses_file) -> None:
 
 def check_wmi_process(sitename, env, logpath, hostname, wmiprocesses_file, wmiprocessestmp_file,
                       wmiprocessestmp_file_nosuffix, wmiprocesses, smtpuseremail, smtppass, emails,
-                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email: int, sitestarttime, site: str, systemname: str):
+                      from_email, smtpserver, smtpport, smtpssl, smtpauthentication, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function
     - Get and compare if processes are running on monitored machine

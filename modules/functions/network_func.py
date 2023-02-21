@@ -28,7 +28,7 @@ def get_ping_status(hostname):
 def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
                ping_state_file: str, smtpuseremail: str, smtppass: str, emails: list,
                from_email: str, smtpserver: str, smtpport: int, smtpssl: bool,
-               smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
+               smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function check the repose code 'get_response_code' on the site and compared\
             with given code, based on the evaluation is send email notification and logged
@@ -116,10 +116,10 @@ def get_port_status(hostname, port, timeout_check):
         return f'Port Connection failed one Exception: {exep}'
 
 
-def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check: int,
+def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check,
                port_state_file_nosuffix: str, hostports: list, smtpuseremail: str, smtppass: str,
                emails: list, from_email: str, smtpserver: str, smtpport: int, smtpssl: bool,
-               smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
+               smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function check the repose code 'get_response_code' on the site and compared with given code,\
             based on the evaluation is send email notification and logged
@@ -217,7 +217,7 @@ def ssl_expiry_datetime(host, port, timeout_check):
     #     return exep
 
 
-def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check: int,
+def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname: str, url: str, timeout_check,
                                  certificate_expiration_check_file: str, certificateport: int,
                                  certificateexpirationtrigger1: int,
                                  certificateexpirationtrigger2: int,
@@ -225,7 +225,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                                  certificateexpirationtrigger4: int,
                                  smtpuseremail: str, smtppass: str, emails: list, from_email: str,
                                  smtpserver: str, smtpport: int, smtpssl: bool,
-                                 smtpauthentication: bool, timeout_email: int, sitestarttime, site: str, systemname: str):
+                                 smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str):
     """
     Function to check if certificate expires
 

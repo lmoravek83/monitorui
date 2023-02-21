@@ -76,7 +76,7 @@ class MonitoredSite():
         if 'timeout_email' in config:
             self.timeout_email = config['timeout_email']
         else:
-            self.timeout_email = 10
+            self.timeout_email = None
 
         # Write monitoring Time stame un to the Site Log
         if not path.exists(self.sitefolder + '//logs'):
@@ -228,7 +228,7 @@ class MonitoredSite():
         if 'timeout_check' in siteconfig:
             self.timeout_check = siteconfig['timeout_check']
         else:
-            self.timeout_check = 10
+            self.timeout_check = None
 
         # Files configuration
         self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'

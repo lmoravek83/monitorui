@@ -136,7 +136,50 @@ config.json under config folder contains general configuration for Monitr~~UI~~.
 }
 ```
 
+
 ### Site Configuration
+
+```json
+{
+  "sitename": "Github",
+  "hostname": "www.github.com",
+  "siteenviroment": "PROD",
+  "systemname": "github",
+  "monitoringstart": "000000",
+  "monitoringend": "235959",
+  "tags": [""],
+  "monitoringdays": [0, 1, 2, 3, 4, 5, 6],
+  "emailrecipients": [ "monitoruicom@gmail.com" ],
+  "checkhostping": true,
+  "checkhostport": true,
+  "hostports": [ "443", "80" ],
+  "checkcertificateexpiration": true,
+  "certificateexpirationtrigger1": 30,
+  "certificateexpirationtrigger2": 20,
+  "certificateexpirationtrigger3": 10,
+  "certificateexpirationtrigger4": 5,
+  "certificateport": 443,
+  "siteurl": "https://github.com/pallets/click",
+  "checksiteresponsecode": true,
+  "siteresponsecode": "200",
+  "checksitecontent": false,
+  "htmlignoreelements": [ "" ],
+  "sslcertificatevalidation": true,
+  "checkwmiprocesses": false,
+  "checksqllitescript": false,
+  "sqlitdbepath": "",
+  "sqlitedbname": "",
+  "sqlliteevaluateoperator": "",
+  "sqlitesqlcommand": "",
+  "sqliteexpectedvalue": "",
+  "checksqloraclescript": false,
+  "oracleuser": "",
+  "oraclepassword": "",
+  "oracledsn": "",
+  "oracleevaluateoperator": "",
+  "oraclesqlcommand": "",
+  "oracleexpectedvalue": ""
+}
 
 ### How to run 
 

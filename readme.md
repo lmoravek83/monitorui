@@ -8,7 +8,7 @@ First, there is no UI (User interface), it was thought about it at begining, but
 
 * Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors).
 
-* Supported OSses: Windows, Linux, Freebsd. Also you can run it from the cloud or anywhere where Python3 Works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisment)
+* Supported OSses: Windows, Linux, Freebsd, Unix etc. Also you can run it from the cloud or anywhere where Python 3 Works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisment)
 
 ### Network monitoring
 
@@ -51,7 +51,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**.
 
-* Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
@@ -61,25 +61,41 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 5. In the folder "monitorui-master\install" is "install_windows.bat". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
 
+        install_windows.bat
+
 6. That is all :) Now proceed to Configration part
 
-* Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
+    * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-### Linux 
+### Linux / FreeBSD (We realy like Freebsd and Yes this is ad :)) / etc
 
-1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you)
+1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you) and python pip package manager. If you already have these rquirements, you can skip this point
 
-* Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * Example for Debian (type) distribudiotns:
+
+            sudo apt istall python3
+
+            sudo apt install python3-pip
+
+    * Example for FreeBSD (priviledged to install right is rquired)
+
+            pkg istall python3
+
+            pkg apt install python3-pip
+
+    * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
-4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-5. In the folder "monitorui-master\install" is "install_linux.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
+4. In the folder "monitorui-master\install" is "install_linux.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
 
-6. That is all :) Now proceed to Configration part
+        sh install_linux_freebsd.sh
 
-* Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
+5. That is all :) Now proceed to Configration part
+
+    * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
 ### Freebsd (We realy like Freebsd and Yes this is ad :))
 

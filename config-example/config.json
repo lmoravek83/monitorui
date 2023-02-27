@@ -5,7 +5,7 @@
   "smtpssl": true,
   "smtpauthentication": true,
   "smtpuser": "",
-  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF.txt",
+  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF",
   "smtppass": "",
   "from_email": "xyz@gmail.com",
   "workinloop": false,

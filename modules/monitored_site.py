@@ -41,7 +41,7 @@ class MonitoredSite():
         if 'smtpserver' in config:
             self.smtpserver = config['smtpserver']
         else:
-            self.smtpserver = 'localhost'
+            self.smtpserver = ''
 
         if 'smtpport' in config:
             self.smtpport = config['smtpport']

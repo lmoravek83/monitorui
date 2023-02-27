@@ -98,7 +98,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 4. In the folder "monitorui-master/install" is "install_freebsd.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
 
-    Run from from /install directory:
+    Run from from ./install directory:
 
         sh install_linux_freebsd.sh
 
@@ -108,32 +108,31 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ## Configuration
 
-After the instllation
+After the instllation in there will be tow directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ configuration and sites to be monitred
 
 
 ### General Configuration
 
-config.json
+config.json under config folder contains general configuration for Monitr~~UI~~. All values are optional, is recomended to fullfil SMTP - email configuration parameterts as minimum.
 
 ```json
 {
-  "sitesfolder": ".//sites", # Where are stored sites to be monitored (Mandatory)
-  "smtpserver": "smtp.gmail.com", # SMTP server for notification (Mandatory)
+  "sitesfolder": ".//sites", # Where are stored sites to be monitored (Optional, default value: .//sites)
+  "smtpserver": "smtp.gmail.com", # SMTP server for notification (Optional, default value: '')
   "smtpport": 587, # SMTP server for notification (Optional, defualt value: 25)
-  "smtpssl": true,
-  "smtpauthentication": true,
-  "smtpuser": "",
-  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF.txt",
-  "smtppass": "",
-  "from_email": "xyz@gmail.com",
-  "workinloop": false,
-  "loopintervallmin": 5,
-  "loopintervallmax": 10,
-  "logsretention": 60,
-  "log_daily_feed": true,
-  "paralel_checks": true,
-  "timeout_email": 10,
-  "max_workers": 5
+  "smtpssl": true, # SSL over SMTP (Optional, default value: False)
+  "smtpauthentication": true, #User / password autnetification (Optional, default value: False)
+  "smtpuser": "", # SMTP User (Optional, default value: "")
+  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF", #SMTP Password taken from file (optional)
+  "smtppass": "", # If password file does not exist, use this value (Optional, default value: '')
+  "from_email": "xyz@gmail.com", # Email from which notification being send (Optional, default value: '')
+  "workinloop": false, # In case taht you want to run monitoring as service (Optional, default value: False)
+  "loopintervallmin": 5, # If workinloop = True, set minimal time in sec. to re-run monitoring (Optional, default value: 300)
+  "loopintervallmax": 10, # If workinloop = True, set maximal time in sec. to re-run monitoring (Optional, default value: 300)
+  "logsretention": 60, # Logs Retention period, if not used or None, no logs retetnion (Optioan, default value: None)
+  "log_daily_feed": true, # Copy last daily log of each site under ./logs/log_daily_feed/ for logs processing (Optional, default value: False)
+  "paralel_checks": true, # Monitoring can run the cheks of sites paralel (Optional: default value: False) 
+  "max_workers": 5, # Maximum paralel threads (Optional, default value: 5)  "timeout_email": 10 # Set time out for email services (Optional, default value: None)
 }
 ```
 

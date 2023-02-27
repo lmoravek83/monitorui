@@ -67,7 +67,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
     * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-### Linux / FreeBSD (We realy like Freebsd and Yes this is ad :)) / etc
+### Linux / FreeBSD (We realy like Freebsd and Yes this is ad :))
 
 1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you) and python pip package manager. If you already have these rquirements, you can skip this point
 
@@ -90,12 +90,15 @@ There are no limitations from us, but it fits everywhere where you need monitor 
             sudo pkg apt install py39-pip
 
     * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * With similiar way is possible to install on all unix(like) systems
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
 3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-4. In the folder "monitorui-master\install" is "install_freebsd.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
+4. In the folder "monitorui-master/install" is "install_freebsd.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
+
+    Run from from /install directory:
 
         sh install_linux_freebsd.sh
 
@@ -103,12 +106,41 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
     * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-### Freebsd (We realy like Freebsd and Yes this is ad :))
-
 ## Configuration
+
+After the instllation
+
 
 ### General Configuration
 
+config.json
+
+```json
+{
+  "sitesfolder": ".//sites", # Where are stored sites to be monitored (Mandatory)
+  "smtpserver": "smtp.gmail.com", # SMTP server for notification (Mandatory)
+  "smtpport": 587, # SMTP server for notification (Optional, defualt value: 25)
+  "smtpssl": true,
+  "smtpauthentication": true,
+  "smtpuser": "",
+  "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF.txt",
+  "smtppass": "",
+  "from_email": "xyz@gmail.com",
+  "workinloop": false,
+  "loopintervallmin": 5,
+  "loopintervallmax": 10,
+  "logsretention": 60,
+  "log_daily_feed": true,
+  "paralel_checks": true,
+  "timeout_email": 10,
+  "max_workers": 5
+}
+```
+
 ### Site Configuration
+
+### How to run 
+
+### Logs
 
 #### Oracle DB drivers

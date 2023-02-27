@@ -49,9 +49,9 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ### Windows
 
-1. Download and install Python 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**.
+1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the instlation do not forget to **"check"** on first instalator screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of instllation process selecet **Disable path lenght limit**.
 
-* Why Python 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+* Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
@@ -66,6 +66,20 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
 ### Linux 
+
+1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you)
+
+* Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+
+2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
+
+4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+
+5. In the folder "monitorui-master\install" is "install_linux.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
+
+6. That is all :) Now proceed to Configration part
+
+* Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
 ### Freebsd (We realy like Freebsd and Yes this is ad :))
 

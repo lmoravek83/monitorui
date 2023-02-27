@@ -77,11 +77,17 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
             sudo apt install python3-pip
 
-    * Example for FreeBSD (priviledged to install right is rquired)
+    * Example for FreeBSD (priviledged account to install right is rquired)
 
-            pkg istall python3
+            pkg pkg istall python39
 
-            pkg apt install python3-pip
+            pkg pkg install py39-pip
+
+    * Example for FreeBSD (sudo users)
+
+            sudo pkg istall python39
+
+            sudo pkg apt install py39-pip
 
     * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
@@ -89,7 +95,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-4. In the folder "monitorui-master\install" is "install_linux.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
+4. In the folder "monitorui-master\install" is "install_freebsd.sh". Run this sript. It will install necessary python packages from pypi.org (store for python libraries)
 
         sh install_linux_freebsd.sh
 

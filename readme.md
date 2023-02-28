@@ -4,13 +4,13 @@ Monitor~~UI~~ is agent less infrastructure, network and services monitoring tool
 
 First, there is no UI (User interface), it was thought about it at beginning, but there are more important things, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate throught logs with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc. Also it does pretty nice color outputs on terminal, so your eyes will not be lost in shadows.
 
-Cnsole outpu example:
+Console output example:
 
 ![MonitorUI](/img/monitorui.png)
 
 ## **Ok, what Monitor~~UI~~ can do for me ?**
 
-### General
+### _Generally_
 
 * Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors) to monitor the hosts.
 
@@ -20,30 +20,30 @@ Cnsole outpu example:
 
 * Log format is prepared for machine processing
 
-#### Network monitoring
+#### _Network monitoring_
 
 * Ping
 * Port (unlimited ports per host)
 * SSL Certificate expiration check (configurable notification period before certificates expiration)
 
-#### Web functions monitoring
+#### _Web functions monitoring_
 
 * URL Response Code (useful to check if site is reachable or monitor health-checks)
 * Web changes (check if web pages has changed between check, useful to monitor if website, health check is same or changed. You can define to ignore HTML elements if they are generated dynamically)
 
-#### Oracle DB
+#### _Oracle DB_
 
 * SQL Query to compare against expected result
 
-#### SQLite DB
+#### _SQLite DB_
 
 * SQL Query to compare against expected result
 
-#### WMI - MS Windows
+#### _WMI - MS Windows_
 
 * Windows processes, check if Windows process(es) runs or not. (This functionality is available only if Monitor~~UI~~ is installed on Windows)
 
-Other type of check needed? Write us feedback, we are open to all of ideas ;)
+Other type of check needed? Write us feedback, we are open to all of ideas ;).
 
 ## **Performance and where I can use it ?**
 
@@ -61,7 +61,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not worry, just uninstall and install Python 3 again and check the "add path". By end of installation process select **Disable path length limit**.
 
-    * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt"
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
@@ -69,7 +69,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-5. In the folder "monitorui-master\install" is "install_windows.bat". Running this script It will be installed necessary python packages from pypi.org (store for python libraries).
+5. In the folder "monitorui-master\install" is **"install_windows.bat"**. Running this script It will be installed necessary python packages from pypi.org (store for python libraries)
 
         install_windows.bat
 
@@ -104,9 +104,9 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
-3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed
 
-4. In the folder "monitorui-master/install" is "install_freebsd.sh". Running this script It will be installed necessary python packages from pypi.org (store for python libraries).
+4. In the folder "monitorui-master/install" is "**install__linux_freebsd.sh**". Running this script It will be installed necessary python packages from pypi.org (store for python libraries)
 
     Run from from ./install directory:
 
@@ -114,15 +114,15 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 5. That is all :) Now proceed to Configuration part
 
-    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple).
+    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
 
 ## **Configuration**
 
-After the installation there are two directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ and sites (monitored hosts) configuration
+After the installation there are two directories in Monitor~~UI~~ folder: **"config"** and **"Sites"**. Both folder contains example values of general Monitor~~UI~~ and sites (monitored hosts) configuration.
 
 ### **General Configuration**
 
-config.json under "config" folder contains general configuration for Monitor~~UI~~. All values are optional. Is recommended to fullfil SMTP / email configuration parameters as minimum. Create new one or adjust one which is already there.
+**"config.json"** under **"config"** folder contains general configuration for Monitor~~UI~~. All values are optional. Is recommended to fullfil SMTP / email configuration parameters as minimum. Create new one or adjust one which is already there.
 
 ```json
 {
@@ -145,7 +145,7 @@ config.json under "config" folder contains general configuration for Monitor~~UI
 }
 ```
 
-Use the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
+Use the example config from folder **./config/config.json**, as this commented documentation is not valid JSON.
 
 ### **Site Configuration**
 
@@ -153,19 +153,19 @@ Use the example config from folder ./config/config.json, as this commented docum
 
     * Note, bellow directory structure use the UNIX convection, For Windows users, just change in your mind during reading "/" with "\" :)
 
-1. Under folder ./sites/ create system name folder (Example: MY_Application_PROD etc.) If you extracted package properly, there is already sample folder "git_servers"
+1. Under folder **"./sites/"** create system name folder _(Example: MY_Application_PROD etc.)_ If you extracted package properly, there is already sample folder "git_servers"
 
-2. Under "./sites/MY_Application_PROD/" create new site folder (Example: Server01.mydomain.com)
+2. Under **"./sites/MY_Application_PROD/"** create new site folder _(Example: Server01.mydomain.com)_
 
-    * The final path for example will be "./sites/MY_Application_PROD/Server01.mydomain.com"
+    * The final path for example will be **"./sites/MY_Application_PROD/Server01.mydomain.com"**
 
-3. Create new or Copy configsite.json from example ./sites/git_servers/github/ in to your site folder
+3. Create new or copy **"configsite.json"** from example **./sites/git_servers/github/** in to your site folder
 
 4. With this approach you can create unlimited sites grouped in to the related folders (based on system, environments etc.)
 
 #### **How to configure site**
 
-For each site required to create "configsite.json", you can use example which is delivered along with the package.
+For each site is required to create "configsite.json", you can use example which is delivered along with the package.
 
 ```json
 {
@@ -213,7 +213,7 @@ For each site required to create "configsite.json", you can use example which is
 
 ### **Oracle DB drivers**
 
-For Oracle DB check need to be installed oracle Driver.
+For Oracle DB check needs to be installed oracle Driver.
 
 [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html)
 
@@ -222,7 +222,7 @@ For Oracle DB check need to be installed oracle Driver.
 2. Adjust path in ./modules/functions/oracledb.py
 "cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"
 
-## **How to run**
+## **How to run Monitor~~UI~~**
 
 ### **Windows**
 

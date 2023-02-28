@@ -171,23 +171,54 @@ Please use the example config from folder ./config/config.json, as this commente
   "sslcertificatevalidation": true, // Switch to enable or disable certificate validation, useful is you are using self generated certificate or is on the way proxy server etc ... (Optional, default value: True)
   "checkwmiprocesses": false, // Switch to enable or disable WMI Process check check, only for Windows (Optional, default value: False)
   "wmiprocesses": [""],
-  "checksqllitescript": false, // List of processes to be check if they are running [ "Process_name1","Process_name1" ]
+  "checksqllitescript": false, // Switch to enable or disable SQLITE  sql check check
   "sqlitdbepath": "", // path to SQL Lite DB relatively to the MonitorUI folder
-  "sqlitedbname": "",
-  "sqlliteevaluateoperator": "",
-  "sqlitesqlcommand": "",
-  "sqliteexpectedvalue": "",
-  "checksqloraclescript": false,
-  "oracleuser": "",
-  "oraclepassword": "",
-  "oracledsn": "",
-  "oracleevaluateoperator": "",
-  "oraclesqlcommand": "",
-  "oracleexpectedvalue": ""
+  "sqlitedbname": "", // Filename of SQLITE DB
+  "sqlliteevaluateoperator": "", // Evaluate operator < > = !=
+  "sqlitesqlcommand": "", // SQL Command to be performed
+  "sqliteexpectedvalue": "", // Expected value
+  "checksqloraclescript": false, // Switch to enable or disable OracleDB  sql check check
+  "oracleuser": "", // Oracle user
+  "oraclepassword": "", // Oracle password for defined user
+  "oracledsn": "", // Oracle DSN
+  "oracleevaluateoperator": "", // Evaluate operator < > = !=
+  "oraclesqlcommand": "", // SQL Command to be performed
+  "oracleexpectedvalue": "" // Expected value
 }
+```
+
+### Oracle DB drivers
+
+For oracle need to be instralled oracle Driver 
+
+[Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html)
+
+1. Download "Basic Light Package" which suits to your system
+3. Unpack in folder where you want to have the drivers
+2. Adjust path in ./modules/functions/oracledb.py
+"cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"
 
 ## How to run 
 
-### Logs
+### Windows
 
-## Oracle DB drivers
+run in Command line monitor_ui.bat or you can add it in scheduled tasks:
+
+    monitorui_run.bat
+
+OR
+
+
+    python3 monitorui.py
+
+### Linux
+
+run in Shell or you can add it in to the contab (do not forget for full path):
+
+    monitorui_run.sh
+
+OR
+
+    python ./monitorui.py
+
+### Logs

@@ -1,6 +1,6 @@
 # <span style="color://37ABC8">Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring
 
-Monitor~~UI~~ is infrastructure, network and services monitoring, using basic protocol (no agents on hosts).
+Monitor~~UI~~ is infrastructure, network and services monitoring, with using of basic protocols (no agents installation on hosts required ).
 
 First, there is no UI (User interface), it was thought about it at beginning, but there are more important thinks, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc ... Also it does pretty nice color outputs on terminal (so your eyes will not be lost in shadows).
 
@@ -67,7 +67,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 6. That is all :) Now proceed to Configuration part
 
-    * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
+    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
 
 ### Linux / FreeBSD (We really like Freebsd and Yes this is ad :))
 
@@ -91,7 +91,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
             sudo pkg apt install py39-pip
 
-    * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
     * With similar way is possible to install on all unix(like) systems
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
@@ -106,7 +106,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 5. That is all :) Now proceed to Configuration part
 
-    * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
+    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
 
 ## Configuration
 
@@ -114,7 +114,7 @@ After the installation in there will be tow directories in Monitor~~UI~~ folder:
 
 ### General Configuration
 
-config.json under config folder contains general configuration for Monitr~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum.
+config.json under config folder contains general configuration for Monitor~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum.
 
 ```json
 {
@@ -132,13 +132,12 @@ config.json under config folder contains general configuration for Monitr~~UI~~.
   "loopintervallmax": 10, // If workinloop = True, set maximal time in sec. to re-run monitoring (Optional, default value: 300)
   "logsretention": 60, // Logs Retention period, if not used or None, no logs retention (Optional, default value: None)
   "log_daily_feed": true, // Copy last daily log of each site under ./logs/log_daily_feed/ for logs processing (Optional, default value: False)
-  "paralel_checks": true, // Monitoring can run the checks of sites parallel (Optional: default value: False) 
+  "parallel_checks": true, // Monitoring can run the checks of sites parallel (Optional: default value: False) 
   "max_workers": 5, // Maximum parallel threads (Optional, default value: 5)  "timeout_email": 10 // Set time out for email services (Optional, default value: None)
 }
 ```
 
-Please ue the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
-
+Please use the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
 
 ### Site Configuration
 
@@ -148,29 +147,30 @@ Please ue the example config from folder ./config/config.json, as this commented
   "hostname": "www.github.com", // Hostname for ping, port checks
   "siteurl": "https://github.com/pallets/click", // URL Site for SSL Certificate check, WEB check, HTTPs response check
   "siteenviroment": "PROD", // Type of environment (Production, tests, etc)
-  "systemname": "github", // Name of the system, or different grouping (Optional, Placeholder, not currently used])
-  "monitoringstart": "000000",
-  "monitoringend": "235959",
+  "systemname": "github", // Name of the system, or different grouping (Optional, Placeholder, not currently used)
+  "monitoringstart": "000000", // When monitor of host start (Optional)
+  "monitoringend": "235959", // When monitor of host stops (Optional)
   "tags": [""],
-  "monitoringdays": [0, 1, 2, 3, 4, 5, 6],
-  "emailrecipients": [ "monitoruicom@gmail.com" ],
-  "checkhostping": true,
-  "checkhostport": true,
-  "hostports": [ "443", "80" ],
-  "checkcertificateexpiration": true,
-  "certificateexpirationtrigger1": 30,
-  "certificateexpirationtrigger2": 20,
-  "certificateexpirationtrigger3": 10,
-  "certificateexpirationtrigger4": 5,
-  "certificateport": 443,
-  "checksiteresponsecode": true,
-  "siteresponsecode": "200",
-  "checksitecontent": false,
-  "htmlignoreelements": [ "" ],
-  "sslcertificatevalidation": true,
-  "checkwmiprocesses": false,
-  "checksqllitescript": false,
-  "sqlitdbepath": "",
+  "monitoringdays": [0, 1, 2, 3, 4, 5, 6], // Which days is monitoring enabled on the host, 0 = sunday (Optional)
+  "emailrecipients": [ "someemail@gmail.com" ], // List of recipients example: [ "aa@aa.com"] or [ "aa@aa.com", "bb@bb.com" ] (Optional)
+  "checkhostping": true, // Switch to enable or disable Ping check (Optional, default value: False)
+  "checkhostport": true, // Switch to enable or disable Port check (Optional, default value: False)
+  "hostports": [ "443", "80" ], // Ports to be checked. Example:  [ "80" ]  or [ "443", "80" ] (Mandatory if checkhostport = true , default value: "")
+  "checkcertificateexpiration": true, // Switch to enable or disable Certificate Expiration check (Optional, default value: False)
+  "certificateexpirationtrigger1": 30, // How many days before certificate expiration notification will trigger (Optional, default value: 30)
+  "certificateexpirationtrigger2": 20, // How many days before certificate expiration notification will trigger (Optional, default value: 20)
+  "certificateexpirationtrigger3": 10, // How many days before certificate expiration notification will trigger (Optional, default value: 10)
+  "certificateexpirationtrigger4": 5, // How many days before certificate expiration notification will trigger (Optional, default value: 5)
+  "certificateport": 443, //Certificate Expiration Port check (Optional, default value: 443)
+  "checksiteresponsecode": true, // Switch to enable or disable Port check (Optional, default value: False) 
+  "siteresponsecode": "200", // Expected response code
+  "checksitecontent": false, // Check site for the content, if changed during the checks (Optional, default value: False) 
+  "htmlignoreelements": [ "" ], // List of elements which need to be ignored, useful if some of the page is dynamically changing.
+  "sslcertificatevalidation": true, // Switch to enable or disable certificate validation, useful is you are using self generated certificate or is on the way proxy server etc ... (Optional, default value: True)
+  "checkwmiprocesses": false, // Switch to enable or disable WMI Process check check, only for Windows (Optional, default value: False)
+  "wmiprocesses": [""],
+  "checksqllitescript": false, // List of processes to be check if they are running [ "Process_name1","Process_name1" ]
+  "sqlitdbepath": "", // path to SQL Lite DB relatively to the MonitorUI folder
   "sqlitedbname": "",
   "sqlliteevaluateoperator": "",
   "sqlitesqlcommand": "",

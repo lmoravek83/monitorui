@@ -135,8 +135,8 @@ if 'loopintervallmax' not in config:
 if 'logsretention' not in config:
     config['logsretention'] = None
 
-if 'paralel_checks' not in config:
-    config['paralel_checks'] = True
+if 'parallel_checks' not in config:
+    config['parallel_checks'] = True
 
 if 'max_workers' not in config:
     config['max_workers'] = 5
@@ -150,7 +150,7 @@ while SCRIPT_LOOP:
     for system in listofsystems:
         # Read sites in to list
         listofsites = cf.list_directories(sitesfolder + "//" + system + "//")
-        if config['paralel_checks']:
+        if config['parallel_checks']:
             if __name__ == '__main__':
                 # with multiprocessing.Pool() as pool:
                 #     pool.map(go, listofsites)

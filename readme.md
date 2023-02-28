@@ -2,7 +2,7 @@
 
 Monitor~~UI~~ is agent less infrastructure, network and services monitoring tool
 
-First, there is no UI (User interface), it was thought about it at beginning, but there are more important things, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate throught logs with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc. Also it does pretty nice color outputs on terminal, so your eyes will not be lost in shadows.
+First, there is no UI (User interface), it was thought about it at beginning, but there are more important things, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate through logs with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc. Also it does pretty nice color outputs on terminal, so your eyes will not be lost in shadows.
 
 Console output example:
 
@@ -217,10 +217,11 @@ For Oracle DB check needs to be installed oracle Driver.
 
 [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html)
 
-1. Download "Basic Light Package" which suits to your system
-3. Unpack in folder where you want to have the drivers
-2. Adjust path in ./modules/functions/oracledb.py
-"cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"
+1. Download **"Basic Light Package"** which suits to your system
+
+2. Unpack in folder where you want to have the Oracle DB drivers
+
+3. Adjust path in **"./modules/functions/oracledb.py"** Line: **"cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"**
 
 ## **How to run Monitor~~UI~~**
 
@@ -232,17 +233,20 @@ run in Windows Command line / Power shell "monitor_ui.bat" or you can add it in 
 
 or
 
-    python3 monitorui.py
+    python monitorui.py
 
 ### **Linux**
 
-run in Shell or you can add it in to the crontab (do not forget for full path):
+run in Shell or you can add it in to the **crontab** (do not forget for full path):
 
-    monitorui_run.sh
+    sh monitorui_run.sh
 
 or
 
     python ./monitorui.py
+or
+
+    python3 ./monitorui.py
 
 ## **Logs**
 

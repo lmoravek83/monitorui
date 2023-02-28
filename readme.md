@@ -49,6 +49,8 @@ Currently the biggest deployment about which we know is monitoring of 150+ serve
 
 There are no limitations from us, but it fits everywhere where you need monitor internal or external serveries and infrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licenses. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
+#
+
 ## I want it, how can I install ?
 
 ### Windows
@@ -109,14 +111,14 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 5. That is all :) Now proceed to Configuration part
 
     * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
-
+#
 ## Configuration
 
 After the installation in there will be tow directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ configuration and sites to be monitored
 
 ### General Configuration
 
-config.json under config folder contains general configuration for Monitor~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum.
+config.json under "config" folder contains general configuration for Monitor~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum. Create new or adjust one which is already there.
 
 ```json
 {
@@ -143,13 +145,24 @@ Please use the example config from folder ./config/config.json, as this commente
 
 ### Site Configuration
 
+#### How to add new host / site to be monitored
+
+* Note, Directory structure us in UNIX Convection, For Windows users, just change in your mind during reading "\" with "/" :)
+
+1. Under folder .\sites\ create system name folder (Example: MY_Application_PROD etc.) If you extracted package properly, there is sample folder "git_servers", which can be deleted
+2. under ".\sites\MY_Application_PROD\" create new or copy configsite.json from example
+
+#### How to configure site
+
+For each site required to create "configsite.json", you can use example which is delivered along with the package.
+
 ```json
 {
   "sitename": "Github", // Name of the site 
   "hostname": "www.github.com", // Hostname for ping, port checks
   "siteurl": "https://github.com/pallets/click", // URL Site for SSL Certificate check, WEB check, HTTPs response check
   "siteenviroment": "PROD", // Type of environment (Production, tests, etc)
-  "systemname": "github", // Name of the system, or different grouping (Optional, Placeholder, not currently used)
+  "systemname": "github", // Name of the system, or different grouping and logs identification (Optional)
   "monitoringstart": "000000", // When monitor of host start (Optional)
   "monitoringend": "235959", // When monitor of host stops (Optional)
   "tags": [""],
@@ -189,7 +202,7 @@ Please use the example config from folder ./config/config.json, as this commente
 
 ### Oracle DB drivers
 
-For oracle need to be instralled oracle Driver 
+For Oracle DB check need to be installed oracle Driver.
 
 [Oracle Instant Client](https://www.oracle.com/database/technologies/instant-client/downloads.html)
 
@@ -198,7 +211,7 @@ For oracle need to be instralled oracle Driver
 2. Adjust path in ./modules/functions/oracledb.py
 "cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"
 
-## How to run 
+## How to run
 
 ### Windows
 
@@ -207,7 +220,6 @@ run in Command line monitor_ui.bat or you can add it in scheduled tasks:
     monitorui_run.bat
 
 OR
-
 
     python3 monitorui.py
 
@@ -221,4 +233,16 @@ OR
 
     python ./monitorui.py
 
-### Logs
+## Logs
+
+Info: Logs keeps same structure, so they can be easily processed (OK, Warning, Error) in to logs machine processing platform (Grafana, Kibana, Splunk etc...)
+
+* General Logs
+/logs/monitor_DDMMYYYYY.log - sotre daily logs which contains information from each run, failures and other issues. Also contains when each run starts and ends, including duration
+
+* Logs for data processing (Splunk, Grafana, Kibana etc ..)
+/logs/log_daily_feed/sitename.log - store daily log of each moniterd site / host. in this folder are stored last logs from all minitored sites / hosts.
+
+* Logs of each site
+
+/sites/system/site/logs/sitename_DDMMYYYYY.log contains details of each check and result

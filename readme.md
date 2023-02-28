@@ -1,4 +1,4 @@
-# <span style="color://37ABC8">Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring
+# <span style="color://37ABC8">**Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring**
 
 Monitor~~UI~~ is agent less infrastructure, network and services monitoring tool
 
@@ -8,7 +8,7 @@ Cnsole outpu example:
 
 ![MonitorUI](/img/monitorui.png)
 
-## Ok, what Monitor~~UI~~ can do for me ?
+## **Ok, what Monitor~~UI~~ can do for me ?**
 
 ### General
 
@@ -43,21 +43,21 @@ Cnsole outpu example:
 
 * Windows processes, check if Windows process(es) runs or not. (This functionality is available only if Monitor~~UI~~ is installed on Windows)
 
-#### Other type of check needed? Write us feedback, we are open to all of ideas ;)
+Other type of check needed? Write us feedback, we are open to all of ideas ;)
 
-## Performance and where I can use it ?
+## **Performance and where I can use it ?**
 
-### Performance
+### **Performance**
 
 Currently the biggest deployment about which we know is monitoring of 150+ servers and on each it performs 3 - 4 checks, which means 600 checks each few minutes. The MonitorUI can performs this in cca. 15 seconds (quite good).
 
-### Where I Can use it ?
+### **Where I Can use it ?**
 
 There are no limitations from us, it fits everywhere where you need monitor internal or external services and infrastructure. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
-## I want it, how can I install ?
+## **I want it, how can I install ?**
 
-### Windows
+### **Windows**
 
 1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not worry, just uninstall and install Python 3 again and check the "add path". By end of installation process select **Disable path length limit**.
 
@@ -69,7 +69,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-5. In the folder "monitorui-master\install" is "install_windows.bat". Run this script. It will install necessary python packages from pypi.org (store for python libraries)
+5. In the folder "monitorui-master\install" is "install_windows.bat". Running this script It will be installed necessary python packages from pypi.org (store for python libraries).
 
         install_windows.bat
 
@@ -77,7 +77,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
     * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
 
-### Linux / FreeBSD
+### **Linux / FreeBSD**
 
 1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you) and python pip package manager. If you already have these requirements, you can skip this point
 
@@ -106,7 +106,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
 
-4. In the folder "monitorui-master/install" is "install_freebsd.sh". Run this script. It will install necessary python packages from pypi.org (store for python libraries)
+4. In the folder "monitorui-master/install" is "install_freebsd.sh". Running this script It will be installed necessary python packages from pypi.org (store for python libraries).
 
     Run from from ./install directory:
 
@@ -114,13 +114,13 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 5. That is all :) Now proceed to Configuration part
 
-    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
+    * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple).
 
-## Configuration
+## **Configuration**
 
 After the installation there are two directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ and sites (monitored hosts) configuration
 
-### General Configuration
+### **General Configuration**
 
 config.json under "config" folder contains general configuration for Monitor~~UI~~. All values are optional. Is recommended to fullfil SMTP / email configuration parameters as minimum. Create new one or adjust one which is already there.
 
@@ -147,9 +147,9 @@ config.json under "config" folder contains general configuration for Monitor~~UI
 
 Use the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
 
-### Site Configuration
+### **Site Configuration**
 
-#### How to add new site (host) to be monitored
+#### **How to add new site (host) to be monitored**
 
     * Note, bellow directory structure use the UNIX convection, For Windows users, just change in your mind during reading "/" with "\" :)
 
@@ -163,7 +163,7 @@ Use the example config from folder ./config/config.json, as this commented docum
 
 4. With this approach you can create unlimited sites grouped in to the related folders (based on system, environments etc.)
 
-#### How to configure site
+#### **How to configure site**
 
 For each site required to create "configsite.json", you can use example which is delivered along with the package.
 
@@ -211,7 +211,7 @@ For each site required to create "configsite.json", you can use example which is
 }
 ```
 
-### Oracle DB drivers
+### **Oracle DB drivers**
 
 For Oracle DB check need to be installed oracle Driver.
 
@@ -222,38 +222,40 @@ For Oracle DB check need to be installed oracle Driver.
 2. Adjust path in ./modules/functions/oracledb.py
 "cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")"
 
-## How to run
+## **How to run**
 
-### Windows
+### **Windows**
 
 run in Windows Command line / Power shell "monitor_ui.bat" or you can add it in scheduled tasks:
 
     monitorui_run.bat
 
-OR
+or
 
     python3 monitorui.py
 
-### Linux
+### **Linux**
 
 run in Shell or you can add it in to the crontab (do not forget for full path):
 
     monitorui_run.sh
 
-OR
+or
 
     python ./monitorui.py
 
-## Logs
+## **Logs**
 
 Info: Logs keeps same structure, so they can be easily processed (OK, Warning, Error) in to logs machine processing platform (Grafana, Kibana, Splunk etc...)
 
-* General Logs
+### **General Logs**
+
 /logs/monitor_DDMMYYYYY.log - store daily logs which contains information from each run, failures and other issues. Also contains when each run starts and ends, including duration
 
-* Logs for data processing (Splunk, Grafana, Kibana etc ..)
+### **Logs for machine data processing** (Splunk, Grafana, Kibana etc ..)
+
 /logs/log_daily_feed/sitename.log - store daily log of each moniterd site / host. in this folder are stored last logs from all minitored sites / hosts.
 
-* Logs of each site
+### **Site logs**
 
 /sites/system/site/logs/sitename_DDMMYYYYY.log contains details of each check and result

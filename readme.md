@@ -49,8 +49,6 @@ Currently the biggest deployment about which we know is monitoring of 150+ serve
 
 There are no limitations from us, but it fits everywhere where you need monitor internal or external serveries and infrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licenses. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
-#
-
 ## I want it, how can I install ?
 
 ### Windows
@@ -111,7 +109,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 5. That is all :) Now proceed to Configuration part
 
     * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
-#
+
 ## Configuration
 
 After the installation in there will be tow directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ configuration and sites to be monitored

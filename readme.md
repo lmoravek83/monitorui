@@ -1,55 +1,55 @@
-// <span style="color://37ABC8">Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring
+# <span style="color://37ABC8">Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring
 
 Monitor~~UI~~ is infrastructure, network and services monitoring, using basic protocol (no agents on hosts).
 
 First, there is no UI (User interface), it was thought about it at beginning, but there are more important thinks, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc ... Also it does pretty nice color outputs on terminal (so your eyes will not be lost in shadows).
 
-//// Ok, stop talking, now what Monitor~~UI~~ can do for you ?
+## Ok, stop talking, now what Monitor~~UI~~ can do for you ?
 
-////// General
+### General
 
 * Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors).
 
 * Supported OSses: Windows, Linux, Freebsd, Unix etc. Also you can run it from the cloud or anywhere where Python 3 Works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisement)
 
-////// Network monitoring
+#### Network monitoring
 
 * Ping
 * Port (unlimited ports per host)
 * SSL Certificate expiration check (configurable notification dates before certificates expiration)
 
-////// Web functions monitoring
+#### Web functions monitoring
 
 * URL Response Code (useful to check if site works, or monitor health-checks)
 * Web changes (check if web pages has changed, useful to monitor if website, health check is same or changed, yes you can define to ignore some elements if they are generated dynamically)
 
-////// Oracle DB
+#### Oracle DB
 
 * Query compare against expected result
 
-////// SQLite DB
+#### SQLite DB
 
 * Query compare against expected result
 
-////// WMI - MS Windows
+#### WMI - MS Windows
 
 * Windows processes (check if Windows process(es) runs or not) *this works only if Monitor~~UI~~ is installed on Windows, Windows like windows :)
 
-////// Other type of check needed? Write us feedback, we are open to all of ideas ;)
+#### Other type of check needed? Write us feedback, we are open to all of ideas ;)
 
-//// Performance and where I can use it ?
+## Performance and where I can use it ?
 
-////// Performance
+### Performance
 
 Currently the biggest deployment about which we know is monitoring of 150+ servers and on each it performs 3 - 4 checks, which means 600 checks each few minutes. The MonitorUI can performs this in cca. 15 seconds, which is quite good. And we are working on more optimization. Enough of self-praise!
 
-////// Where I Can use it ?
+### Where I Can use it ?
 
 There are no limitations from us, but it fits everywhere where you need monitor internal or external serveries and infrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licenses. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
-//// I want it, how can I install ?
+## I want it, how can I install ?
 
-////// Windows
+### Windows
 
 1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of installation process select **Disable path length limit**.
 
@@ -69,7 +69,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
     * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-////// Linux / FreeBSD (We realy like Freebsd and Yes this is ad :))
+### Linux / FreeBSD (We really like Freebsd and Yes this is ad :))
 
 1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you) and python pip package manager. If you already have these requirements, you can skip this point
 
@@ -92,7 +92,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
             sudo pkg apt install py39-pip
 
     * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
-    * With similiar way is possible to install on all unix(like) systems
+    * With similar way is possible to install on all unix(like) systems
 
 2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
 
@@ -108,12 +108,11 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
     * Also you can use git clone, make Python Venv, but this is out of scope of this manual (we want keep it simple)
 
-//// Configuration
+## Configuration
 
 After the installation in there will be tow directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ configuration and sites to be monitored
 
-
-////// General Configuration
+### General Configuration
 
 config.json under config folder contains general configuration for Monitr~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum.
 
@@ -141,7 +140,7 @@ config.json under config folder contains general configuration for Monitr~~UI~~.
 Please ue the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
 
 
-////// Site Configuration
+### Site Configuration
 
 ```json
 {
@@ -185,8 +184,8 @@ Please ue the example config from folder ./config/config.json, as this commented
   "oracleexpectedvalue": ""
 }
 
-////// How to run 
+## How to run 
 
-////// Logs
+### Logs
 
-//////// Oracle DB drivers
+## Oracle DB drivers

@@ -1,41 +1,47 @@
 # <span style="color://37ABC8">Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure and Services monitoring
 
-Monitor~~UI~~ is infrastructure, network and services monitoring, with using of basic protocols (no agents installation on hosts required ).
+Monitor~~UI~~ is agent less infrastructure, network and services monitoring tool
 
-First, there is no UI (User interface), it was thought about it at beginning, but there are more important thinks, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc ... Also it does pretty nice color outputs on terminal (so your eyes will not be lost in shadows).
+First, there is no UI (User interface), it was thought about it at beginning, but there are more important things, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate throught logs with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc. Also it does pretty nice color outputs on terminal, so your eyes will not be lost in shadows.
+
+Cnsole outpu example:
 
 ![MonitorUI](/img/monitorui.png)
 
-## Ok, stop talking, now what Monitor~~UI~~ can do for you ?
+## Ok, what Monitor~~UI~~ can do for me ?
 
 ### General
 
-* Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors).
+* Agents / probes free monitoring - No installation required on monitored hosts / clients, Monitor~~UI~~ use wide general TCP/UDP protocols and Services (HTTP / HTTPS, WMI, DB connectors) to monitor the hosts.
 
-* Supported OSses: Windows, Linux, Freebsd, Unix etc. Also you can run it from the cloud or anywhere where Python 3 Works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisement)
+* Supported OSses: Windows, Linux, Freebsd, Unix etc. Also you can run it from the cloud or anywhere where Python 3 works, like [https://www.pythonanywhere.com](https://www.pythonanywhere.com) (again, this is not an advertisement, just hints).
+
+* Advance notification - email recipients configurable per monitored site (monitored host)
+
+* Log format is prepared for machine processing
 
 #### Network monitoring
 
 * Ping
 * Port (unlimited ports per host)
-* SSL Certificate expiration check (configurable notification dates before certificates expiration)
+* SSL Certificate expiration check (configurable notification period before certificates expiration)
 
 #### Web functions monitoring
 
-* URL Response Code (useful to check if site works, or monitor health-checks)
-* Web changes (check if web pages has changed, useful to monitor if website, health check is same or changed, yes you can define to ignore some elements if they are generated dynamically)
+* URL Response Code (useful to check if site is reachable or monitor health-checks)
+* Web changes (check if web pages has changed between check, useful to monitor if website, health check is same or changed. You can define to ignore HTML elements if they are generated dynamically)
 
 #### Oracle DB
 
-* Query compare against expected result
+* SQL Query to compare against expected result
 
 #### SQLite DB
 
-* Query compare against expected result
+* SQL Query to compare against expected result
 
 #### WMI - MS Windows
 
-* Windows processes (check if Windows process(es) runs or not) *this works only if Monitor~~UI~~ is installed on Windows, Windows like windows :)
+* Windows processes, check if Windows process(es) runs or not. (This functionality is available only if Monitor~~UI~~ is installed on Windows)
 
 #### Other type of check needed? Write us feedback, we are open to all of ideas ;)
 
@@ -43,19 +49,19 @@ First, there is no UI (User interface), it was thought about it at beginning, bu
 
 ### Performance
 
-Currently the biggest deployment about which we know is monitoring of 150+ servers and on each it performs 3 - 4 checks, which means 600 checks each few minutes. The MonitorUI can performs this in cca. 15 seconds, which is quite good. And we are working on more optimization. Enough of self-praise!
+Currently the biggest deployment about which we know is monitoring of 150+ servers and on each it performs 3 - 4 checks, which means 600 checks each few minutes. The MonitorUI can performs this in cca. 15 seconds (quite good).
 
 ### Where I Can use it ?
 
-There are no limitations from us, but it fits everywhere where you need monitor internal or external serveries and infrastructure and you do not see that worth for it or can't be deployed large hard to configure solution or due to licenses. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
+There are no limitations from us, it fits everywhere where you need monitor internal or external services and infrastructure. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
 ## I want it, how can I install ?
 
 ### Windows
 
-1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not wory, just uninstall and install Python 3.10.x again and check the "add path". By end of installation process select **Disable path length limit**.
+1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not worry, just uninstall and install Python 3 again and check the "add path". By end of installation process select **Disable path length limit**.
 
-    * Why Python 3.8.x - 3.10.x? it is becasue compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
+    * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
@@ -71,7 +77,7 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
     * Also you can use git clone, make Python venv, but this is out of scope of this manual (we want keep it simple)
 
-### Linux / FreeBSD (We really like Freebsd and Yes this is ad :))
+### Linux / FreeBSD
 
 1. Install Python 3.8.x - 3.10.x (source code, packages, whatever suits to you) and python pip package manager. If you already have these requirements, you can skip this point
 
@@ -112,19 +118,19 @@ There are no limitations from us, but it fits everywhere where you need monitor 
 
 ## Configuration
 
-After the installation in there will be tow directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ configuration and sites to be monitored
+After the installation there are two directories in Monitor~~UI~~ folder: "config" and "Sites". Both folder contains example values of general Monitor~~UI~~ and sites (monitored hosts) configuration
 
 ### General Configuration
 
-config.json under "config" folder contains general configuration for Monitor~~UI~~. All values are optional, is recommended to fullfil SMTP - email configuration parameters as minimum. Create new or adjust one which is already there.
+config.json under "config" folder contains general configuration for Monitor~~UI~~. All values are optional. Is recommended to fullfil SMTP / email configuration parameters as minimum. Create new one or adjust one which is already there.
 
 ```json
 {
-  "sitesfolder": ".//sites", // Where are stored sites to be monitored (Optional, default value: .//sites)
-  "smtpserver": "smtp.gmail.com", // SMTP server for notification (Optional, default value: '')
-  "smtpport": 587, // SMTP server for notification (Optional, default value: 25)
+  "sitesfolder": ".//sites", // Folder where are stored sites to be monitored (Optional, default value: .//sites)
+  "smtpserver": "smtp.gmail.com", // SMTP server for email notification (Optional, default value: '')
+  "smtpport": 587, // SMTP port of email server (Optional, default value: 25)
   "smtpssl": true, // SSL over SMTP (Optional, default value: False)
-  "smtpauthentication": true, //User / password authentication (Optional, default value: False)
+  "smtpauthentication": true, // Switch to enable SMTP authentication (Optional, default value: False)
   "smtpuser": "", // SMTP User (Optional, default value: "")
   "smtppassfilelocation": ".//config//5fbTeZ9GUsYeaHxF", //SMTP Password taken from file (optional)
   "smtppass": "", // If password file does not exist, use this value (Optional, default value: '')
@@ -134,21 +140,28 @@ config.json under "config" folder contains general configuration for Monitor~~UI
   "loopintervallmax": 10, // If workinloop = True, set maximal time in sec. to re-run monitoring (Optional, default value: 300)
   "logsretention": 60, // Logs Retention period, if not used or None, no logs retention (Optional, default value: None)
   "log_daily_feed": true, // Copy last daily log of each site under ./logs/log_daily_feed/ for logs processing (Optional, default value: False)
-  "parallel_checks": true, // Monitoring can run the checks of sites parallel (Optional: default value: False) 
+  "parallel_checks": true, // Monitoring can run the checks of sites (monitored hosts) in parallel (Optional: default value: False) 
   "max_workers": 5, // Maximum parallel threads (Optional, default value: 5)  "timeout_email": 10 // Set time out for email services (Optional, default value: None)
 }
 ```
 
-Please use the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
+Use the example config from folder ./config/config.json, as this commented documentation is not valid JSON.
 
 ### Site Configuration
 
-#### How to add new host / site to be monitored
+#### How to add new site (host) to be monitored
 
-* Note, Directory structure us in UNIX Convection, For Windows users, just change in your mind during reading "\" with "/" :)
+    * Note, bellow directory structure use the UNIX convection, For Windows users, just change in your mind during reading "/" with "\" :)
 
-1. Under folder .\sites\ create system name folder (Example: MY_Application_PROD etc.) If you extracted package properly, there is sample folder "git_servers", which can be deleted
-2. under ".\sites\MY_Application_PROD\" create new or copy configsite.json from example
+1. Under folder ./sites/ create system name folder (Example: MY_Application_PROD etc.) If you extracted package properly, there is already sample folder "git_servers"
+
+2. Under "./sites/MY_Application_PROD/" create new site folder (Example: Server01.mydomain.com)
+
+    * The final path for example will be "./sites/MY_Application_PROD/Server01.mydomain.com"
+
+3. Create new or Copy configsite.json from example ./sites/git_servers/github/ in to your site folder
+
+4. With this approach you can create unlimited sites grouped in to the related folders (based on system, environments etc.)
 
 #### How to configure site
 
@@ -156,33 +169,33 @@ For each site required to create "configsite.json", you can use example which is
 
 ```json
 {
-  "sitename": "Github", // Name of the site 
+  "sitename": "Github", // Name of the site (monitored host)
   "hostname": "www.github.com", // Hostname for ping, port checks
   "siteurl": "https://github.com/pallets/click", // URL Site for SSL Certificate check, WEB check, HTTPs response check
   "siteenviroment": "PROD", // Type of environment (Production, tests, etc)
   "systemname": "github", // Name of the system, or different grouping and logs identification (Optional)
-  "monitoringstart": "000000", // When monitor of host start (Optional)
-  "monitoringend": "235959", // When monitor of host stops (Optional)
+  "monitoringstart": "000000", // From which time is monitoring of site enabled (Optional)
+  "monitoringend": "235959", // Until which time is monitoring of site enabled (Optional)
   "tags": [""],
-  "monitoringdays": [0, 1, 2, 3, 4, 5, 6], // Which days is monitoring enabled on the host, 0 = sunday (Optional)
+  "monitoringdays": [0, 1, 2, 3, 4, 5, 6], // On which days is monitoring enabled on the host, 0 = sunday (Optional)
   "emailrecipients": [ "someemail@gmail.com" ], // List of recipients example: [ "aa@aa.com"] or [ "aa@aa.com", "bb@bb.com" ] (Optional)
   "checkhostping": true, // Switch to enable or disable Ping check (Optional, default value: False)
   "checkhostport": true, // Switch to enable or disable Port check (Optional, default value: False)
   "hostports": [ "443", "80" ], // Ports to be checked. Example:  [ "80" ]  or [ "443", "80" ] (Mandatory if checkhostport = true , default value: "")
   "checkcertificateexpiration": true, // Switch to enable or disable Certificate Expiration check (Optional, default value: False)
-  "certificateexpirationtrigger1": 30, // How many days before certificate expiration notification will trigger (Optional, default value: 30)
-  "certificateexpirationtrigger2": 20, // How many days before certificate expiration notification will trigger (Optional, default value: 20)
-  "certificateexpirationtrigger3": 10, // How many days before certificate expiration notification will trigger (Optional, default value: 10)
-  "certificateexpirationtrigger4": 5, // How many days before certificate expiration notification will trigger (Optional, default value: 5)
+  "certificateexpirationtrigger1": 30, // How many days before certificate expiration notification is triggered (Optional, default value: 30)
+  "certificateexpirationtrigger2": 20, // How many days before certificate expiration notification is triggered (Optional, default value: 20)
+  "certificateexpirationtrigger3": 10, // How many days before certificate expiration notification is triggered (Optional, default value: 10)
+  "certificateexpirationtrigger4": 5, // How many days before certificate expiration notification is triggered (Optional, default value: 5)
   "certificateport": 443, //Certificate Expiration Port check (Optional, default value: 443)
   "checksiteresponsecode": true, // Switch to enable or disable Port check (Optional, default value: False) 
   "siteresponsecode": "200", // Expected response code
   "checksitecontent": false, // Check site for the content, if changed during the checks (Optional, default value: False) 
-  "htmlignoreelements": [ "" ], // List of elements which need to be ignored, useful if some of the page is dynamically changing.
-  "sslcertificatevalidation": true, // Switch to enable or disable certificate validation, useful is you are using self generated certificate or is on the way proxy server etc ... (Optional, default value: True)
+  "htmlignoreelements": [ "" ], // List of elements which need to be ignored, useful if part of the page is dynamically changed, to avoid false positive results.
+  "sslcertificatevalidation": true, // Switch to enable or disable certificate validation, useful is you are using self generated certificate or is between proxy server etc ... (Optional, default value: True)
   "checkwmiprocesses": false, // Switch to enable or disable WMI Process check check, only for Windows (Optional, default value: False)
   "wmiprocesses": [""],
-  "checksqllitescript": false, // Switch to enable or disable SQLITE  sql check check
+  "checksqllitescript": false, // Switch to enable or disable SQLITE DB sql check check
   "sqlitdbepath": "", // path to SQL Lite DB relatively to the MonitorUI folder
   "sqlitedbname": "", // Filename of SQLITE DB
   "sqlliteevaluateoperator": "", // Evaluate operator < > = !=
@@ -213,7 +226,7 @@ For Oracle DB check need to be installed oracle Driver.
 
 ### Windows
 
-run in Command line monitor_ui.bat or you can add it in scheduled tasks:
+run in Windows Command line / Power shell "monitor_ui.bat" or you can add it in scheduled tasks:
 
     monitorui_run.bat
 
@@ -223,7 +236,7 @@ OR
 
 ### Linux
 
-run in Shell or you can add it in to the contab (do not forget for full path):
+run in Shell or you can add it in to the crontab (do not forget for full path):
 
     monitorui_run.sh
 
@@ -236,7 +249,7 @@ OR
 Info: Logs keeps same structure, so they can be easily processed (OK, Warning, Error) in to logs machine processing platform (Grafana, Kibana, Splunk etc...)
 
 * General Logs
-/logs/monitor_DDMMYYYYY.log - sotre daily logs which contains information from each run, failures and other issues. Also contains when each run starts and ends, including duration
+/logs/monitor_DDMMYYYYY.log - store daily logs which contains information from each run, failures and other issues. Also contains when each run starts and ends, including duration
 
 * Logs for data processing (Splunk, Grafana, Kibana etc ..)
 /logs/log_daily_feed/sitename.log - store daily log of each moniterd site / host. in this folder are stored last logs from all minitored sites / hosts.

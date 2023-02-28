@@ -120,7 +120,7 @@ else:
 # Look somewhere else, there is nothing to do
 if 'smptpassfilelocation' in config:
     smptpassfilelocation = config['smtppassfilelocation']
-    if path.isfile(smptpassfilelocation):
+    if path.isfile(config['smtppassfilelocation']):
         config['smtppass'] = str(cf.read_file(smptpassfilelocation)[0])
 
 if 'workinloop' not in config:

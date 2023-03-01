@@ -8,14 +8,6 @@ from datetime import datetime
 # from modules.functions.common_func import read_file
 init()
 
-try:
-    # system(f'set LD_LIBRARY_PATH={read_file(".//config//oracle_client_path.conf")[0]}')
-    import cx_Oracle
-    cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")
-except Exception as excep:
-    message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|ORACLE_DRIVERS|{excep}'
-    print(Fore.MAGENTA + message_db_load + Style.RESET_ALL)
-
 
 def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oraclepassword,
                             oracledsn, oracledb_state_file, oraclesqlcommand,
@@ -50,6 +42,13 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     param: smtpsll - use SSL for smtp connection
     param: smtpauthentication - use autentification for smtp connection
     """
+    try:
+        # system(f'set LD_LIBRARY_PATH={read_file(".//config//oracle_client_path.conf")[0]}')
+        import cx_Oracle
+        cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")
+    except Exception as excep:
+        message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|ORACLE_DRIVERS|{excep}'
+        print(Fore.RED + message_db_load + Style.RESET_ALL)
 
     sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
     sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'

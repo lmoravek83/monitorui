@@ -35,21 +35,23 @@ def get_ping_status(hostname):
     
     try:
         # print(platform.)
-        if platform.lower() == "win32" or platform.lower() == "win64":
+        if "win" in platform.lower():
             if check_output(f'ping -n 1 {hostname}'):
-                return '1'
+                return '0'
             else:
                 return 'Ping Failed'
-        elif platform.lower() == "linux":
+        elif "linux" in platform.lower():
             if check_output(f'ping -c 1 {hostname}'):
-                return '1'
+                return '0'
             else:
                 return 'Ping Failed'
         elif "freebsd" in platform.lower():
-            if system(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}') == 0:
-                return '1'
+            if system(f'ping -c 1 {hostname} > /dev/null') == 0:
+                return '0'
             else:
                 return 'Ping Failed'
+        else:
+            return 'Ping Failed - not supported system'
 
     except Exception as exep:
         return f'Ping Failed on Exception: {exep}'
@@ -81,14 +83,14 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
     param: smtpauthentication - use autentification for smtp connection
     """
 
-    cf.check_state_file_exist(ping_state_file, '1')
+    cf.check_state_file_exist(ping_state_file, '0')
 
     responsecode = get_ping_status(hostname)
 
     ping_msg_down = f'Subject: {sitename} {env} Ping - DOWN' + '\n' + f'Hi, monitoring identified that {hostname} / PING is DOWN \n{url}'
     ping_msg_up = f'Subject: {sitename} {env} Ping - UP' + '\n' + f'Hi, monitoring identified that {hostname} / PING is UP \n{url}'
 
-    if responsecode != '1':
+    if responsecode != '0':
         message = f'{sitestarttime}|{site}|{systemname}|{env}|PING|ERROR|Response code = {responsecode}\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)

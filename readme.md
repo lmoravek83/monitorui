@@ -64,9 +64,9 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
-3. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
+3. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/releases](https://github.com/lmoravek83/monitorui/releases)
 
-4. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed.
+4. Unzip from "monitorui-[version].zip" content in to folder where you want to have Monitor~~UI~~ placed
 
 5. In the folder "monitorui-master\install" is **"install_windows.bat"**. Running this script It will be installed necessary python packages from pypi.org (store for python libraries)
 
@@ -101,9 +101,9 @@ There are no limitations from us, it fits everywhere where you need monitor inte
     * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt".
     * With similar way is possible to install on all unix(like) systems
 
-2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip](https://github.com/lmoravek83/monitorui/archive/refs/heads/master.zip)
+2. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/releases](https://github.com/lmoravek83/monitorui/releases)
 
-3. Unzip "monitorui-master.zip" in to folder where you want to have Monitor~~UI~~ placed
+3. Unzip from "monitorui-[version].zip" content in to folder where you want to have Monitor~~UI~~ placed
 
 4. In the folder "monitorui-master/install" is "**install__linux_freebsd.sh**". Running this script It will be installed necessary python packages from pypi.org (store for python libraries)
 

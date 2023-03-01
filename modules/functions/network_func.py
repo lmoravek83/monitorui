@@ -17,41 +17,33 @@ def get_ping_status(hostname):
     Function check if the hostname / ip is reachable
     param: hostname - hostname or ip for destinatiot
     """
-    # try:
-    #     if check_output(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}'):
-    #         return '1'
-    #     else:
-    #         return 'Ping Failed'
-    # except Exception as exep:
-    #     return f'Ping Failed on Exception: {exep}'
 
-    # try:
-    #     if system(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}') == 0:
-    #         return '1'
-    #     else:
-    #         return 'Ping Failed'
-    # except Exception as exep:
-    #     return f'Ping Failed on Exception: {exep}'
-    
     try:
         # print(platform.)
-        if "win" in platform.lower():
+        if "win32" in platform.lower():
             if check_output(f'ping -n 1 {hostname}'):
                 return '0'
-            else:
-                return 'Ping Failed'
-        elif "linux" in platform.lower():
-            if check_output(f'ping -c 1 {hostname}'):
+            elif check_output(f'ping -n 3 {hostname}'):
                 return '0'
             else:
                 return 'Ping Failed'
-        elif "freebsd" in platform.lower():
+        # elif "linux" in platform.lower():
+        #     if check_output(f'ping -c 1 {hostname}'):
+        #         return '0'
+        #     else:
+        #         return 'Ping Failed'
+        # elif "freebsd" in platform.lower():
+        #     if system(f'ping -c 1 {hostname} > /dev/null') == 0:
+        #         return '0'
+        #     else:
+        #         return 'Ping Failed'
+        else:
             if system(f'ping -c 1 {hostname} > /dev/null') == 0:
                 return '0'
+            elif system(f'ping -c 3 {hostname} > /dev/null') == 0:
+                return '0'
             else:
                 return 'Ping Failed'
-        else:
-            return 'Ping Failed - not supported system'
 
     except Exception as exep:
         return f'Ping Failed on Exception: {exep}'

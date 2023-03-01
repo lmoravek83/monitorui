@@ -13,7 +13,7 @@
   "loopintervallmax": 10,
   "logsretention": 60,
   "log_daily_feed": true,
-  "paralel_checks": true,
+  "parallel_checks": true,
   "timeout_email": 10,
   "max_workers": 5
 }

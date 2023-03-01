@@ -136,7 +136,7 @@ if 'logsretention' not in config:
     config['logsretention'] = None
 
 if 'parallel_checks' not in config:
-    config['parallel_checks'] = True
+    config['parallel_checks'] = False
 
 if 'max_workers' not in config:
     config['max_workers'] = 5

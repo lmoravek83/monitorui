@@ -228,7 +228,7 @@ class MonitoredSite():
         if 'timeout_check' in siteconfig:
             self.timeout_check = siteconfig['timeout_check']
         else:
-            self.timeout_check = None
+            self.timeout_check = 3
 
         # Files configuration
         self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'

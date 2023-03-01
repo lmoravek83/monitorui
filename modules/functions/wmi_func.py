@@ -7,12 +7,16 @@ from shutil import copyfile
 from datetime import datetime
 from os import path
 from modules.functions import common_func as cf
+from colorama import Fore, Style, init
+init()
+
 try:
-    if platform == "win32":
+    if "win32" in platform.lower():
         import wmi
 # Do not load WMI library on non Windows system
-except Exception as exep:
-    print(f'WMI library load failed. {exep}')
+except Exception as excep:
+    message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|ORACLE_DRIVERS|{excep}'
+    print(Fore.MAGENTA + message_db_load + Style.RESET_ALL)
 
 
 def check_wmi_proccesses_file_exist(wmiprocesses_file) -> None:

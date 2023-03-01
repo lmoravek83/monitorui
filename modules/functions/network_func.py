@@ -59,9 +59,6 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
     ping_msg_up = f'Subject: {sitename} {env} Ping - UP' + '\n' + f'Hi, monitoring identified that {hostname} / PING is UP \n{url}'
 
     if responsecode != '1':
-        # message = f'{sitestarttime}|{site}|{systemname}|{env}|ERROR|PING|\r\n'
-        # print(Fore.YELLOW + message + Style.RESET_ALL)
-        # cf.write_file_append(logpath, message)
         message = f'{sitestarttime}|{site}|{systemname}|{env}|PING|ERROR|Response code = {responsecode}\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
@@ -79,9 +76,6 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         # return False
 
     else:
-        # message = f'{sitestarttime}|{site}|{systemname}|{env}|PING|OK\r\n'
-        # print(message)
-        # cf.write_file_append(logpath, message)
         message = f'{sitestarttime}|{site}|{systemname}|{env}|PING|OK|Response code = {responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)
@@ -153,9 +147,6 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str, t
         port_msg_up = f'Subject: {sitename} {env} Port - UP' + '\n' + f'Hi, monitoring identified that {hostname} Port {port} is UP \n{url}'
 
         if responsecode != '0':
-            # message = f'{sitestarttime}|{site}|{systemname}|{env}|ERROR|Port {port}: Failed\r\n'
-            # print(Fore.YELLOW + message + Style.RESET_ALL)
-            # cf.write_file_append(logpath, message)
             message = f'{sitestarttime}|{site}|{systemname}|{env}|PORT|ERROR|Port={port}|Response code = {responsecode}\r\n'
             print(Fore.YELLOW + message + Style.RESET_ALL)
             cf.write_file_append(logpath, message)
@@ -173,9 +164,6 @@ def check_port(sitename: str, env: str, logpath: str, hostname: str, url: str, t
             # If discomment, whole loop will not continue to next item - port
             # return False
         else:
-            # message = f'{sitestarttime}|{site}|{systemname}|{env}|PORT|OK|Port = {port}\r\n'
-            # print(message)
-            # cf.write_file_append(logpath, message)
             message = f'{sitestarttime}|{site}|{systemname}|{env}|PORT|OK|Port = {port}|Response code = {responsecode}\r\n'
             print(message)
             cf.write_file_append(logpath, message)
@@ -287,12 +275,17 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                     cf.remove_file_func(certificate_expiration_check_file)
 
             else:
-                message_cert_no_exp = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|OK|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
-                print(Fore.YELLOW + message_cert_no_exp + Style.RESET_ALL)
-                cf.write_file_append(logpath, message_cert_no_exp)
+                if (datetime.now() + timedelta(days=certificateexpirationtrigger1 - 1)).date() < cert_exp_date.date():
+                    message_cert_exp = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|WARNING|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
+                    print(Fore.YELLOW + message_cert_exp + Style.RESET_ALL)
+                    cf.write_file_append(logpath, message_cert_exp)
+                    cf.write_file(certificate_expiration_check_file, datetime.now().strftime("%d%m%Y"))
 
-                cf.write_file(certificate_expiration_check_file,
-                              datetime.now().strftime("%d%m%Y"))
+                else:
+                    message_cert_no_exp = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|INFO|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
+                    print(message_cert_no_exp)
+                    cf.write_file_append(logpath, message_cert_no_exp)
+                    cf.write_file(certificate_expiration_check_file, datetime.now().strftime("%d%m%Y"))
 
         except Exception as exep:
             exep_crt = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|ERROR|failed to obtain SSL certificate expiration info on {hostname} with Error = {exep}\r\n'

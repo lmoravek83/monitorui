@@ -60,9 +60,6 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
         f'Hi,\nmonitoring identified that site {sitename} responsecode correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
 
     if obtained_responsecode != defined_responsecode:
-        # message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|ERROR|State state: Down\r\n'
-        # print(Fore.YELLOW + message + Style.RESET_ALL)
-        # cf.write_file_append(logpath, message)
         message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|ERROR|Status = Down|Response code: {obtained_responsecode}\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
@@ -79,9 +76,6 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
             cf.write_current_state(obtained_responsecode, responsecode_state_file)
         return False
     else:
-        # message = f'{sitestarttime}|{site}|{systemname}|{env}|OK|Portal state: OK\r\n'
-        # print(message)
-        # cf.write_file_append(logpath, message)
         message = f'{sitestarttime}|{site}|{systemname}|{env}|HTTP_RESPONSE_CODE|OK|Status = UP|Response code: {obtained_responsecode}\r\n'
         print(message)
         cf.write_file_append(logpath, message)

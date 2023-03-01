@@ -4,6 +4,7 @@ Oracle functions for MonitorUI
 # from os import system
 from colorama import Fore, Style, init
 from modules.functions import common_func as cf
+from datetime import datetime
 # from modules.functions.common_func import read_file
 init()
 
@@ -12,8 +13,8 @@ try:
     import cx_Oracle
     cx_Oracle.init_oracle_client(lib_dir=r"C:\oracle\instantclient_21_3")
 except Exception as excep:
-    message_db_load = f'ERROR: Oracle DB load failed. {excep}'
-    print(Fore.RED + message_db_load + Style.RESET_ALL)
+    message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|ORACLE_DRIVERS|{excep}'
+    print(Fore.MAGENTA + message_db_load + Style.RESET_ALL)
 
 
 def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oraclepassword,

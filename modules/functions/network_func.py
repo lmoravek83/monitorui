@@ -2,6 +2,7 @@
 Network monitoring functions
 """
 from subprocess import check_output
+from os import system
 from socket import socket, AF_INET, SOCK_STREAM
 from sys import platform
 from datetime import datetime, timedelta
@@ -16,11 +17,40 @@ def get_ping_status(hostname):
     Function check if the hostname / ip is reachable
     param: hostname - hostname or ip for destinatiot
     """
+    # try:
+    #     if check_output(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}'):
+    #         return '1'
+    #     else:
+    #         return 'Ping Failed'
+    # except Exception as exep:
+    #     return f'Ping Failed on Exception: {exep}'
+
+    # try:
+    #     if system(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}') == 0:
+    #         return '1'
+    #     else:
+    #         return 'Ping Failed'
+    # except Exception as exep:
+    #     return f'Ping Failed on Exception: {exep}'
+    
     try:
-        if check_output(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}'):
-            return '1'
-        else:
-            return 'Ping Failed'
+        # print(platform.)
+        if platform.lower() == "win32" or platform.lower() == "win64":
+            if check_output(f'ping -n 1 {hostname}'):
+                return '1'
+            else:
+                return 'Ping Failed'
+        elif platform.lower() == "linux":
+            if check_output(f'ping -c 1 {hostname}'):
+                return '1'
+            else:
+                return 'Ping Failed'
+        elif "freebsd" in platform.lower():
+            if system(f'ping -{"n" if platform.lower() == "win32" else "c"} 1 {hostname}') == 0:
+                return '1'
+            else:
+                return 'Ping Failed'
+
     except Exception as exep:
         return f'Ping Failed on Exception: {exep}'
 

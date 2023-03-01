@@ -63,7 +63,7 @@ def check_ping(sitename: str, env: str, logpath: str, hostname: str, url: str,
         # print(Fore.YELLOW + message + Style.RESET_ALL)
         # cf.write_file_append(logpath, message)
         message = f'{sitestarttime}|{site}|{systemname}|{env}|PING|ERROR|Response code = {responsecode}\r\n'
-        print(message)
+        print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
         # Check previos state of response code, to do not spam and send email / write same data in status file
         if not cf.check_previous_state(responsecode, ping_state_file):

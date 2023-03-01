@@ -118,13 +118,10 @@ else:
     sitesfolder = './/sites'
 
 # Look somewhere else, there is nothing to do
-print("aaaaaaaaaaaaaaaaaaaaaa")
 if 'smtppassfilelocation' in config:
-    print("bbbbbbbbbbbbbbbbbbbbbb")
     smtppassfilelocation = config['smtppassfilelocation']
     if path.isfile(config['smtppassfilelocation']):
         config['smtppass'] = str(cf.read_file(smtppassfilelocation)[0])
-        print(str(cf.read_file(smtppassfilelocation)[0]))
 
 if 'workinloop' not in config:
     config['workinloop'] = False

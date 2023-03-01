@@ -4,8 +4,7 @@ Monitor~~UI~~ is agent less infrastructure, network and services monitoring tool
 
 First, there is no UI (User interface), it was thought about it at beginning, but there are more important things, like life itself :) But do not worry, MonitorUI does great job, it has really good notifications via mail and very nice logs. Who wants another dashboard when you can integrate through logs with such great tool like Grafana, Kibana, Splunk (this is not the advertisement) etc. Also it does pretty nice color outputs on terminal, so your eyes will not be lost in shadows.
 
-Console output example:
-
+Console output
 ![MonitorUI](/img/monitorui.png)
 
 ## **Ok, what Monitor~~UI~~ can do for me ?**

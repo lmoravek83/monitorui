@@ -2,9 +2,9 @@
 Oracle functions for MonitorUI
 """
 # from os import system
+from datetime import datetime
 from colorama import Fore, Style, init
 from modules.functions import common_func as cf
-from datetime import datetime
 # from modules.functions.common_func import read_file
 init()
 

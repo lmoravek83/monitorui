@@ -15,8 +15,8 @@ try:
         import wmi
 # Do not load WMI library on non Windows system
 except Exception as excep:
-    message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|ORACLE_DRIVERS|{excep}'
-    print(Fore.MAGENTA + message_db_load + Style.RESET_ALL)
+    message_wmi_load = f'{datetime.now()}|MONITORING_EXECUTION|WARNING|WMI_DRIVERS|{excep}'
+    print(Fore.MAGENTA + message_wmi_load + Style.RESET_ALL)
 
 
 def check_wmi_proccesses_file_exist(wmiprocesses_file) -> None:

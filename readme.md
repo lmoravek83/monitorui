@@ -168,11 +168,11 @@ For each site is required to create "configsite.json", you can use example which
 
 ```json
 {
-  "sitename": "Github", // Name of the site (monitored host)
+  "sitename": "Github", // Name of the site (monitored host), if not configured, is used direcotry name
   "hostname": "www.github.com", // Hostname for ping, port checks
   "siteurl": "https://github.com/pallets/click", // URL Site for SSL Certificate check, WEB check, HTTPs response check
   "siteenviroment": "PROD", // Type of environment (Production, tests, etc)
-  "systemname": "github", // Name of the system, or different grouping and logs identification (Optional)
+  "systemname": "github", // Name of the system, or different grouping and logs identification (Optional), if not configured, is used directory of system
   "monitoringstart": "000000", // From which time is monitoring of site enabled (Optional)
   "monitoringend": "235959", // Until which time is monitoring of site enabled (Optional)
   "tags": [""],

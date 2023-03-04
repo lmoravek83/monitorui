@@ -14,7 +14,7 @@ from modules.functions import common_func as cf
 init()
 
 
-def go_monitor(site):
+def go_monitor(site, system):
     try:
         # set site config path for current minotred site
         siteconfig = cf.read_json(sitesfolder + "//" + system + "//" + site + '//configsite.json')
@@ -58,7 +58,7 @@ def go_monitor(site):
             if datetime.now().strftime("%H%M%S") >= siteconfig['monitoringstart']\
                     and datetime.now().strftime("%H%M%S") <= siteconfig['monitoringend']:
                 # Crete instance of class Monitored Site
-                workingsite = MonitoredSite(config, siteconfig, site, sitefolder, logdailyfeedfolder)
+                workingsite = MonitoredSite(config, siteconfig, system, site, sitefolder, logdailyfeedfolder)
                 if siteconfig['checkhostping']:
                     workingsite.site_check_ping()
                 if siteconfig['checkhostport']:
@@ -155,12 +155,12 @@ while SCRIPT_LOOP:
                 # with multiprocessing.Pool() as pool:
                 #     pool.map(go, listofsites)
                 with concurrent.futures.ThreadPoolExecutor(config['max_workers']) as executor:
-                    futures = [executor.submit(go_monitor, site) for site in listofsites]
+                    futures = [executor.submit(go_monitor, site, system) for site in listofsites]
                     concurrent.futures.wait(futures)
         else:
             # for cycle for each site from list, invoke class end perfom monitoring actions
             for site in listofsites:
-                go_monitor(site)
+                go_monitor(site, system)
 
     # Clean up log files
     # Log retetion for MonitoringUI

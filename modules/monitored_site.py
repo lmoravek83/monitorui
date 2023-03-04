@@ -21,12 +21,16 @@ class MonitoredSite():
     """
     Monitored site class which provides all possbile fnctions / type of check
     """
-    def __init__(self, config, siteconfig, site, sitefolder, logdailyfeedfolder):
+    def __init__(self, config, siteconfig, system, site, sitefolder, logdailyfeedfolder):
         # Monitoring Config configuration
         self.sitestarttime = datetime.now()
         self.sitefolder = sitefolder
+        self.system = system
         self.site = site
         self.logdailyfeedfolder = logdailyfeedfolder
+        # print(f'System: {self.system}')
+        # print(f'Site: {self.site}')
+        # print(f'Site Folder: {self.sitefolder}')
 
         if 'smtpuser' in config:
             self.smtpuseremail = config['smtpuser']
@@ -97,10 +101,10 @@ class MonitoredSite():
         if 'sitename' in siteconfig:
             self.sitename = siteconfig['sitename']
         else:
-            self.sitename = "SiteName_TBD"
+            self.sitename = self.site
 
         if 'systemname' in siteconfig:
-            self.systemname = siteconfig['systemname']
+            self.systemname = self.system
         else:
             self.systemname = "SystemName_TBD"
 
@@ -228,7 +232,7 @@ class MonitoredSite():
         if 'timeout_check' in siteconfig:
             self.timeout_check = siteconfig['timeout_check']
         else:
-            self.timeout_check = 3
+            self.timeout_check = None
 
         # Files configuration
         self.responsecode_state_file = f'{self.sitefolder}//responsecode_state.txt'

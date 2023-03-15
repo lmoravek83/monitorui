@@ -299,7 +299,7 @@ def certificate_expiration_check(sitename: str, env: str, logpath: str, hostname
                     cf.remove_file_func(certificate_expiration_check_file)
 
             else:
-                if (datetime.now() + timedelta(days=certificateexpirationtrigger1 - 1)).date() < cert_exp_date.date():
+                if (datetime.now() + timedelta(days=certificateexpirationtrigger1 - 1)).date() > cert_exp_date.date():
                     message_cert_exp = f'{sitestarttime}|{site}|{systemname}|{env}|SSL_CERTIFICATE_EXPIRATION|WARNING|Certificate for {hostname} will expire on {cert_exp_date.strftime("%d.%m.%Y %H:%M:%S")}\r\n'
                     print(Fore.YELLOW + message_cert_exp + Style.RESET_ALL)
                     cf.write_file_append(logpath, message_cert_exp)

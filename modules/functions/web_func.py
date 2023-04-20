@@ -230,7 +230,7 @@ def check_site_content(sitename: str, env: str, logpath: str, url: str, timeout_
         return True
 
     else:
-        message = f'{sitestarttime}|{site}|{systemname}|{env}|ERROR|Page comapre: Failed\r\n'
+        message = f'{sitestarttime}|{site}|{systemname}|{env}|WEB_CHANGE|ERROR|Page compare: Failed\r\n'
         print(Fore.YELLOW + message + Style.RESET_ALL)
         cf.write_file_append(logpath, message)
         # Snapshoting to the previous state

@@ -1,3 +1,5 @@
+![MonitorUI](/img/monitorui_logo.png)
+
 # <span style="color://37ABC8">**Monitor</span><span style="color://FF6600">~~UI~~</span> - Infrastructure, network and services monitoring**
 
 Monitor~~UI~~ is agent less infrastructure, network and services monitoring

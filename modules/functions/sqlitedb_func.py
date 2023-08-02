@@ -42,10 +42,10 @@ def check_sqllite_script(sitename, env, logpath, hostname, sqlitdbepath, sqlited
     param: smtpsll - use SSL for smtp connection
     param: smtpauthentication - use autentification for smtp connection
     """
-    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
-    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
-    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
-    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
+    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed - Connection' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
+    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed - Create Coursor' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
+    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed - Execute SQL' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
+    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed - SQL Evaluation' + '\n' + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
 
     conn = None
     try:

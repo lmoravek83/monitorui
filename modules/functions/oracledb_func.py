@@ -58,10 +58,10 @@ def check_sql_oracle_script(sitename, env, hostname, logpath, oracleuser, oracle
     #     message_db_load = f'{datetime.now()}|MONITORING_EXECUTION|ERROR|ORACLE_DRIVERS|{excep}'
     #     print(Fore.RED + message_db_load + Style.RESET_ALL)
 
-    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
-    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
-    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
-    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed' + '\n' + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
+    sql_connection_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed - Connection' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed'
+    sql_connection_failed_cursor = f'Subject: {sitename} {env} ERROR: SQL - Failed - Create Coursor' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - create cursor'
+    sql_connection_failed_sql_command = f'Subject: {sitename} {env} ERROR: SQL - Failed - Execute SQL' + '\n' + f'ERROR: - Hi, monitoring identified that SQL DB Conenction to {hostname} Failed - Execute SQL Command'
+    sql_evaluation_failed = f'Subject: {sitename} {env} ERROR: SQL - Failed - SQL Evaluation' + '\n' + f'ERROR: - Hi, monitoring identified that SQL evaluation on {hostname} Failed'
 
     conn = None
     try:

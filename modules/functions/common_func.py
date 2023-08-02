@@ -166,3 +166,8 @@ def check_previous_state(response, mon_state_file) -> bool:
         return True
     else:
         return False
+    
+# def write_log(message, status code) -> None:
+#     """
+#     this part of code is functiona wrote unified logs
+#     """

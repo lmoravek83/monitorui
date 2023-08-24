@@ -173,13 +173,13 @@ class MonitoredSite():
             self.sslcertificatevalidation = True
 
         # ORACLE DB monitoring Configuration
-        if "oracleuser" in siteconfig:
-            self.oracleuser = siteconfig['oracleuser']
+        if "oracleu" in siteconfig:
+            self.oracleuser = siteconfig['oracleu']
         else:
             self.oracleuser = ''
 
-        if "oraclepassword" in siteconfig:
-            self.oraclepassword = siteconfig['oraclepassword']
+        if "oraclep" in siteconfig:
+            self.oraclepassword = siteconfig['oraclep']
         else:
             self.oraclepassword = ''
 

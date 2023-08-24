@@ -203,8 +203,8 @@ For each site is required to create "configsite.json", you can use example which
   "sqlitesqlcommand": "", // SQL Command to be performed
   "sqliteexpectedvalue": "", // Expected value
   "checksqloraclescript": false, // Switch to enable or disable OracleDB  sql check check
-  "oracleuser": "", // Oracle user
-  "oraclepassword": "", // Oracle password for defined user
+  "oracleu": "", // Oracle user
+  "oraclep": "", // Oracle password for defined user
   "oracledsn": "", // Oracle DSN
   "oracleevaluateoperator": "", // Evaluate operator < > = !=
   "oraclesqlcommand": "", // SQL Command to be performed

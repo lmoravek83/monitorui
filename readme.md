@@ -56,7 +56,7 @@ Currently the biggest deployment about which we know is monitoring of 150+ serve
 
 There are no limitations from us, it fits everywhere where you need monitor internal or external services and infrastructure. Monitor~~UI~~ does not use any probes, so it literary works Out of Box.
 
-## **I want it, how can I install ?**
+## **I want it, how can I install ? (Full installation steps, including Python)**
 
 ### **Windows**
 

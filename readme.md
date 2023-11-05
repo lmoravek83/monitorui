@@ -67,7 +67,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 
-3. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/releases](https://github.com/lmoravek83/monitorui/releases)
+3. Download Monitor~~UI~~ from Github [https://github.com/lmoravek83/monitorui/](https://github.com/lmoravek83/monitorui/)
 
 4. Unzip from "monitorui-[version].zip" content in to folder where you want to have Monitor~~UI~~ placed
 

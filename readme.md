@@ -34,7 +34,7 @@ Console output
 
 #### _Oracle DB_
 
-* SQL Query to compare against expected result
+* SQL Query to compare against expected result, need to uncoment cx-Oracle in /install/requirements_win.txt, requirements_linux_freebsd.txt
 
 #### _SQLite DB_
 
@@ -63,6 +63,7 @@ There are no limitations from us, it fits everywhere where you need monitor inte
 1. Download and install Python version 3.8x - 3.10.x from [https://www.python.org](https://www.python.org) which fits to your Windows version. During the installation do not forget to **"check"** on first screen **"Add python.exe to PATH"**. If you missed it, do not worry, just uninstall and install Python 3 again and check the "add path". By end of installation process select **Disable path length limit**.
 
     * Why Python 3.8.x - 3.10.x? it is because compatibility of Oracle (cx_oracle). If you want newest python, there is no issue, just remove "cx_oracle" from "\install\requirements_win.txt"
+    * If you do not want to use OracleDB monitoring script, use any new python
 
 2. Restart machine (PC, Server etc ..), to activate the PATH Variable
 

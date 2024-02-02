@@ -28,7 +28,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
                         emails: list, from_email: str, smtpserver: str, smtpport: int,
                         smtpssl: bool, smtpauthentication: bool, timeout_email, sitestarttime, site: str, systemname: str) -> bool:
     """
-    Function check the repose code 'get_response_code' on the site and compared with given code,
+    Function check the respose code 'get_response_code' on the site and compared with given code,
     based on the evaluation is send email notification and logged
 
     param: sitename - name of the site
@@ -36,7 +36,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
 
     param: responsecode_state_file - name of the file where is stored response code
     param: url - irl of the page where will be response code obtained
-    param: expected - reponse code for which will be the result compared
+    param: expected - response code for which will be the result compared
     param: logpath - path and filename of the log whre will be result writen
 
     param: smtpuseremail - user email for SMTP autentification, email notification
@@ -56,7 +56,7 @@ def check_response_code(sitename: str, env: str, responsecode_state_file: str, u
 
     msg_responsecode_failed = f'Subject: {sitename} {env} Response Code - NOK' + '\n' + \
         f'Hi,\nmonitoring identified that site {sitename} responsecode does not correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
-    msg_responsecode_ok = f'Subject: {sitename} {env} Reponse Code - OK' + '\n' + \
+    msg_responsecode_ok = f'Subject: {sitename} {env} Response Code - OK' + '\n' + \
         f'Hi,\nmonitoring identified that site {sitename} responsecode correspond to the definition.\n\n{url}\nExpected response code: {defined_responsecode}, obtained responsecode {obtained_responsecode}'
 
     if obtained_responsecode != defined_responsecode:
